@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: uat
+  name: waondo-react-client
+  labels:
+    name: waondo-react-client
+    app: waondo-react-client
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: waondo-react-client
+  template:
+    metadata:
+      name: waondo-react-client
+      labels:
+        name: waondo-react-client
+        app: waondo-react-client
+    spec:
+      containers:
+        - name: waondo-react-client
+          imagePullPolicy: Always
+          image: silasonyango93/waondo-react-client:latest
+          ports:
+            - containerPort: 80
