@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import gender from "./data/gender";
 import Select from "react-select";
 import map from 'lodash/map';
+import {fetchAllAdmin, registerAdmin} from "../../store/modules/sign_up/actions";
+import {connect} from "react-redux";
 
 class SignUpForm extends Component {
     constructor(props) {
@@ -44,7 +46,7 @@ class SignUpForm extends Component {
             EncryptedPassword:this.state.encryptedPassword,
         };
 
-        // this.props.registerCompany(payload);
+        this.props.registerAdmin(payload);
         this.setState({
             adminFirstName: '',
             adminMiddleName: '',
@@ -62,7 +64,7 @@ class SignUpForm extends Component {
             <option key={val} value={val}>{key}</option>
         );
         return (
-            <div>
+            <div className="col-md-4 col-md-offset-4">
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
                         <h3 className="panel-title">welcome to system admin registration...</h3>
@@ -200,6 +202,27 @@ class SignUpForm extends Component {
     }
 }
 
-SignUpForm.propTypes = {};
+SignUpForm.propTypes = {
+    registerAdmin: PropTypes.func.isRequired,
+    signUpSuccessful: PropTypes.bool.isRequired,
+    // fetchAllCompany: PropTypes.func.isRequired,
+    // registeredCompany: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
-export default SignUpForm;
+
+const mapStateToProps = state => ({
+    signUpSuccessful: state.sign_up.signUpSuccessful,
+    // registeredCompany: state.company.registeredCompany
+});
+
+
+
+const mapDispatchToProps = dispatch => ({
+    registerAdmin: payload => dispatch(registerAdmin(payload)),
+    // fetchAllCompany: () => dispatch(fetchAllCompany())
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(SignUpForm);

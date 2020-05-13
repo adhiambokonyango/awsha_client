@@ -6,7 +6,8 @@ import AdminHome from "./views/admin_home/AdminHome";
 import StaffHome from "./views/staff_home/StaffHome";
 
 import Company from "./views/company/Company";
-import SignUp from "./views/sign_up/SignUp";
+
+import SignUpForm from "./views/sign_up/SignUpForm";
 
 class App extends Component {
   render() {
@@ -16,7 +17,7 @@ class App extends Component {
           <Route path="/" exact component={Login} />
             <Route path="/admin_home" exact component={AdminHome} />
             <Route path="/staff_home" exact component={StaffHome} />
-            <Route path="/sign_up" exact component={SignUp} />
+            <Route path="/sign_up" exact component={SignUpForm} />
           <Route path="/company" exact component={Company} />
         </div>
       </Router>
