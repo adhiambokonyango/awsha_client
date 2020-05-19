@@ -1,27 +1,67 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
-import gender from "./data/gender";
-import Select from "react-select";
-import map from 'lodash/map';
+
+import Table from "../../components/table/table_body/Table";
+import { connect } from "react-redux";
+import Modal from "react-awesome-modal";
+import PropTypes from "prop-types";
 import {fetchAllAdmin, registerAdmin} from "../../store/modules/sign_up/actions";
-import {connect} from "react-redux";
+import {fetchAllGender} from "../../store/modules/gender_info/actions";
+import Select from "react-select";
 
-class SignUpForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            adminFirstName: '',
-            adminMiddleName: '',
-            adminSurname: '',
-            adminPhoneNumber: '',
-            adminEmail: '',
-            genderId: '',
-            adminNationalId: '',
-            encryptedPassword: ''
 
-        };
 
+class SignUp extends Component {
+
+    state = {
+        adminFirstName: '',
+        adminMiddleName: '',
+        adminSurname: '',
+        adminPhoneNumber: '',
+        adminEmail: '',
+        adminNationalId: '',
+        gender: '',
+        encryptedPassword: '',
+
+        selectedOption: '',
+        selectOptions: [],
+
+        tableData: [],
+        tableHeaders: {
+            AdminId:'#',
+            adminFirstName: 'AdminFirstName',
+            adminMiddleName: 'AdminMiddleName',
+            adminSurname: 'AdminSurname',
+            adminPhoneNumber: 'AdminPhoneNumber',
+            adminEmail: 'AdminEmail',
+            adminNationalId: 'AdminNationalId',
+            gender: 'Gender',
+            encryptedPassword: 'EncryptedPassword'
+
+        }
+    };
+
+
+    componentDidMount() {
+        this.props.fetchAllGender();
+        this.props.fetchAllAdmin();
     }
+
+    componentDidUpdate(prevProps) {
+        if(this.props.registeredGender !== prevProps.registeredGender) {
+            if(this.props.registeredGender.length > 0) {
+                let allregisteredGender = this.props.registeredGender;
+
+                allregisteredGender = allregisteredGender.map(item => {
+                    return {
+                        label: item.GenderTitle,
+                        value: item.GenderId
+                    };
+                });
+                this.setState({ selectOptions: allregisteredGender });
+            }
+        }
+    };
+
 
 
     handleChange = event => {
@@ -36,12 +76,13 @@ class SignUpForm extends Component {
         e.preventDefault();
 
         const payload = {
+            GenderId:this.state.selectedOption.value,
             AdminFirstName:this.state.adminFirstName,
             AdminMiddleName:this.state.adminMiddleName,
             AdminSurname:this.state.adminSurname,
             AdminPhoneNumber:this.state.adminPhoneNumber,
             AdminEmail:this.state.adminEmail,
-            GenderId:this.state.genderId,
+            Gender:this.state.gender,
             AdminNationalId:this.state.adminNationalId,
             EncryptedPassword:this.state.encryptedPassword,
         };
@@ -53,21 +94,17 @@ class SignUpForm extends Component {
             adminSurname: '',
             adminPhoneNumber: '',
             adminEmail: '',
-            genderId: '',
+            gender: '',
             adminNationalId: '',
             encryptedPassword: ''});
     };
 
-
     render() {
-        const options = map(gender, (val, key) =>
-            <option key={val} value={val}>{key}</option>
-        );
         return (
             <div className="col-md-4 col-md-offset-4">
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
-                        <h3 className="panel-title">welcome to system admin registration...</h3>
+                        <h3 className="panel-title">Admin Registration</h3>
                     </div>
                     <div className="panel-body">
                         <form
@@ -77,108 +114,122 @@ class SignUpForm extends Component {
                             encType="multipart/form-data"
                         >
                             <fieldset>
+
                                 <div className="form-group">
+
                                     <input
                                         name="adminFirstName"
                                         className="form-control"
-                                        placeholder="adminFirstName"
+                                        placeholder="FirstName"
                                         value={this.state.adminFirstName}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
+
                                 </div>
+
                                 <div className="form-group">
 
                                     <input
                                         name="adminMiddleName"
                                         className="form-control"
-                                        placeholder="adminMiddleName"
+                                        placeholder="MiddleName"
                                         value={this.state.adminMiddleName}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
+
                                 </div>
+
                                 <div className="form-group">
 
                                     <input
                                         name="adminSurname"
                                         className="form-control"
-                                        placeholder="adminSurname"
+                                        placeholder="Surname"
                                         value={this.state.adminSurname}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
+
                                 </div>
+
                                 <div className="form-group">
 
                                     <input
                                         name="adminPhoneNumber"
                                         className="form-control"
-                                        placeholder="adminPhoneNumber"
+                                        placeholder="PhoneNumber"
                                         value={this.state.adminPhoneNumber}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
+
                                 </div>
+
                                 <div className="form-group">
 
                                     <input
                                         name="adminEmail"
                                         className="form-control"
-                                        placeholder="adminEmail"
+                                        placeholder="Email"
                                         value={this.state.adminEmail}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
-                                </div>
-                                <div className="form-group">
 
-                                    <select
+                                </div>
+
+                                <div className="form-group">
+                                    <Select
                                         className="react-select"
-                                        name="genderId"
-                                        value={this.state.genderId}
+                                        classNamePrefix="react-select"
+                                        placeholder="Select Gender"
+                                        name="selectedOption"
+                                        closeMenuOnSelect={true}
+                                        value={this.state.selectedOption}
                                         onChange={value =>
                                             this.setState({
                                                 ...this.state,
-                                                genderId: value
+                                                selectedOption: value
                                             })
                                         }
-                                    >
-                                        <option value="" disabled>select gender</option>
-                                        {options}
-                                    </select>
+                                        options={this.state.selectOptions}
+                                    />
                                 </div>
 
 
-
                                 <div className="form-group">
-                                <input
+
+                                    <input
                                         name="adminNationalId"
                                         className="form-control"
-                                        placeholder="adminNationalId"
+                                        placeholder="National Id"
                                         value={this.state.adminNationalId}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
+
                                 </div>
+
                                 <div className="form-group">
 
                                     <input
                                         name="encryptedPassword"
                                         className="form-control"
-                                        placeholder="encryptedPassword"
+                                        placeholder="Password"
                                         value={this.state.encryptedPassword}
                                         type="text"
                                         onChange={this.handleChange}
@@ -187,6 +238,9 @@ class SignUpForm extends Component {
                                     />
 
                                 </div>
+
+
+
                                 <button
                                     type="submit"
                                     className="btn btn-lg btn-success btn-block"
@@ -197,32 +251,41 @@ class SignUpForm extends Component {
                         </form>
                     </div>
                 </div>
+
+                <Table tableTitle='Registered Admin'
+                       tableHeaderObject={this.state.tableHeaders}
+                       tableData={this.props.registeredAdmin}/>
             </div>
         );
     }
 }
 
-SignUpForm.propTypes = {
+
+SignUp.propTypes = {
     registerAdmin: PropTypes.func.isRequired,
     signUpSuccessful: PropTypes.bool.isRequired,
-    // fetchAllCompany: PropTypes.func.isRequired,
-    // registeredCompany: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllAdmin: PropTypes.func.isRequired,
+    registeredAdmin: PropTypes.arrayOf(PropTypes.object).isRequired,
+    registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllGender: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = state => ({
     signUpSuccessful: state.sign_up.signUpSuccessful,
-    // registeredCompany: state.company.registeredCompany
+    registeredAdmin: state.sign_up.registeredAdmin,
+    registeredGender: state.gender_info.registeredGender
 });
 
 
 
 const mapDispatchToProps = dispatch => ({
     registerAdmin: payload => dispatch(registerAdmin(payload)),
-    // fetchAllCompany: () => dispatch(fetchAllCompany())
+    fetchAllAdmin: () => dispatch(fetchAllAdmin()),
+    fetchAllGender: () => dispatch(fetchAllGender())
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SignUpForm);
+)(SignUp);

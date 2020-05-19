@@ -1,10 +1,11 @@
 import { combineReducers } from "redux";
 import reduceReducers from "reduce-reducers";
-import { reducer as current_session } from "./modules/current_session";
-import { reducer as admin_home } from "./modules/admin_home";
-import { reducer as staff_home } from "./modules/staff_home";
+
 import { reducer as sign_up } from "./modules/sign_up";
 import { reducer as company } from "./modules/company";
+import { reducer as gender_info } from "./modules/gender_info";
+import { reducer as log_in } from "./modules/log_in";
+
 
 // =============================================================
 // The rootReducer object aggregates our earlier reducers into a
@@ -14,11 +15,15 @@ import { reducer as company } from "./modules/company";
 
 const rootReducer = reduceReducers(
   combineReducers({
-    current_session,
-      admin_home,
-      staff_home,
+
+
+
     sign_up,
-      company
+      company,
+      gender_info,
+      log_in
+
+
   })
 );
 
