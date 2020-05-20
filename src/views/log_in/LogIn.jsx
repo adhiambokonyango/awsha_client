@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
-
     authenticateSystemUser,
     resetWrongCredentials
-
 } from "../../store/modules/log_in/actions";
 import { FormGroup, Label, Input } from "reactstrap";
 
@@ -15,11 +13,40 @@ class LogIn extends Component {
     state = {
         attemptedEmail: "",
         attemptedPassword: "",
-
         loginHasError: false,
-        loginErrorMessage: ""
+        loginErrorMessage: "",
+        emailReadOnly: false,
+        passwordReadOnly: false
     };
 
+    componentDidMount() {
+        this.setState({ emailReadOnly: false, passwordReadOnly: false });
+    }
+
+    componentDidUpdate(prevProps) {
+        /* ---------------------------------------------------------------------------------------------------------------------- */
+
+        /*PAGE NAVIGATION LOGIC*/
+        if (this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
+            if (this.props.isLoginSuccessful) {
+                this.props.history.push("/company");
+            } else if (!this.props.isLoginSuccessful) {
+                this.props.history.push("/");
+            }
+        }
+
+        /* ---------------------------------------------------------------------------------------------------------------------- */
+
+
+    };
+
+    handleEmailEditTextsFocus = () => {
+        this.setState({ emailReadOnly: false });
+    };
+
+    handlePasswordEditTextsFocus = () => {
+        this.setState({ passwordReadOnly: false });
+    };
 
     handleSubmit = event => {
         event.preventDefault();
@@ -135,6 +162,7 @@ LogIn.propTypes = {
 
 const mapStateToProps = state => ({
     hasWrongLoginCredentials: state.log_in.hasWrongLoginCredentials,
+    isLoginSuccessful: state.log_in.isLoginSuccessful
 
 });
 

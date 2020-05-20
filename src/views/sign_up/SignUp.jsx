@@ -87,6 +87,7 @@ class SignUp extends Component {
             EncryptedPassword:this.state.encryptedPassword,
         };
 
+
         this.props.registerAdmin(payload);
         this.setState({
             adminFirstName: '',
@@ -97,6 +98,7 @@ class SignUp extends Component {
             gender: '',
             adminNationalId: '',
             encryptedPassword: ''});
+
     };
 
     render() {

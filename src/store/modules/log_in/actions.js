@@ -43,6 +43,8 @@ export function authenticateSystemUser(payload) {
                     dispatch({
                         type: USER_LOGIN_SUCCESS
                     });
+
+
                 } else {
                     dispatch({
                         type: WRONG_LOGIN_CREDENTIALS

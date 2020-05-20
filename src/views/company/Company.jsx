@@ -84,7 +84,7 @@ class Company extends Component {
             <div>
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
-                        <h3 className="panel-title">Register ChildrenTips</h3>
+                        <h3 className="panel-title">Register Company</h3>
                     </div>
                     <div className="panel-body">
                         <form
