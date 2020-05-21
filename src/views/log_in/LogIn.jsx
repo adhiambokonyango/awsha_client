@@ -29,9 +29,9 @@ class LogIn extends Component {
         /*PAGE NAVIGATION LOGIC*/
         if (this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
             if (this.props.isLoginSuccessful) {
-                this.props.history.push("/company");
+                this.props.history.push("/admin_page");
             } else if (!this.props.isLoginSuccessful) {
-                this.props.history.push("/");
+                this.props.history.push("/admin_sign_up");
             }
         }
 

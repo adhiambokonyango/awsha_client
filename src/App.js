@@ -10,6 +10,7 @@ import Company from "./views/company/Company";
 import SignUpForm from "./views/sign_up/SignUp";
 import Gender from "./views/gender_info/Gender";
 import Login from "./views/log_in/LogIn";
+import AdminPage from "./views/admin_page/AdminPage";
 
 
 class App extends Component {
@@ -18,6 +19,7 @@ class App extends Component {
       <Router>
         <div className="container">
             <Route path="/" exact component={Login} />
+            <Route path="/admin_page" exact component={AdminPage} />
             <Route path="/admin_sign_up" exact component={SignUpForm} />
           <Route path="/company" exact component={Company} />
           <Route path="/gender" exact component={Gender} />
