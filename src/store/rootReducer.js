@@ -5,6 +5,7 @@ import { reducer as sign_up } from "./modules/sign_up";
 import { reducer as company } from "./modules/company";
 import { reducer as gender_info } from "./modules/gender_info";
 import { reducer as log_in } from "./modules/log_in";
+import { reducer as teams } from "./modules/teams";
 
 
 // =============================================================
@@ -21,7 +22,8 @@ const rootReducer = reduceReducers(
     sign_up,
       company,
       gender_info,
-      log_in
+      log_in,
+      teams
 
 
   })
