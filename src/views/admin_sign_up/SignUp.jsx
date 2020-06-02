@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Table from "../../components/table/table_body/Table";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {fetchAllAdmin, registerAdmin} from "../../store/modules/sign_up/actions";
+import {fetchAllAdmin, registerAdmin} from "../../store/modules/admin_sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
@@ -19,7 +19,6 @@ class SignUp extends Component {
         adminPhoneNumber: '',
         adminEmail: '',
         adminNationalId: '',
-        gender: '',
         encryptedPassword: '',
 
         selectedOption: '',
@@ -28,14 +27,14 @@ class SignUp extends Component {
         tableData: [],
         tableHeaders: {
             AdminId:'#',
-            adminFirstName: 'AdminFirstName',
-            adminMiddleName: 'AdminMiddleName',
-            adminSurname: 'AdminSurname',
-            adminPhoneNumber: 'AdminPhoneNumber',
-            adminEmail: 'AdminEmail',
-            adminNationalId: 'AdminNationalId',
-            gender: 'Gender',
-            encryptedPassword: 'EncryptedPassword'
+            AdminFirstName: 'AdminFirstName',
+            AdminMiddleName: 'AdminMiddleName',
+            AdminSurname: 'AdminSurname',
+            AdminPhoneNumber: 'AdminPhoneNumber',
+            AdminEmail: 'AdminEmail',
+            AdminNationalId: 'AdminNationalId',
+            GenderId: 'Gender',
+            EncryptedPassword: 'EncryptedPassword'
 
         }
     };
@@ -82,7 +81,6 @@ class SignUp extends Component {
             AdminSurname:this.state.adminSurname,
             AdminPhoneNumber:this.state.adminPhoneNumber,
             AdminEmail:this.state.adminEmail,
-            Gender:this.state.gender,
             AdminNationalId:this.state.adminNationalId,
             EncryptedPassword:this.state.encryptedPassword,
         };
@@ -95,7 +93,6 @@ class SignUp extends Component {
             adminSurname: '',
             adminPhoneNumber: '',
             adminEmail: '',
-            gender: '',
             adminNationalId: '',
             encryptedPassword: ''});
 

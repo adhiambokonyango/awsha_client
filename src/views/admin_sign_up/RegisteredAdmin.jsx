@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import Table from "../../components/table/table_body/Table";
 import PropTypes from "prop-types";
-import {fetchAllAdmin, registerAdmin} from "../../store/modules/sign_up/actions";
+import {fetchAllAdmin, registerAdmin} from "../../store/modules/admin_sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import {connect} from "react-redux";
 

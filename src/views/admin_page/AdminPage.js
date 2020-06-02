@@ -45,17 +45,11 @@ class AdminPage extends Component {
                         <div className="panel-body">
                             <a href="">
                                 <FaCogs />
-                                &nbsp;Employees
+                                <Link to="/team_members">&nbsp;Officers</Link>
                             </a>
                         </div>
                     </Col>
-                    {/*<Col sm={4}>*/}
-                    {/*    <div className="panel-body">*/}
-                    {/*        <div className="panel-heading">*/}
-                    {/*            <strong>Team Members</strong>*/}
-                    {/*           </div>*/}
-                    {/*    </div>*/}
-                    {/*</Col>*/}
+
                 </Row>
 
             </Container>

@@ -7,12 +7,14 @@ import "bulma/css/bulma.css";
 
 import Company from "./views/company/Company";
 
-import SignUpForm from "./views/sign_up/SignUp";
+import SignUpForm from "./views/admin_sign_up/SignUp";
 import Gender from "./views/gender_info/Gender";
 import Login from "./views/log_in/LogIn";
 import AdminPage from "./views/admin_page/AdminPage";
 import Teams from "./views/teams/Teams";
-import RegisteredAdmin from "./views/sign_up/RegisteredAdmin";
+import RegisteredAdmin from "./views/admin_sign_up/RegisteredAdmin";
+import TeamMemberSignUp from "./views/team_member_sign_up/TeamMemberSignUp";
+import RegisteredTeamMemebers from "./views/team_member_sign_up/RegisteredTeamMemebers";
 
 
 class App extends Component {
@@ -27,6 +29,8 @@ class App extends Component {
           <Route path="/gender" exact component={Gender} />
             <Route path="/teams" exact component={Teams} />
             <Route path="/registered_admin" exact component={RegisteredAdmin} />
+            <Route path="/team_members" exact component={TeamMemberSignUp} />
+            <Route path="/registered_team_members" exact component={RegisteredTeamMemebers} />
 
         </div>
       </Router>
