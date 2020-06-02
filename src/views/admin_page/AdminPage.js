@@ -27,7 +27,7 @@ class AdminPage extends Component {
                       <div className="panel-body">
                           <a href="">
                               <FaCogs />
-                              &nbsp;Teams
+                              <Link to="/teams">&nbsp;Teams</Link>
                           </a>
                       </div>
                   </Col>

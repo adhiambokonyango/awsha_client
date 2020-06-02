@@ -12,7 +12,7 @@ import {
 
 export function registerTeams(payload) {
     return async dispatch => {
-        const apiRoute = "/add_company";
+        const apiRoute = "/add_team";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
@@ -38,7 +38,7 @@ export function registerTeams(payload) {
 
 export function fetchAllTeams() {
     return async dispatch => {
-        const apiRoute = "/get_all_company";
+        const apiRoute = "/get_all_team";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
