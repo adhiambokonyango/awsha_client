@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 
 import Table from "../../components/table/table_body/Table";
 import { connect } from "react-redux";
-import Modal from "react-awesome-modal";
 import PropTypes from "prop-types";
 import {fetchAllAdmin, registerAdmin} from "../../store/modules/sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
+import {Link} from "react-router-dom";
 
 
 
@@ -103,6 +103,8 @@ class SignUp extends Component {
 
     render() {
         return (
+            <>
+
             <div className="col-md-4 col-md-offset-4">
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
@@ -249,15 +251,20 @@ class SignUp extends Component {
                                 >
                                     Submit
                                 </button>
+
+                                <button
+                                    type="btn-link"
+                                    className="btn btn-lg btn-success btn-block"
+                                >
+                                    <Link to="/registered_admin">View Registered Admin</Link>
+                                </button>
                             </fieldset>
                         </form>
                     </div>
                 </div>
-
-                <Table tableTitle='Registered Admin'
-                       tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredAdmin}/>
             </div>
+
+            </>
         );
     }
 }
