@@ -38,7 +38,7 @@ export function registerTeamMember(payload) {
 
 export function fetchAllTeamMember() {
     return async dispatch => {
-        const apiRoute = "/get_all_team_members";
+        const apiRoute = "/get_team_members_by_full_description";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {

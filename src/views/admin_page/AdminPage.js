@@ -6,53 +6,18 @@ import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormCon
 } from 'react-bootstrap';
 import {FaCogs, FaList, FaPlusCircle} from "react-icons/fa";
 import { Link } from 'react-router-dom'
+import AdminSideBar from "../../components/sidebar/AdminSideBar";
+
 
 class AdminPage extends Component {
     render() {
         return (
-            <Container>
+            <div className="container">
               <NavigationBar />
+              <AdminSideBar />
 
-              <Row>
-                  <Col sm={4}>
-                  <div className="panel-body">
-                      <a href="">
-                      <FaCogs />
 
-                          <Link to="/company">&nbsp;Agencies</Link>
-                      </a>
-                  </div>
-                  </Col>
-                  <Col sm={4}>
-                      <div className="panel-body">
-                          <a href="">
-                              <FaCogs />
-                              <Link to="/teams">&nbsp;Teams</Link>
-                          </a>
-                      </div>
-                  </Col>
-              </Row>
-                <Row>
-                    <Col sm={4}>
-                        <div className="panel-body">
-                            <a href="">
-                                <FaCogs />
-                                &nbsp;Projects
-                            </a>
-                        </div>
-                    </Col>
-                    <Col sm={4}>
-                        <div className="panel-body">
-                            <a href="">
-                                <FaCogs />
-                                <Link to="/team_members">&nbsp;Officers</Link>
-                            </a>
-                        </div>
-                    </Col>
-
-                </Row>
-
-            </Container>
+            </div>
         );
     }
 }

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import {  withRouter } from "react-router-dom";
-import { FaCogs, FaSearch } from "react-icons/fa";
+import { Route, withRouter } from "react-router-dom";
+import { FaCogs, FaCog, FaSearch, FaList } from "react-icons/fa";
 import {
     REGISTER_ACADEMIC_CLASS_LEVELS, REGISTER_ACTUAL_CLASSES, REGISTER_ACTUAL_LOTS,
     REGISTER_ACTUAL_TERMS,
@@ -12,6 +12,7 @@ import {
     REGISTER_TERM_ITERATIONS,
     REGISTER_WEEK_ITERATIONS
 } from "../../views/admin_home/AdminHomeConstants";
+import './AdminSideBar.scss';
 
 class AdminSideBar extends Component {
   constructor(props) {
@@ -22,16 +23,17 @@ class AdminSideBar extends Component {
       multiLevelDropdownCollapsed: true,
       thirdLevelDropdownCollapsed: true,
       brandDropdownCollapsed: true,
-      samplePagesCollapsed: true,
-      calenderMultiLevelDropdownCollapsed: true,
-        userManagementMultiLevelDropdownCollapsed: true,
-        feeManagementMultiLevelDropdownCollapsed: true
+      samplePagesCollapsed: true
     };
+
+
   }
+
+
 
   render() {
     return (
-      <div className="navbar-default sidebar" role="navigation">
+      <div className="navbar-default sidebar side-bar__main-body" role="navigation">
         <button
           className="navbar-toggle"
           type="button"
@@ -55,273 +57,173 @@ class AdminSideBar extends Component {
               </div>
             </li>
 
-            <li
-              className={classNames({
-                active: !this.state.multiLevelDropdownCollapsed
-              })}
-            >
-              <a
-                href=""
-                onClick={e => {
-                  e.preventDefault();
-                  this.setState({
-                    multiLevelDropdownCollapsed: !this.state
-                      .multiLevelDropdownCollapsed
-                  });
-                  return false;
-                }}
+              <li
+                  className={classNames({
+                      active: !this.state.multiLevelDropdownCollapsed
+                  })}
               >
-                <FaCogs />
-                &nbsp;Class Configurations
-                <span className="fa arrow" />
-              </a>
-              <ul
-                className={classNames({
-                  "nav nav-second-level": true,
-                  collapse: this.state.multiLevelDropdownCollapsed
-                })}
+                  <a
+                      href=""
+                      onClick={e => {
+                          e.preventDefault();
+                          this.setState({
+                              multiLevelDropdownCollapsed: !this.state
+                                  .multiLevelDropdownCollapsed
+                          });
+                          return false;
+                      }}
+                  >
+                      <FaCogs />
+                      &nbsp;Modules
+                      <span className="fa arrow" />
+                  </a>
+                  <ul
+                      className={classNames({
+                          "nav nav-second-level": true,
+                          collapse: this.state.multiLevelDropdownCollapsed
+                      })}
+                  >
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(
+                                      REGISTER_ACADEMIC_CLASS_LEVELS
+                                  );
+                              }}
+                          >
+                              Register Module
+                          </a>
+                      </li>
+
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_CLASS_STREAMS);
+                              }}
+                          >
+                              Module Details
+                          </a>
+                      </li>
+
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_LOT_DESCRIPTION);
+                              }}
+                          >
+                              Update Module
+                          </a>
+                      </li>
+
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_ACTUAL_LOTS);
+                              }}
+                          >
+                              Actual Lots
+                          </a>
+                      </li>
+
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_ACTUAL_CLASSES);
+                              }}
+                          >
+                              Actual Classes
+                          </a>
+                      </li>
+
+
+                  </ul>
+              </li>
+
+              <li
+                  className={classNames({
+                      active: !this.state.calenderMultiLevelDropdownCollapsed
+                  })}
               >
-                <li className="second-level">
                   <a
-                    href=""
-                    onClick={e => {
-                      e.preventDefault();
-                      this.props.handleSideBarClicked(
-                        REGISTER_ACADEMIC_CLASS_LEVELS
-                      );
-                    }}
+                      href=""
+                      onClick={e => {
+                          e.preventDefault();
+                          this.setState({
+                              calenderMultiLevelDropdownCollapsed: !this.state
+                                  .calenderMultiLevelDropdownCollapsed
+                          });
+                          return false;
+                      }}
                   >
-                    Class Levels
+                      <FaCogs />
+                      &nbsp;Teams
+                      <span className="fa arrow" />
                   </a>
-                </li>
-
-                <li className="second-level">
-                  <a
-                    href=""
-                    onClick={e => {
-                      e.preventDefault();
-                      this.props.handleSideBarClicked(REGISTER_CLASS_STREAMS);
-                    }}
+                  <ul
+                      className={classNames({
+                          "nav nav-second-level": true,
+                          collapse: this.state.calenderMultiLevelDropdownCollapsed
+                      })}
                   >
-                    Class Streams
-                  </a>
-                </li>
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_TERM_ITERATIONS);
+                              }}
+                          >
+                              Register Team
+                          </a>
+                      </li>
 
-                  <li className="second-level">
-                      <a
-                          href=""
-                          onClick={e => {
-                              e.preventDefault();
-                              this.props.handleSideBarClicked(REGISTER_LOT_DESCRIPTION);
-                          }}
-                      >
-                          Lot Description
-                      </a>
-                  </li>
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_WEEK_ITERATIONS);
+                              }}
+                          >
+                              Team Details
+                          </a>
+                      </li>
 
-                  <li className="second-level">
-                      <a
-                          href=""
-                          onClick={e => {
-                              e.preventDefault();
-                              this.props.handleSideBarClicked(REGISTER_ACTUAL_LOTS);
-                          }}
-                      >
-                          Actual Lots
-                      </a>
-                  </li>
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_ACTUAL_TERMS);
+                              }}
+                          >
+                              Update Team
+                          </a>
+                      </li>
 
-                  <li className="second-level">
-                      <a
-                          href=""
-                          onClick={e => {
-                              e.preventDefault();
-                              this.props.handleSideBarClicked(REGISTER_ACTUAL_CLASSES);
-                          }}
-                      >
-                          Actual Classes
-                      </a>
-                  </li>
-
-                {/*<li*/}
-                {/*  className={*/}
-                {/*    classNames({*/}
-                {/*      active: !this.state.thirdLevelDropdownCollapsed*/}
-                {/*    }) +*/}
-                {/*    " " +*/}
-                {/*    "second-level"*/}
-                {/*  }*/}
-                {/*>*/}
-                {/*  <a*/}
-                {/*    href=""*/}
-                {/*    onClick={e => {*/}
-                {/*      e.preventDefault();*/}
-                {/*      this.setState({*/}
-                {/*        thirdLevelDropdownCollapsed: !this.state*/}
-                {/*          .thirdLevelDropdownCollapsed*/}
-                {/*      });*/}
-
-                {/*      return false;*/}
-                {/*    }}*/}
-                {/*  >*/}
-                {/*    Library Partitions*/}
-                {/*    <span className="fa arrow" />*/}
-                {/*  </a>*/}
-                {/*  <ul*/}
-                {/*    className={classNames({*/}
-                {/*      "nav nav-second-level": true,*/}
-                {/*      collapse: this.state.thirdLevelDropdownCollapsed*/}
-                {/*    })}*/}
-                {/*  >*/}
-                {/*    <li className="third-level">*/}
-                {/*      <a*/}
-                {/*        href=""*/}
-                {/*        onClick={e => {*/}
-                {/*          e.preventDefault();*/}
-
-                {/*          // this.mainPartionsConfigClicked();*/}
-                {/*        }}*/}
-                {/*      >*/}
-                {/*        Main Partitions*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*    <li className="third-level">*/}
-                {/*      <a*/}
-                {/*        href=""*/}
-                {/*        onClick={e => {*/}
-                {/*          e.preventDefault();*/}
-
-                {/*          // this.subPartionsConfigClicked();*/}
-                {/*        }}*/}
-                {/*      >*/}
-                {/*        Sub-Partitions*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*  </ul>*/}
-                {/*</li>*/}
-
-                {/*<li*/}
-                {/*  className={*/}
-                {/*    classNames({*/}
-                {/*      active: !this.state.thirdLevelDropdownCollapsed*/}
-                {/*    }) +*/}
-                {/*    " " +*/}
-                {/*    "second-level"*/}
-                {/*  }*/}
-                {/*>*/}
-                {/*  <a*/}
-                {/*    href=""*/}
-                {/*    onClick={e => {*/}
-                {/*      e.preventDefault();*/}
-                {/*      this.setState({*/}
-                {/*        brandDropdownCollapsed: !this.state*/}
-                {/*          .brandDropdownCollapsed*/}
-                {/*      });*/}
-
-                {/*      return false;*/}
-                {/*    }}*/}
-                {/*  >*/}
-                {/*    Brand Configurations*/}
-                {/*    <span className="fa arrow" />*/}
-                {/*  </a>*/}
-                {/*  <ul*/}
-                {/*    className={classNames({*/}
-                {/*      "nav nav-second-level": true,*/}
-                {/*      collapse: this.state.brandDropdownCollapsed*/}
-                {/*    })}*/}
-                {/*  >*/}
-                {/*    <li className="third-level">*/}
-                {/*      <a*/}
-                {/*        href=""*/}
-                {/*        onClick={e => {*/}
-                {/*          e.preventDefault();*/}
-
-                {/*          // this.brandRegistration();*/}
-                {/*        }}*/}
-                {/*      >*/}
-                {/*        Brand Registration*/}
-                {/*      </a>*/}
-                {/*    </li>*/}
-                {/*  </ul>*/}
-                {/*</li>*/}
-              </ul>
-            </li>
-
-            <li
-              className={classNames({
-                active: !this.state.calenderMultiLevelDropdownCollapsed
-              })}
-            >
-              <a
-                href=""
-                onClick={e => {
-                  e.preventDefault();
-                  this.setState({
-                    calenderMultiLevelDropdownCollapsed: !this.state
-                      .calenderMultiLevelDropdownCollapsed
-                  });
-                  return false;
-                }}
-              >
-                <FaCogs />
-                &nbsp;Calender
-                <span className="fa arrow" />
-              </a>
-              <ul
-                className={classNames({
-                  "nav nav-second-level": true,
-                  collapse: this.state.calenderMultiLevelDropdownCollapsed
-                })}
-              >
-                <li className="second-level">
-                  <a
-                    href=""
-                    onClick={e => {
-                      e.preventDefault();
-                      this.props.handleSideBarClicked(REGISTER_TERM_ITERATIONS);
-                    }}
-                  >
-                    Term Iterations
-                  </a>
-                </li>
-
-                <li className="second-level">
-                  <a
-                    href=""
-                    onClick={e => {
-                      e.preventDefault();
-                      this.props.handleSideBarClicked(REGISTER_WEEK_ITERATIONS);
-                    }}
-                  >
-                    Week Iterations
-                  </a>
-                </li>
-
-                <li className="second-level">
-                  <a
-                    href=""
-                    onClick={e => {
-                      e.preventDefault();
-                      this.props.handleSideBarClicked(REGISTER_ACTUAL_TERMS);
-                    }}
-                  >
-                    Actual Terms
-                  </a>
-                </li>
-
-                <li className="second-level">
-                  <a
-                    href=""
-                    onClick={e => {
-                      e.preventDefault();
-                      this.props.handleSideBarClicked(REGISTER_ACTUAL_WEEKS);
-                    }}
-                  >
-                    Actual Weeks
-                  </a>
-                </li>
-              </ul>
-            </li>
+                      <li className="second-level">
+                          <a
+                              href=""
+                              onClick={e => {
+                                  e.preventDefault();
+                                  this.props.handleSideBarClicked(REGISTER_ACTUAL_WEEKS);
+                              }}
+                          >
+                              Actual Weeks
+                          </a>
+                      </li>
+                  </ul>
+              </li>
 
               <li
                   className={classNames({
@@ -340,7 +242,7 @@ class AdminSideBar extends Component {
                       }}
                   >
                       <FaCogs />
-                      &nbsp;Fee Management
+                      &nbsp;Projects
                       <span className="fa arrow" />
                   </a>
                   <ul
@@ -358,7 +260,7 @@ class AdminSideBar extends Component {
                                   this.props.handleSideBarClicked(REGISTER_FEE_COMPONENTS);
                               }}
                           >
-                              Fee components
+                              Register Project
                           </a>
                       </li>
                       <li className="second-level">
@@ -369,7 +271,7 @@ class AdminSideBar extends Component {
                                   this.props.handleSideBarClicked(REGISTER_FEE_STRUCTURES);
                               }}
                           >
-                              Register a fee structure
+                              Project Details
                           </a>
                       </li>
 
@@ -381,7 +283,7 @@ class AdminSideBar extends Component {
                                   this.props.handleSideBarClicked(REGISTER_CLASS_FEE_STRUCTURES);
                               }}
                           >
-                              Register a Class fee structure
+                              Update Project
                           </a>
                       </li>
 
@@ -429,7 +331,6 @@ class AdminSideBar extends Component {
 
                   </ul>
               </li>
-
           </ul>
         </div>
       </div>

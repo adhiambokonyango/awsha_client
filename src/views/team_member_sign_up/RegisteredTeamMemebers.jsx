@@ -5,22 +5,46 @@ import PropTypes from "prop-types";
 import {fetchAllTeamMember} from "../../store/modules/team_member_sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import {connect} from "react-redux";
+import AdminSideBar from "../../components/sidebar/AdminSideBar";
 
 class RegisteredTeamMemebers extends Component {
     state = {
         tableData: [],
         tableHeaders: {
-            TeamMemberId:'#',
+            Number:'#',
             TeamMemberName: 'TeamMemberName',
             TeamMemberEmail: 'TeamMemberEmail',
             TeamName: 'TeamId',
             CompanyName: 'CompanyName',
             Gender: 'Gender',
-            TeamMemberNationalId: 'TeamMemberNationalId',
-            EncryptedPassword: 'EncryptedPassword',
+            TeamMemberNationalId: 'TeamMemberNationalId'
 
         }
     };
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.registeredTeamMember !== prevProps.registeredTeamMember) {
+            if(this.props.registeredTeamMember && this.props.registeredTeamMember.length > 0) {
+
+                let teamMembers = this.props.registeredTeamMember.map(
+                    (item, index) => {
+                        return {
+                            id: index + 1,
+                            TeamMemberName: item.TeamMemberName,
+                            TeamMemberEmail: item.TeamMemberEmail,
+                            TeamName: item.TeamName,
+                            CompanyName: item.CompanyName,
+                            Gender: item.GenderTitle,
+                            TeamMemberNationalId: item.TeamMemberNationalId
+                        };
+                    }
+                );
+
+                this.setState({tableData: teamMembers});
+
+            }
+        }
+    }
 
     componentDidMount() {
         this.props.fetchAllTeamMember();
@@ -32,9 +56,14 @@ class RegisteredTeamMemebers extends Component {
         return (
             <div>
                 <NavigationBar />
-                <Table tableTitle='Registered Officers'
-                       tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredTeamMember}/>
+
+
+
+                    <Table tableTitle='Registered Officers'
+                           tableHeaderObject={this.state.tableHeaders}
+                           tableData={this.state.tableData}/>
+               
+
             </div>
         );
     }
