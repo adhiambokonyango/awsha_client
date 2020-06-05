@@ -7,6 +7,8 @@ import { reducer as gender_info } from "./modules/gender_info";
 import { reducer as log_in } from "./modules/log_in";
 import { reducer as teams } from "./modules/teams";
 import { reducer as team_member_sign_up } from "./modules/team_member_sign_up";
+import { reducer as projects } from "./modules/projects";
+import { reducer as project_objectives } from "./modules/project_objectives";
 
 
 // =============================================================
@@ -25,7 +27,9 @@ const rootReducer = reduceReducers(
       gender_info,
       log_in,
       teams,
-    team_member_sign_up
+    team_member_sign_up,
+      projects,
+      project_objectives
 
 
   })

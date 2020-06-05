@@ -15,6 +15,8 @@ import Teams from "./views/teams/Teams";
 import RegisteredAdmin from "./views/admin_sign_up/RegisteredAdmin";
 import TeamMemberSignUp from "./views/team_member_sign_up/TeamMemberSignUp";
 import RegisteredTeamMemebers from "./views/team_member_sign_up/RegisteredTeamMemebers";
+import Projects from "./views/projects/Projects";
+import ProjectObjectives from "./views/project_objectives/ProjectObjectives";
 
 
 class App extends Component {
@@ -31,6 +33,8 @@ class App extends Component {
             <Route path="/registered_admin" exact component={RegisteredAdmin} />
             <Route path="/team_members" exact component={TeamMemberSignUp} />
             <Route path="/registered_team_members" exact component={RegisteredTeamMemebers} />
+            <Route path="/register_projects" exact component={Projects} />
+            <Route path="/register_project_objectives" exact component={ProjectObjectives} />
 
         </div>
       </Router>
