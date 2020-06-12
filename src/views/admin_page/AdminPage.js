@@ -1,18 +1,17 @@
 import React, {Component} from 'react';
 import NavigationBar from "./nav_bar/NavigationBar";
-import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Form,
-    Container, Row, Col
 
-} from 'react-bootstrap';
-import {FaCogs, FaList, FaPlusCircle} from "react-icons/fa";
-import { Link } from 'react-router-dom'
 import AdminSideBar from "../../components/sidebar/AdminSideBar";
 import {fetchAllProjects} from "../../store/modules/projects/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Select from "react-select";
-import Table from "../../components/table/table_body/Table";
+
+
 import './AdminPage.scss'
+import CheckBoxGroup from "../../components/check_box_group/CheckBoxGroup";
+import CheckBox from "../../components/check_box/CheckBox";
+import {FormGroup, Input, Label} from "reactstrap";
+import ProjectDetails from "../project_details/ProjectDetails";
 
 
 class AdminPage extends Component {
@@ -37,8 +36,8 @@ class AdminPage extends Component {
                  let list = [];
 
                  for(let i = 0;i<this.props.registeredProjects.length;i++) {
-                     list.push(<p><dt>{this.props.registeredProjects[i].ProjectTitle}</dt>
-                                <dd>{this.props.registeredProjects[i].ProjectDescription}</dd><br/></p>);
+                     list.push(<p><dt><i className="fa fa-check-circle"></i>{" " +this.props.registeredProjects[i].ProjectTitle}</dt>
+                                <dd className="admin__description-item">{this.props.registeredProjects[i].ProjectDescription}</dd><br/></p>);
                  }
 
                  /*let project_list = this.props.registeredProjects.map(
@@ -62,11 +61,16 @@ class AdminPage extends Component {
         return (
             <div className="container">
               <NavigationBar />
-              <AdminSideBar />
+              <div className="col-sm-4">
+                  <AdminSideBar />
+              </div>
+                <div className="col-sm-8">
+                    <dl>
+                        {this.state.project_item}
+                       <ProjectDetails />
+                    </dl>
 
-              <dl className="admin__list">
-                  {this.state.project_item}
-              </dl>
+                </div>
 
 
             </div>
