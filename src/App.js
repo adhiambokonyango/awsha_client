@@ -17,6 +17,8 @@ import TeamMemberSignUp from "./views/team_member_sign_up/TeamMemberSignUp";
 import RegisteredTeamMemebers from "./views/team_member_sign_up/RegisteredTeamMemebers";
 import Projects from "./views/projects/Projects";
 import ProjectObjectives from "./views/project_objectives/ProjectObjectives";
+import ProjectDetails from "./views/project_details/ProjectDetails";
+import Demo1 from "./views/Demo1";
 
 
 class App extends Component {
@@ -35,6 +37,8 @@ class App extends Component {
             <Route path="/registered_team_members" exact component={RegisteredTeamMemebers} />
             <Route path="/register_projects" exact component={Projects} />
             <Route path="/register_project_objectives" exact component={ProjectObjectives} />
+            <Route path="/project_details" exact component={ProjectDetails} />
+            <Route path="/demo" exact component={Demo1} />
 
         </div>
       </Router>

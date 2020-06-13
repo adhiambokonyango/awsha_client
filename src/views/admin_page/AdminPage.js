@@ -39,18 +39,6 @@ class AdminPage extends Component {
                      list.push(<p><dt><i className="fa fa-check-circle"></i>{" " +this.props.registeredProjects[i].ProjectTitle}</dt>
                                 <dd className="admin__description-item">{this.props.registeredProjects[i].ProjectDescription}</dd><br/></p>);
                  }
-
-                 /*let project_list = this.props.registeredProjects.map(
-                     (item, index) => {
-                         return {
-                             id: index + 1,
-                             ProjectTitle: item.ProjectTitle,
-                             ProjectDescription: item.ProjectDescription,
-
-                         };
-                     }
-                 );*/
-
                  this.setState({project_item: list});
 
              }
@@ -67,7 +55,7 @@ class AdminPage extends Component {
                 <div className="col-sm-8">
                     <dl>
                         {this.state.project_item}
-                       <ProjectDetails />
+
                     </dl>
 
                 </div>

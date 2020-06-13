@@ -1,100 +1,111 @@
 import React, {Component} from 'react';
-import {FormGroup, Input, Label} from "reactstrap";
-import {fetchAllProjectObjectives, registerProjectObjectives} from "../../store/modules/project_objectives/actions";
-import PropTypes from "prop-types";
 import {fetchAllProjects} from "../../store/modules/projects/actions";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {fetchAllProjectObjectives} from "../../store/modules/project_objectives/actions";
+
+
 
 class ProjectDetails extends Component {
+    constructor() {
+        super();
 
-    state = {
-        isDone: false,
-        unDone: true,
-        objectives: [],
+        this.state = {
+            projectObjective:[],
+            selectedOption: false,
+        }
+    }
 
-    };
+
+
 
     componentDidMount() {
+        this.props.fetchAllProjects();
         this.props.fetchAllProjectObjectives();
     }
 
-    componentDidUpdate(prevProps) {
-        /* ---------------------------------------------------------------------------------------------------------------------- */
+    componentDidUpdate(prevProps)
+{
+    if(this.props.registeredProjectObjectives !== prevProps.registeredProjectObjectives) {
+        if(this.props.registeredProjectObjectives && this.props.registeredProjectObjectives.length > 0) {
 
+            let list = [];
 
-        if(this.props.registeredProjectObjectives !== prevProps.registeredProjectObjectives) {
-            if(this.props.registeredProjectObjectives && this.props.registeredProjectObjectives.length > 0) {
+            for(let i = 0;i<this.props.registeredProjectObjectives.length;i++) {
+                list.push(<p><dt>
+                    <div className="radio">
+                        <label>
+                            <input
+                                type="radio"
+                                // checked={this.state.selectedOption}
+                                // onChange={this.onValueChange}
+                            />
+                            {" " +this.props.registeredProjectObjectives[i].ProjectObjective}
 
-                let list = [];
-
-                for(let i = 0;i<this.props.registeredProjectObjectives.length;i++) {
-                    list.push(<p><dt>
-                        <FormGroup check>
-                            <Label check>
-                                <Input
-                                    type="radio"
-                                    name="radio1"
-                                    checked={this.state.isDone}
-                                    onClick={this.handleAdminRadioClicked}
-                                />{" "}
-                                {" " +this.props.registeredProjectObjectives[i].ProjectObjective}
-                            </Label>
-                        </FormGroup>
-                    </dt><br/></p>);
-                }
-
-                this.setState({objectives: list});
-
+                        </label>
+                    </div>
+                </dt>
+                   <br/></p>);
             }
+            this.setState({projectObjective: list});
+
         }
-
-        /*PAGE NAVIGATION LOGIC*/
-            if (this.props.isSessionActive && this.state.isAdmin) {
-                this.props.getAllUsers();
-                this.props.history.push("/admin_home");
-            } else if (this.props.isSessionActive && this.state.isStaff) {
-                this.props.history.push("/staff_home");
-            }
-        /* ---------------------------------------------------------------------------------------------------------------------- */
-
-
-
-
     }
+}
 
 
-        handleAdminRadioClicked = () => {
-        if (this.state.unDone) {
-            this.setState({ unDone: false });
-        }
-        this.setState({ isDone: true });
+    handleChange = event => {
+        let newState = this.state;
+        newState[event.target.name] = event.target.value;
+        this.setState({
+            ...newState
+        });
     };
 
+    handleSubmit = (e) =>{
+        e.preventDefault();
+
+        this.setState({
+
+
+
+        });
+    };
 
     render() {
         return (
-            <div>
-                {this.state.objectives}
-            </div>
+            <form onSubmit={this.handleSubmit}>
+
+                {this.state.projectObjective}
+                <button
+                    type="submit"
+                    className="btn btn-lg btn-success btn-block"
+                    >
+                    Submit
+                </button>
+            </form>
         );
     }
 }
 
+
 ProjectDetails.propTypes = {
     fetchAllProjectObjectives: PropTypes.func.isRequired,
     registeredProjectObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllProjects: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = state => ({
     registeredProjectObjectives: state.project_objectives.registeredProjectObjectives,
-
+    registeredProjects: state.projects.registeredProjects,
 });
 
 
 
 const mapDispatchToProps = dispatch => ({
     fetchAllProjectObjectives: () => dispatch(fetchAllProjectObjectives()),
+    fetchAllProjects: () => dispatch(fetchAllProjects()),
 });
 
 export default connect(
