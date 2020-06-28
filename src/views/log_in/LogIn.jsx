@@ -31,7 +31,7 @@ class LogIn extends Component {
             if (this.props.isLoginSuccessful) {
                 this.props.history.push("/admin_page");
             } else if (!this.props.isLoginSuccessful) {
-                this.props.history.push("/admin_sign_up");
+                this.props.history.push("/sign_up");
             }
         }
 

@@ -7,12 +7,12 @@ import "bulma/css/bulma.css";
 
 import Company from "./views/company/Company";
 
-import SignUpForm from "./views/admin_sign_up/SignUp";
+import SignUpForm from "./views/sign_up/SignUp";
 import Gender from "./views/gender_info/Gender";
 import Login from "./views/log_in/LogIn";
 import AdminPage from "./views/admin_page/AdminPage";
 import Teams from "./views/teams/Teams";
-import RegisteredAdmin from "./views/admin_sign_up/RegisteredAdmin";
+import RegisteredAdmin from "./views/sign_up/RegisteredAdmin";
 import TeamMemberSignUp from "./views/team_member_sign_up/TeamMemberSignUp";
 import RegisteredTeamMemebers from "./views/team_member_sign_up/RegisteredTeamMemebers";
 import Projects from "./views/projects/Projects";
@@ -28,16 +28,15 @@ class App extends Component {
         <div>
             <Route path="/" exact component={Login} />
             <Route path="/admin_page" exact component={AdminPage} />
-            <Route path="/admin_sign_up" exact component={SignUpForm} />
+            <Route path="/sign_up" exact component={SignUpForm} />
           <Route path="/company" exact component={Company} />
           <Route path="/gender" exact component={Gender} />
             <Route path="/teams" exact component={Teams} />
-            <Route path="/registered_admin" exact component={RegisteredAdmin} />
+            <Route path="/registered_users" exact component={RegisteredAdmin} />
             <Route path="/team_members" exact component={TeamMemberSignUp} />
             <Route path="/registered_team_members" exact component={RegisteredTeamMemebers} />
             <Route path="/register_projects" exact component={Projects} />
             <Route path="/register_project_objectives" exact component={ProjectObjectives} />
-            <Route path="/project_details" exact component={ProjectDetails} />
             <Route path="/demo" exact component={Demo1} />
 
         </div>

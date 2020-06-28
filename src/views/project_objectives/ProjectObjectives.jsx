@@ -6,6 +6,8 @@ import {registerProjectObjectives, fetchAllProjectObjectives} from "../../store/
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
 import {fetchAllTeamMember} from "../../store/modules/team_member_sign_up/actions";
+import {fetchAllObjectivePercentage, registerObjectivePercentage} from "../../store/modules/objective_percentage/actions";
+
 
 
 
@@ -13,6 +15,7 @@ class ProjectObjectives extends Component {
 
     state = {
         projectObjective:'',
+        percentage: '',
 
         selectedOption: '',
         selectOptions: [],
@@ -24,6 +27,7 @@ class ProjectObjectives extends Component {
         tableHeaders: {
             ProjectObjectiveId:'#',
             ProjectObjective:'ProjectObjective',
+            ObjectivePercentage: 'ObjectivePercentage'
 
         }
     };
@@ -33,6 +37,7 @@ class ProjectObjectives extends Component {
         this.props.fetchAllProjects();
         this.props.fetchAllTeamMember();
         this.props.fetchAllProjectObjectives();
+        this.props.fetchAllObjectivePercentage();
     }
 
     componentDidUpdate(prevProps) {
@@ -86,13 +91,16 @@ class ProjectObjectives extends Component {
 
 
             ProjectObjective:this.state.projectObjective,
+            ObjectivePercentage:this.state.percentage,
 
 
         };
 
         this.props.registerProjectObjectives(payload);
+        this.props.registerObjectivePercentage(payload);
         this.setState({
             projectObjective:'',
+            percentage: '',
 
         });
     };
@@ -160,6 +168,19 @@ class ProjectObjectives extends Component {
                                         required={true}
                                     />
                                 </div>
+
+                                <div className="form-group">
+                                    <input
+                                        name="percentage"
+                                        className="form-control"
+                                        placeholder="Percentage"
+                                        value={this.state.percentage}
+                                        type="text"
+                                        onChange={this.handleChange}
+                                        autoFocus
+                                        required={true}
+                                    />
+                                </div>
                                 <button
                                     type="submit"
                                     className="btn btn-lg btn-success btn-block"
@@ -173,7 +194,8 @@ class ProjectObjectives extends Component {
 
                 <Table tableTitle='Registered ProjectObjectives'
                        tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredProjectObjectives}/>
+                       tableData={this.props.registeredProjectObjectives}
+                       />
             </div>
         );
     }
@@ -189,6 +211,10 @@ ProjectObjectives.propTypes = {
     fetchAllProjects: PropTypes.func.isRequired,
     fetchAllTeamMember: PropTypes.func.isRequired,
     registeredTeamMember: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllObjectivePercentage: PropTypes.func.isRequired,
+    registerObjectivePercentage: PropTypes.func.isRequired,
+    registeredObjectivePercentage: PropTypes.arrayOf(PropTypes.object).isRequired,
+
 };
 
 
@@ -197,6 +223,8 @@ const mapStateToProps = state => ({
     registeredProjectObjectives: state.project_objectives.registeredProjectObjectives,
     registeredProjects: state.projects.registeredProjects,
     registeredTeamMember: state.team_member_sign_up.registeredTeamMember,
+    objectivePercentageSuccessFullyRegistered: state.objective_percentage.objectivePercentageSuccessFullyRegistered,
+    registeredObjectivePercentage: state.objective_percentage.registeredObjectivePercentage,
 
 });
 
@@ -207,6 +235,9 @@ const mapDispatchToProps = dispatch => ({
     fetchAllProjectObjectives: () => dispatch(fetchAllProjectObjectives()),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     fetchAllTeamMember: () => dispatch(fetchAllTeamMember()),
+    fetchAllObjectivePercentage: () => dispatch(fetchAllObjectivePercentage()),
+    registerObjectivePercentage: payload => dispatch(registerObjectivePercentage(payload)),
+
 });
 
 export default connect(
