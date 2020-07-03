@@ -1,14 +1,15 @@
 import React, {Component} from 'react';
-import {fetchAllCompany} from "../../store/modules/company/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-import {fetchAllUser, registerUser} from "../../store/modules/sign_up/actions";
+import {fetchAllUser} from "../../store/modules/sign_up/actions";
+import { fetchAllTeams} from "../../store/modules/teams/actions";
+import {registerTeamMember, fetchAllTeamMember} from "../../store/modules/team_members/actions";
 
 import {registerCompanyUser, fetchAllCompanyUser} from "../../store/modules/company_users/actions";
 
-class CompanyUsers extends Component {
+class TeamMember extends Component {
 
     state = {
 
@@ -26,23 +27,23 @@ class CompanyUsers extends Component {
 
 
     componentDidMount() {
-        this.props.fetchAllCompany();
         this.props.fetchAllUser();
-        this.props.fetchAllCompanyUser();
+        this.props.fetchAllTeams();
+        this.props.fetchAllTeamMember();
     }
 
     componentDidUpdate(prevProps) {
-        if(this.props.registeredCompany !== prevProps.registeredCompany) {
-            if(this.props.registeredCompany.length > 0) {
-                let allregisteredCompany = this.props.registeredCompany;
+        if(this.props.registeredTeams !== prevProps.registeredTeams) {
+            if(this.props.registeredTeams.length > 0) {
+                let allregisteredTeams = this.props.registeredTeams;
 
-                allregisteredCompany = allregisteredCompany.map(item => {
+                allregisteredTeams = allregisteredTeams.map(item => {
                     return {
-                        label: item.CompanyName,
-                        value: item.CompanyId
+                        label: item.TeamName,
+                        value: item.TeamId
                     };
                 });
-                this.setState({ selectOptionsTwo: allregisteredCompany });
+                this.setState({ selectOptionsTwo: allregisteredTeams });
             }
         }
 
@@ -82,9 +83,9 @@ class CompanyUsers extends Component {
         };
 
 
-        this.props.registerCompanyUser(payload);
+        this.props.registerTeamMember(payload);
         this.setState({
-            });
+        });
 
     };
 
@@ -95,7 +96,7 @@ class CompanyUsers extends Component {
                 <div className="col-md-4 col-md-offset-4">
                     <div className="login-panel panel panel-default">
                         <div className="panel-heading">
-                            <h3 className="panel-title">select employees for each agencies</h3>
+                            <h3 className="panel-title">Assign users to specific teams</h3>
                         </div>
                         <div className="panel-body">
                             <form
@@ -110,7 +111,7 @@ class CompanyUsers extends Component {
                                         <Select
                                             className="react-select"
                                             classNamePrefix="react-select"
-                                            placeholder="Select Company"
+                                            placeholder="Select Team"
                                             name="selectedOptionThree"
                                             closeMenuOnSelect={true}
                                             value={this.state.selectedOptionTwo}
@@ -172,33 +173,33 @@ class CompanyUsers extends Component {
 }
 
 
-CompanyUsers.propTypes = {
-    fetchAllCompany: PropTypes.func.isRequired,
-    registeredCompany: PropTypes.arrayOf(PropTypes.object).isRequired,
+TeamMember.propTypes = {
+    fetchAllTeams: PropTypes.func.isRequired,
+    registeredTeams: PropTypes.arrayOf(PropTypes.object).isRequired,
     registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllUser: PropTypes.func.isRequired,
-    registerCompanyUser: PropTypes.func.isRequired,
-    fetchAllCompanyUser:PropTypes.func.isRequired,
-    registeredCompanyUser: PropTypes.arrayOf(PropTypes.object).isRequired
+    registerTeamMember: PropTypes.func.isRequired,
+    fetchAllTeamMember:PropTypes.func.isRequired,
+    registeredTeamMember: PropTypes.arrayOf(PropTypes.object).isRequired
 };
 
 
 const mapStateToProps = state => ({
-    registeredCompany: state.company.registeredCompany,
+    registeredTeams: state.teams.registeredTeams,
     registeredUser: state.sign_up.registeredUser,
-    registeredCompanyUser: state.company_user.registeredCompanyUser
+    registeredTeamMember: state.team_members.registeredTeamMember
 });
 
 
 
 const mapDispatchToProps = dispatch => ({
-    registerCompanyUser: payload => dispatch(registerCompanyUser(payload)),
-    fetchAllCompany: () => dispatch(fetchAllCompany()),
+    registerTeamMember: payload => dispatch(registerTeamMember(payload)),
+    fetchAllTeams: () => dispatch(fetchAllTeams()),
     fetchAllUser: () => dispatch(fetchAllUser()),
-    fetchAllCompanyUser: () => dispatch(fetchAllCompanyUser()),
+    fetchAllTeamMember: () => dispatch(fetchAllTeamMember()),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(CompanyUsers);
+)(TeamMember);

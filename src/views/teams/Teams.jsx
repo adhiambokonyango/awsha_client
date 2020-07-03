@@ -13,7 +13,7 @@ class Teams extends Component {
     state = {
         teamName:'',
 
-        companyName: '',
+
 
         selectedOption: '',
         selectOptions: [],
@@ -22,7 +22,7 @@ class Teams extends Component {
         tableHeaders: {
             TeamId:'#',
             TeamName:'TeamName',
-            CompanyName:'CompanyName',
+
 
 
         }
@@ -30,25 +30,24 @@ class Teams extends Component {
 
 
     componentDidMount() {
-        this.props.fetchAllCompany();
         this.props.fetchAllTeams();
     }
 
-    componentDidUpdate(prevProps) {
-        if(this.props.registeredCompany !== prevProps.registeredCompany) {
-            if(this.props.registeredCompany.length > 0) {
-                let allregisteredCompany = this.props.registeredCompany;
-
-                allregisteredCompany = allregisteredCompany.map(item => {
-                    return {
-                        label: item.CompanyName,
-                        value: item.CompanyId
-                    };
-                });
-                this.setState({ selectOptions: allregisteredCompany });
-            }
-        }
-    };
+    // componentDidUpdate(prevProps) {
+    //     if(this.props.registeredCompany !== prevProps.registeredCompany) {
+    //         if(this.props.registeredCompany.length > 0) {
+    //             let allregisteredCompany = this.props.registeredCompany;
+    //
+    //             allregisteredCompany = allregisteredCompany.map(item => {
+    //                 return {
+    //                     label: item.CompanyName,
+    //                     value: item.CompanyId
+    //                 };
+    //             });
+    //             this.setState({ selectOptions: allregisteredCompany });
+    //         }
+    //     }
+    // };
 
 
     handleChange = event => {
@@ -63,15 +62,12 @@ class Teams extends Component {
         e.preventDefault();
 
         const payload = {
-            CompanyId:this.state.selectedOption.value,
             TeamName:this.state.teamName,
-            CompanyName:this.state.companyName,
         };
 
         this.props.registerTeams(payload);
         this.setState({
             teamName:'',
-            companyName: ''
            });
     };
 
@@ -91,23 +87,7 @@ class Teams extends Component {
                         >
                             <fieldset>
 
-                                <div className="form-group">
-                                    <Select
-                                        className="react-select"
-                                        classNamePrefix="react-select"
-                                        placeholder="Select Company"
-                                        name="selectedOption"
-                                        closeMenuOnSelect={true}
-                                        value={this.state.selectedOption}
-                                        onChange={value =>
-                                            this.setState({
-                                                ...this.state,
-                                                selectedOption: value
-                                            })
-                                        }
-                                        options={this.state.selectOptions}
-                                    />
-                                </div>
+
                                 <div className="form-group">
                                     <input
                                         name="teamName"
@@ -146,15 +126,13 @@ Teams.propTypes = {
     teamsSuccessFullyRegistered: PropTypes.bool.isRequired,
     fetchAllTeams: PropTypes.func.isRequired,
     registeredTeams: PropTypes.arrayOf(PropTypes.object).isRequired,
-    fetchAllCompany: PropTypes.func.isRequired,
-    registeredCompany: PropTypes.arrayOf(PropTypes.object).isRequired,
+
 };
 
 
 const mapStateToProps = state => ({
     teamsSuccessFullyRegistered: state.teams.teamsSuccessFullyRegistered,
     registeredTeams: state.teams.registeredTeams,
-    registeredCompany: state.company.registeredCompany
 });
 
 
@@ -162,7 +140,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerTeams: payload => dispatch(registerTeams(payload)),
     fetchAllTeams: () => dispatch(fetchAllTeams()),
-    fetchAllCompany: () => dispatch(fetchAllCompany())
 });
 
 export default connect(

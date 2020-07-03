@@ -1,9 +1,14 @@
 import React, { Component } from "react";
-import classNames from "classnames";
 import PropTypes from "prop-types";
-import { Route, withRouter } from "react-router-dom";
+import {  withRouter } from "react-router-dom";
 import { FaCogs, FaCog, FaSearch, FaList } from "react-icons/fa";
 import {DATA_ENTRY_FORM} from "../../views/user_home/UserHomeConstants";
+import { connect } from "react-redux";
+import { compose } from 'redux';
+import './UserSideBar.scss';
+import {getAllCompanyOwners} from "../../store/modules/admin_home/actions";
+import {submitGenericSearch} from "../../store/modules/user_home/actions";
+
 
 class UserSideBar extends Component {
     constructor(props) {
@@ -14,12 +19,39 @@ class UserSideBar extends Component {
             multiLevelDropdownCollapsed: true,
             thirdLevelDropdownCollapsed: true,
             brandDropdownCollapsed: true,
-            samplePagesCollapsed: true
+            samplePagesCollapsed: true,
+            searchKey: '',
+            searchKeyHasError: false,
+
         };
 
 
     }
 
+    handleSearchInputFieldTouched = () => {
+        this.setState({searchKeyHasError: false});
+    };
+
+    handleSearchIconClicked = (e) =>{
+        e.preventDefault();
+        if(!this.state.searchKey) {
+            this.setState({searchKeyHasError: true});
+        } else {
+            const payload = {
+                searchParameter: this.state.searchKey
+            };
+
+            this.props.submitGenericSearch(payload);
+        }
+    };
+
+    handleSearchKeyChange = event => {
+        let newState = this.state;
+        newState[event.target.name] = event.target.value;
+        this.setState({
+            ...newState
+        });
+    };
 
 
     render() {
@@ -39,12 +71,21 @@ class UserSideBar extends Component {
                         <li>
                             <div className="input-group custom-search-form">
                                 <input
+                                    onClick={()=>{this.handleSearchInputFieldTouched();}}
                                     type="text"
-                                    className="form-control"
+                                    name="searchKey"
+                                    className={
+                                        this.state.searchKeyHasError
+                                            ? "form-control sidebar__text-area-error"
+                                            : "form-control"
+                                    }
                                     placeholder="Search..."
+                                    value={this.state.searchKey}
+                                    onChange={this.handleSearchKeyChange}
+                                    autoFocus
                                 />
                                 <span className="input-group-btn">
-                  <button className="btn btn-default" type="button">
+                  <button className="btn btn-default" type="button" onClick={this.handleSearchIconClicked}>
                     <FaSearch />
                   </button>
                 </span>
@@ -74,7 +115,16 @@ class UserSideBar extends Component {
 }
 
 UserSideBar.propTypes = {
-    handleSideBarClicked: PropTypes.func.isRequired
+    handleSideBarClicked: PropTypes.func.isRequired,
+    submitGenericSearch: PropTypes.func.isRequired
 };
 
-export default withRouter(UserSideBar);
+
+const mapDispatchToProps = dispatch => ({
+    submitGenericSearch: payload => dispatch(submitGenericSearch(payload))
+});
+
+export default compose(
+    withRouter,
+    connect(null, mapDispatchToProps)
+)(UserSideBar);

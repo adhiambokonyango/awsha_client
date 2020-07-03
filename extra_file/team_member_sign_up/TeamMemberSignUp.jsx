@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
-import {fetchAllCompany} from "../../store/modules/company/actions";
+import {fetchAllCompany} from "../../src/store/modules/company/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { registerTeamMember} from "../../store/modules/team_member_sign_up/actions";
-import {fetchAllGender} from "../../store/modules/gender_info/actions";
+import { registerTeamMember} from "../team_member_signup/actions";
+import {fetchAllGender} from "../../src/store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-import { fetchAllTeams} from "../../store/modules/teams/actions";
+import { fetchAllTeams} from "../../src/store/modules/teams/actions";
 
 
 

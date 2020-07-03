@@ -12,9 +12,6 @@ import Gender from "./views/gender_info/Gender";
 import Login from "./views/log_in/LogIn";
 import AdminPage from "./views/admin_page/AdminPage";
 import Teams from "./views/teams/Teams";
-import RegisteredAdmin from "./views/sign_up/RegisteredUser";
-import TeamMemberSignUp from "./views/team_member_sign_up/TeamMemberSignUp";
-import RegisteredTeamMemebers from "./views/team_member_sign_up/RegisteredTeamMemebers";
 import Projects from "./views/projects/Projects";
 import ProjectObjectives from "./views/project_objectives/ProjectObjectives";
 import ProjectDetails from "./views/project_details/ProjectDetails";
@@ -22,6 +19,10 @@ import Demo1 from "./views/Demo1";
 import Percentage from "./views/percentage/Percentage";
 import Objectives from "./views/objectives/Objectives";
 import CompanyUsers from "./views/company_users/CompanyUsers";
+import RegisteredUser from "./views/sign_up/RegisteredUser";
+import TeamMember from "./views/team_members/TeamMember";
+import SignUp from "./views/sign_up/SignUp";
+import FirstLevelAdmin from "./components/moh/FirstLevelAdmin";
 
 
 class App extends Component {
@@ -29,21 +30,19 @@ class App extends Component {
     return (
       <Router>
         <div>
-            {/*<Route path="/" exact component={Login} />*/}
+            <Route path="/" exact component={Login} />
             <Route path="/admin_page" exact component={AdminPage} />
-          {/*  <Route path="/sign_up" exact component={SignUpForm} />*/}
-          {/*<Route path="/company" exact component={Company} />*/}
+          <Route path="/register_users" exact component={SignUp} />
+          <Route path="/company_registration" exact component={Company} />
           {/*<Route path="/gender" exact component={Gender} />*/}
-          {/*  <Route path="/teams" exact component={Teams} />*/}
-          {/*  <Route path="/registered_users" exact component={RegisteredAdmin} />*/}
-          {/*  <Route path="/team_members" exact component={TeamMemberSignUp} />*/}
-          {/*  <Route path="/registered_team_members" exact component={RegisteredTeamMemebers} />*/}
+           <Route path="/teams" exact component={Teams} />
+            {/*<Route path="/registered_users" exact component={RegisteredUser} />*/}
             <Route path="/register_projects" exact component={Projects} />
             <Route path="/register_project_objectives" exact component={ProjectObjectives} />
             <Route path="/objectives" exact component={Objectives} />
             <Route path="/company_user" exact component={CompanyUsers} />
-
-            {/*  <Route path="/demo" exact component={Demo1} />*/}
+            <Route path="/team_members" exact component={TeamMember} />
+             <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
           {/*  <Route path="/percentage" exact component={Percentage} />*/}
 
         </div>

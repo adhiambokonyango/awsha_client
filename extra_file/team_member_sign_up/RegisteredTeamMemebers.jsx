@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import NavigationBar from "../admin_page/nav_bar/NavigationBar";
-import Table from "../../components/table/table_body/Table";
+import NavigationBar from "../../src/views/admin_page/nav_bar/NavigationBar";
+import Table from "../../src/components/table/table_body/Table";
 import PropTypes from "prop-types";
-import {fetchAllTeamMember} from "../../store/modules/team_member_sign_up/actions";
-import {fetchAllGender} from "../../store/modules/gender_info/actions";
+import {fetchAllTeamMember} from "../team_member_signup/actions";
+import {fetchAllGender} from "../../src/store/modules/gender_info/actions";
 import {connect} from "react-redux";
-import AdminSideBar from "../../components/sidebar/AdminSideBar";
+import AdminSideBar from "../../src/components/sidebar/AdminSideBar";
 
 class RegisteredTeamMemebers extends Component {
     state = {

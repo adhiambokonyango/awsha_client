@@ -1,28 +1,28 @@
 
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    SIGN_UP_SUCCESSFUL,
-    SIGN_UP_FAILED,
+    TEAM_MEMBER_SUCCESSFULLY_REGISTERED,
+    REGISTERING_TEAM_MEMBER_FAILED,
 
     REGISTERED_TEAM_MEMBER_FETCHED_SUCCESSFULLY,
-    REGISTERED_TEAM_MEMBER_EMPTY_RESULTS,
-    ERROR_FETCHING_TEAM_MEMBER
+    ERROR_FETCHING_TEAM_MEMBER,
+    REGISTERED_TEAM_MEMBER_EMPTY_RESULTS
 
 } from "./actionTypes";
 
 export function registerTeamMember(payload) {
     return async dispatch => {
-        const apiRoute = "/team_members_registration";
+        const apiRoute = "/add_team_members";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: SIGN_UP_SUCCESSFUL
+                        type: TEAM_MEMBER_SUCCESSFULLY_REGISTERED
                     });
                 } else {
                     dispatch({
-                        type: SIGN_UP_FAILED
+                        type: REGISTERING_TEAM_MEMBER_FAILED
                     });
                 }
             },
@@ -38,7 +38,7 @@ export function registerTeamMember(payload) {
 
 export function fetchAllTeamMember() {
     return async dispatch => {
-        const apiRoute = "/get_team_members_by_full_description";
+        const apiRoute = "/get_all_team_members";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
