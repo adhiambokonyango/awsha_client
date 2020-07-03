@@ -5,29 +5,25 @@ import AdminSideBar from "../../components/sidebar/AdminSideBar";
 import {fetchAllProjects} from "../../store/modules/projects/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
+import { RadioGroup, RadioButton } from 'react-radio-buttons';
 import Progress from 'react-progressbar';
 import './AdminPage.scss'
 import CheckBoxGroup from "../../components/check_box_group/CheckBoxGroup";
 import CheckBox from "../../components/check_box/CheckBox";
 import {FormGroup, Input, Label} from "reactstrap";
-import ProjectDetails from "../project_details/ProjectDetails";
 import 'react-circular-progressbar/dist/styles.css';
-import {
-    CircularProgressbar,
-    CircularProgressbarWithChildren,
-    buildStyles
-} from "react-circular-progressbar";
+
 import "react-circular-progressbar/dist/styles.css";
 
 // Animation
 import { easeQuadInOut } from "d3-ease";
 import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
+import { fetchAllProjectObjectives} from "../../store/modules/project_objectives/actions";
 
 
 class AdminPage extends Component {
     state = {
-        project_item: [],
+        project: [],
         progress: 40,
 
         project_refs: {
@@ -39,28 +35,39 @@ class AdminPage extends Component {
 
     componentDidMount() {
         this.props.fetchAllProjects();
+        this.props.fetchAllProjectObjectives();
+
     };
 
      componentDidUpdate(prevProps, prevState, snapshot) {
-         if(this.props.registeredProjects !== prevProps.registeredProjects) {
-             if(this.props.registeredProjects && this.props.registeredProjects.length > 0) {
+         if(this.props.registeredProjectObjectives !== prevProps.registeredProjectObjectives) {
+             if(this.props.registeredProjectObjectives && this.props.registeredProjectObjectives.length > 0) {
 
                  let list = [];
 
-                 for(let i = 0;i<this.props.registeredProjects.length;i++) {
-                     list.push(<p><dt><i className="fa fa-check-circle"></i>
-                         {" " +this.props.registeredProjects[i].ProjectTitle}
+                 for(let i = 0;i<this.props.registeredProjectObjectives.length;i++) {
+                     list.push(<p><dt><i className="fa fa-circle"></i>
+                         {" " +this.props.registeredProjectObjectives[i].ProjectId}
                          <LinearProgressWithLabel value={this.props.progress} />
                      </dt>
                                 <dd className="admin__description-item">
-                                    {this.props.registeredProjects[i].ProjectDescription}
-                                </dd><br/></p>);
+
+                                    <RadioButton >
+                                        {this.props.registeredProjectObjectives[i].ObjectiveId}
+                                    </RadioButton>
+
+                                </dd><br/>
+                     </p>);
                  }
-                 this.setState({project_item: list});
+                 this.setState({project: list});
 
              }
          }
+
+
      }
+
+
 
     render() {
         return (
@@ -69,7 +76,9 @@ class AdminPage extends Component {
 
                 <div className="col-sm-8">
                     <dl>
-                        {this.state.project_item}
+
+                        {this.state.project}
+
 
                     </dl>
 
@@ -85,19 +94,26 @@ AdminPage.propTypes = {
 
     fetchAllProjects: PropTypes.func.isRequired,
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllProjectObjectives: PropTypes.func.isRequired,
+    registeredProjectObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
+
 };
 
 
 const mapStateToProps = state => ({
 
-    registeredProjects: state.projects.registeredProjects
+    registeredProjects: state.projects.registeredProjects,
+    registeredProjectObjectives: state.project_objectives.registeredProjectObjectives,
+
 });
 
 
 
 const mapDispatchToProps = dispatch => ({
 
-    fetchAllProjects: () => dispatch(fetchAllProjects())
+    fetchAllProjects: () => dispatch(fetchAllProjects()),
+    fetchAllProjectObjectives: () => dispatch(fetchAllProjectObjectives()),
+
 });
 
 export default connect(

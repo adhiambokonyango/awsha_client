@@ -5,8 +5,7 @@ import PropTypes from "prop-types";
 import {registerProjectObjectives, fetchAllProjectObjectives} from "../../store/modules/project_objectives/actions";
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
-import {fetchAllTeamMember} from "../../store/modules/team_member_sign_up/actions";
-import {fetchAllObjectivePercentage, registerObjectivePercentage} from "../../store/modules/objective_percentage/actions";
+import {fetchAllObjectives} from "../../store/modules/objectives/actions";
 
 
 
@@ -14,8 +13,6 @@ import {fetchAllObjectivePercentage, registerObjectivePercentage} from "../../st
 class ProjectObjectives extends Component {
 
     state = {
-        projectObjective:'',
-        percentage: '',
 
         selectedOption: '',
         selectOptions: [],
@@ -23,11 +20,13 @@ class ProjectObjectives extends Component {
         selectedOptionTwo: '',
         selectOptionsTwo: [],
 
+
+
         tableData: [],
         tableHeaders: {
             ProjectObjectiveId:'#',
-            ProjectObjective:'ProjectObjective',
-            ObjectivePercentage: 'ObjectivePercentage'
+            ProjectId:'ProjectId',
+            ObjectiveId: 'ObjectiveId'
 
         }
     };
@@ -35,9 +34,7 @@ class ProjectObjectives extends Component {
 
     componentDidMount() {
         this.props.fetchAllProjects();
-        this.props.fetchAllTeamMember();
-        this.props.fetchAllProjectObjectives();
-        this.props.fetchAllObjectivePercentage();
+        this.props.fetchAllObjectives();
     }
 
     componentDidUpdate(prevProps) {
@@ -56,19 +53,21 @@ class ProjectObjectives extends Component {
         }
 
 
-        if(this.props.registeredTeamMember !== prevProps.registeredTeamMember) {
-            if(this.props.registeredTeamMember.length > 0) {
-                let allregisteredTeamMember = this.props.registeredTeamMember;
+        if(this.props.registeredObjectives !== prevProps.registeredObjectives) {
+            if(this.props.registeredObjectives.length > 0) {
+                let allregisteredObjectives = this.props.registeredObjectives;
 
-                allregisteredTeamMember = allregisteredTeamMember.map(item => {
+                allregisteredObjectives = allregisteredObjectives.map(item => {
                     return {
-                        label: item.TeamMemberName,
-                        value: item.TeamMemberId
+                        label: item.ObjectiveDescription,
+                        value: item.ObjectiveId
                     };
                 });
-                this.setState({ selectOptionsTwo: allregisteredTeamMember });
+                this.setState({ selectOptionsTwo: allregisteredObjectives });
             }
         }
+
+
     };
 
 
@@ -87,20 +86,14 @@ class ProjectObjectives extends Component {
 
         const payload = {
             ProjectId:this.state.selectedOption.value,
-            TeamMemberId:this.state.selectedOptionTwo.value,
+            ObjectiveId:this.state.selectedOptionTwo.value,
 
-
-            ProjectObjective:this.state.projectObjective,
-            ObjectivePercentage:this.state.percentage,
 
 
         };
 
         this.props.registerProjectObjectives(payload);
-        this.props.registerObjectivePercentage(payload);
         this.setState({
-            projectObjective:'',
-            percentage: '',
 
         });
     };
@@ -143,7 +136,7 @@ class ProjectObjectives extends Component {
                                         className="react-select"
                                         classNamePrefix="react-select"
                                         placeholder="Select Officer"
-                                        name="selectedOption"
+                                        name="selectedOptionTwo"
                                         closeMenuOnSelect={true}
                                         value={this.state.selectedOptionTwo}
                                         onChange={value =>
@@ -156,31 +149,8 @@ class ProjectObjectives extends Component {
                                     />
                                 </div>
 
-                                <div className="form-group">
-                                    <input
-                                        name="projectObjective"
-                                        className="form-control"
-                                        placeholder="Project Objective"
-                                        value={this.state.projectObjective}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-                                </div>
 
-                                <div className="form-group">
-                                    <input
-                                        name="percentage"
-                                        className="form-control"
-                                        placeholder="Percentage"
-                                        value={this.state.percentage}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-                                </div>
+
                                 <button
                                     type="submit"
                                     className="btn btn-lg btn-success btn-block"
@@ -209,11 +179,10 @@ ProjectObjectives.propTypes = {
     registeredProjectObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllProjects: PropTypes.func.isRequired,
-    fetchAllTeamMember: PropTypes.func.isRequired,
-    registeredTeamMember: PropTypes.arrayOf(PropTypes.object).isRequired,
-    fetchAllObjectivePercentage: PropTypes.func.isRequired,
-    registerObjectivePercentage: PropTypes.func.isRequired,
-    registeredObjectivePercentage: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllObjectives: PropTypes.func.isRequired,
+    registeredObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+
 
 };
 
@@ -222,9 +191,8 @@ const mapStateToProps = state => ({
     projectObjectivesSuccessFullyRegistered: state.project_objectives.projectObjectivesSuccessFullyRegistered,
     registeredProjectObjectives: state.project_objectives.registeredProjectObjectives,
     registeredProjects: state.projects.registeredProjects,
-    registeredTeamMember: state.team_member_sign_up.registeredTeamMember,
-    objectivePercentageSuccessFullyRegistered: state.objective_percentage.objectivePercentageSuccessFullyRegistered,
-    registeredObjectivePercentage: state.objective_percentage.registeredObjectivePercentage,
+    registeredObjectives: state.objectives.registeredObjectives,
+
 
 });
 
@@ -234,9 +202,8 @@ const mapDispatchToProps = dispatch => ({
     registerProjectObjectives: payload => dispatch(registerProjectObjectives(payload)),
     fetchAllProjectObjectives: () => dispatch(fetchAllProjectObjectives()),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
-    fetchAllTeamMember: () => dispatch(fetchAllTeamMember()),
-    fetchAllObjectivePercentage: () => dispatch(fetchAllObjectivePercentage()),
-    registerObjectivePercentage: payload => dispatch(registerObjectivePercentage(payload)),
+    fetchAllObjectives: () => dispatch(fetchAllObjectives()),
+
 
 });
 

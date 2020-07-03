@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Table from "../../components/table/table_body/Table";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {fetchAllAdmin, registerAdmin} from "../../store/modules/sign_up/actions";
+import {fetchAllUser, registerUser} from "../../store/modules/sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
@@ -13,12 +13,12 @@ import {Link} from "react-router-dom";
 class SignUp extends Component {
 
     state = {
-        adminFirstName: '',
-        adminMiddleName: '',
-        adminSurname: '',
-        adminPhoneNumber: '',
-        adminEmail: '',
-        adminNationalId: '',
+        firstName: '',
+        middleName: '',
+        surname: '',
+        phoneNumber: '',
+        email: '',
+        nationalId: '',
         encryptedPassword: '',
 
         selectedOption: '',
@@ -26,13 +26,13 @@ class SignUp extends Component {
 
         tableData: [],
         tableHeaders: {
-            AdminId:'#',
-            AdminFirstName: 'AdminFirstName',
-            AdminMiddleName: 'AdminMiddleName',
-            AdminSurname: 'AdminSurname',
-            AdminPhoneNumber: 'AdminPhoneNumber',
-            AdminEmail: 'AdminEmail',
-            AdminNationalId: 'AdminNationalId',
+            UserId:'#',
+            FirstName: 'FirstName',
+            MiddleName: 'MiddleName',
+            Surname: 'Surname',
+            PhoneNumber: 'PhoneNumber',
+            Email: 'Email',
+            NationalId: 'NationalId',
             GenderId: 'Gender',
             EncryptedPassword: 'EncryptedPassword'
 
@@ -42,7 +42,7 @@ class SignUp extends Component {
 
     componentDidMount() {
         this.props.fetchAllGender();
-        this.props.fetchAllAdmin();
+        this.props.fetchAllUser();
     }
 
     componentDidUpdate(prevProps) {
@@ -76,25 +76,25 @@ class SignUp extends Component {
 
         const payload = {
             GenderId:this.state.selectedOption.value,
-            AdminFirstName:this.state.adminFirstName,
-            AdminMiddleName:this.state.adminMiddleName,
-            AdminSurname:this.state.adminSurname,
-            AdminPhoneNumber:this.state.adminPhoneNumber,
-            AdminEmail:this.state.adminEmail,
-            AdminNationalId:this.state.adminNationalId,
+            FirstName:this.state.firstName,
+            MiddleName:this.state.middleName,
+            Surname:this.state.surname,
+            PhoneNumber:this.state.phoneNumber,
+            Email:this.state.email,
+            NationalId:this.state.nationalId,
             EncryptedPassword:this.state.encryptedPassword,
         };
 
 
         this.props.registerAdmin(payload);
         this.setState({
-            adminFirstName: '',
-            adminMiddleName: '',
-            adminSurname: '',
-            adminPhoneNumber: '',
-            adminEmail: '',
-            adminNationalId: '',
-            encryptedPassword: ''});
+            firstName: '',
+            middleName: '',
+            surname: '',
+            phoneNumber: '',
+            email: '',
+            nationalId: '',
+            password: ''});
 
     };
 
@@ -105,7 +105,7 @@ class SignUp extends Component {
             <div className="col-md-4 col-md-offset-4">
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
-                        <h3 className="panel-title">Admin Registration</h3>
+                        <h3 className="panel-title">User Registration</h3>
                     </div>
                     <div className="panel-body">
                         <form
@@ -122,7 +122,7 @@ class SignUp extends Component {
                                         name="adminFirstName"
                                         className="form-control"
                                         placeholder="FirstName"
-                                        value={this.state.adminFirstName}
+                                        value={this.state.firstName}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -137,7 +137,7 @@ class SignUp extends Component {
                                         name="adminMiddleName"
                                         className="form-control"
                                         placeholder="MiddleName"
-                                        value={this.state.adminMiddleName}
+                                        value={this.state.middleName}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -152,7 +152,7 @@ class SignUp extends Component {
                                         name="adminSurname"
                                         className="form-control"
                                         placeholder="Surname"
-                                        value={this.state.adminSurname}
+                                        value={this.state.surname}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -167,7 +167,7 @@ class SignUp extends Component {
                                         name="adminPhoneNumber"
                                         className="form-control"
                                         placeholder="PhoneNumber"
-                                        value={this.state.adminPhoneNumber}
+                                        value={this.state.phoneNumber}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -182,7 +182,7 @@ class SignUp extends Component {
                                         name="adminEmail"
                                         className="form-control"
                                         placeholder="Email"
-                                        value={this.state.adminEmail}
+                                        value={this.state.email}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -216,7 +216,7 @@ class SignUp extends Component {
                                         name="adminNationalId"
                                         className="form-control"
                                         placeholder="National Id"
-                                        value={this.state.adminNationalId}
+                                        value={this.state.nationalId}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -253,7 +253,7 @@ class SignUp extends Component {
                                     type="btn-link"
                                     className="btn btn-lg btn-success btn-block"
                                 >
-                                    <Link to="/registered_admin">View Registered Admin</Link>
+                                    <Link to="/registered_admin">View Registered User</Link>
                                 </button>
                             </fieldset>
                         </form>
@@ -268,10 +268,10 @@ class SignUp extends Component {
 
 
 SignUp.propTypes = {
-    registerAdmin: PropTypes.func.isRequired,
+    registerUser: PropTypes.func.isRequired,
     signUpSuccessful: PropTypes.bool.isRequired,
-    fetchAllAdmin: PropTypes.func.isRequired,
-    registeredAdmin: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllUser: PropTypes.func.isRequired,
+    registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
 };
@@ -279,15 +279,15 @@ SignUp.propTypes = {
 
 const mapStateToProps = state => ({
     signUpSuccessful: state.sign_up.signUpSuccessful,
-    registeredAdmin: state.sign_up.registeredAdmin,
+    registeredUser: state.sign_up.registeredUser,
     registeredGender: state.gender_info.registeredGender
 });
 
 
 
 const mapDispatchToProps = dispatch => ({
-    registerAdmin: payload => dispatch(registerAdmin(payload)),
-    fetchAllAdmin: () => dispatch(fetchAllAdmin()),
+    registerUser: payload => dispatch(registerUser(payload)),
+    fetchAllUser: () => dispatch(fetchAllUser()),
     fetchAllGender: () => dispatch(fetchAllGender())
 });
 

@@ -38,7 +38,7 @@ export function registerProjectObjectives(payload) {
 
 export function fetchAllProjectObjectives() {
     return async dispatch => {
-        const apiRoute = "/get_all_project_objectives";
+        const apiRoute = "/get_display";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
@@ -64,3 +64,4 @@ export function fetchAllProjectObjectives() {
         );
     };
 }
+

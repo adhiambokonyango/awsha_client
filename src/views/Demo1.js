@@ -1,23 +1,29 @@
 import React, {Component} from 'react';
 import MaterialTable from 'material-table';
-import {fetchAllProjectObjectives, registerProjectObjectives} from "../../src/store/modules/project_objectives/actions";
+import {fetchAllProjectObjectives} from "../store/modules/project_objectives/actions";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import {fetchAllObjectivePercentage, registerObjectivePercentage} from "../store/modules/objective_percentage/actions";
+
 
 class Demo1 extends Component{
 
     state = {
         columns: [
             { title: '#', field: 'ProjectObjectiveId' },
-            { title: 'ProjectObjective', field: 'ProjectObjective' },
-            { title: '', field: '', type: '' },
+            { title: 'Objective', field: 'ProjectObjective' },
+            { title: 'ObjectivePercentage', field: 'ObjectivePercentage', type: 'numeric' },
             {title: '', field: ''},
         ],
         data: [],
+        dataObjectivePercentage:[],
+        percentage: '',
     };
 
     componentDidMount() {
         this.props.fetchAllProjectObjectives();
+        this.props.fetchAllObjectivePercentage();
+
     };
 
 
@@ -29,12 +35,36 @@ class Demo1 extends Component{
         });
     };
 
+
+    handleSubmit = (e) =>{
+        e.preventDefault();
+
+        const payload = {
+
+
+            ObjectivePercentage:this.state.percentage,
+
+
+        };
+
+
+        this.props.registerObjectivePercentage(payload);
+        this.setState({
+
+            percentage: '',
+
+        });
+    };
+
+
+
     render() {
         return (
             <MaterialTable
                 title="Project Objectives"
                 columns={this.state.columns}
                 data={this.props.registeredProjectObjectives}
+                dataObjectivePercentage={this.props.registeredObjectivePercentage}
 
                 editable={{
                     onRowAdd: (newData) =>
@@ -54,7 +84,7 @@ class Demo1 extends Component{
                                 resolve();
                                 if (oldData) {
                                     this.setState((prevState) => {
-                                        const data = [...prevState.data];
+                                        const data = [...prevState.percentage];
                                         data[data.indexOf(oldData)] = newData;
                                         return { ...prevState, data };
                                     });
@@ -83,16 +113,25 @@ class Demo1 extends Component{
 Demo1.propTypes = {
     fetchAllProjectObjectives: PropTypes.func.isRequired,
     registeredProjectObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllObjectivePercentage: PropTypes.func.isRequired,
+    registerObjectivePercentage: PropTypes.func.isRequired,
+    registeredObjectivePercentage: PropTypes.arrayOf(PropTypes.object).isRequired,
 
 };
 
 const mapStateToProps = state => ({
     registeredProjectObjectives: state.project_objectives.registeredProjectObjectives,
+    objectivePercentageSuccessFullyRegistered: state.objective_percentage.objectivePercentageSuccessFullyRegistered,
+    registeredObjectivePercentage: state.objective_percentage.registeredObjectivePercentage,
+
 
 });
 
 const mapDispatchToProps = dispatch => ({
     fetchAllProjectObjectives: () => dispatch(fetchAllProjectObjectives()),
+    fetchAllObjectivePercentage: () => dispatch(fetchAllObjectivePercentage()),
+    registerObjectivePercentage: payload => dispatch(registerObjectivePercentage(payload)),
+
 
 });
 

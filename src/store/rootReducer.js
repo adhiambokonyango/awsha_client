@@ -10,6 +10,8 @@ import { reducer as team_member_sign_up } from "./modules/team_member_sign_up";
 import { reducer as projects } from "./modules/projects";
 import { reducer as project_objectives } from "./modules/project_objectives";
 import { reducer as objective_percentage } from "./modules/objective_percentage";
+import { reducer as objectives } from "./modules/objectives";
+import { reducer as company_user } from "./modules/company_users";
 
 
 
@@ -33,6 +35,8 @@ const rootReducer = reduceReducers(
       projects,
       project_objectives,
       objective_percentage,
+      objectives,
+    company_user
 
 
 

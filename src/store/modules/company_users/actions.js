@@ -1,28 +1,28 @@
 
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    SIGN_UP_SUCCESSFUL,
-    SIGN_UP_FAILED,
+    COMPANY_USER_SUCCESSFULLY_REGISTERED,
+    REGISTERING_COMPANY_USER_FAILED,
 
-    REGISTERED_USER_FETCHED_SUCCESSFULLY,
-    ERROR_FETCHING_USER,
-    REGISTERED_USER_EMPTY_RESULTS
+    REGISTERED_COMPANY_USER_FETCHED_SUCCESSFULLY,
+    ERROR_FETCHING_COMPANY_USER,
+    REGISTERED_COMPANY_USER_EMPTY_RESULTS
 
 } from "./actionTypes";
 
-export function registerUser(payload) {
+export function registerCompanyUser(payload) {
     return async dispatch => {
-        const apiRoute = "/user_registration";
+        const apiRoute = "/add_company_user";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: SIGN_UP_SUCCESSFUL
+                        type: COMPANY_USER_SUCCESSFULLY_REGISTERED
                     });
                 } else {
                     dispatch({
-                        type: SIGN_UP_FAILED
+                        type: REGISTERING_COMPANY_USER_FAILED
                     });
                 }
             },
@@ -36,28 +36,28 @@ export function registerUser(payload) {
 
 
 
-export function fetchAllUser() {
+export function fetchAllCompanyUser() {
     return async dispatch => {
-        const apiRoute = "/get_all_user";
+        const apiRoute = "/get_all_company_user";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results && result.data.results.length > 0) {
                     dispatch({
-                        type: REGISTERED_USER_FETCHED_SUCCESSFULLY,
+                        type: REGISTERED_COMPANY_USER_FETCHED_SUCCESSFULLY,
                         payload: {
-                            registeredUser: result.data.results
+                            registeredCompanyUser: result.data.results
                         }
                     });
                 } else if (result.data.results && result.data.results.length === 0) {
                     dispatch({
-                        type: REGISTERED_USER_EMPTY_RESULTS
+                        type: REGISTERED_COMPANY_USER_EMPTY_RESULTS
                     });
                 }
             },
             function(err) {
                 dispatch({
-                    type: ERROR_FETCHING_USER
+                    type: ERROR_FETCHING_COMPANY_USER
                 });
                 console.log(err);
             }
