@@ -12,6 +12,9 @@ import { reducer as objective_percentage } from "./modules/objective_percentage"
 import { reducer as objectives } from "./modules/objectives";
 import { reducer as company_user } from "./modules/company_users";
 import { reducer as team_members } from "./modules/team_members";
+import { reducer as confirmation_status } from "./modules/confirmation_status";
+import { reducer as authenticate } from "./modules/authenticate";
+import { reducer as privileges } from "./modules/privileges";
 
 
 
@@ -25,7 +28,6 @@ const rootReducer = reduceReducers(
   combineReducers({
 
 
-
     sign_up,
       company,
       gender_info,
@@ -36,7 +38,11 @@ const rootReducer = reduceReducers(
       project_objectives,
       objective_percentage,
       objectives,
-    company_user
+    company_user,
+    confirmation_status,
+      authenticate,
+      privileges
+
 
 
 

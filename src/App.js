@@ -23,6 +23,8 @@ import RegisteredUser from "./views/sign_up/RegisteredUser";
 import TeamMember from "./views/team_members/TeamMember";
 import SignUp from "./views/sign_up/SignUp";
 import FirstLevelAdmin from "./components/moh/FirstLevelAdmin";
+import UserManagement from "./views/admin_page/UserManagement";
+import Privileges from "./views/privileges/Privileges";
 
 
 class App extends Component {
@@ -36,7 +38,7 @@ class App extends Component {
           <Route path="/company_registration" exact component={Company} />
           {/*<Route path="/gender" exact component={Gender} />*/}
            <Route path="/teams" exact component={Teams} />
-            {/*<Route path="/registered_users" exact component={RegisteredUser} />*/}
+            <Route path="/registered_users" exact component={RegisteredUser} />
             <Route path="/register_projects" exact component={Projects} />
             <Route path="/register_project_objectives" exact component={ProjectObjectives} />
             <Route path="/objectives" exact component={Objectives} />
@@ -44,6 +46,10 @@ class App extends Component {
             <Route path="/team_members" exact component={TeamMember} />
              <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
           {/*  <Route path="/percentage" exact component={Percentage} />*/}
+            <Route path="/user_management" exact component={UserManagement} />
+            <Route path="/privileges" exact component={Privileges} />
+
+
 
         </div>
       </Router>

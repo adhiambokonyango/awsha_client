@@ -1,28 +1,29 @@
 
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    PROJECT_OBJECTIVES_SUCCESSFULLY_REGISTERED,
-    REGISTERING_PROJECT_OBJECTIVES_FAILED,
+    PRIVILEGES_SUCCESSFULLY_UPDATED,
+    UPDATED_PRIVILEGES_FAILED,
 
-    REGISTERED_PROJECT_OBJECTIVES_FETCHED_SUCCESSFULLY,
-    ERROR_FETCHING_PROJECT_OBJECTIVES,
-    REGISTERED_PROJECT_OBJECTIVES_EMPTY_RESULTS
+    REGISTERED_PRIVILEGES_FETCHED_SUCCESSFULLY,
+    ERROR_FETCHING_PRIVILEGES,
+    REGISTERED_PRIVILEGES_EMPTY_RESULTS, PRIVILEGES_UPDATE_RESET
 
 } from "./actionTypes";
+import {RESET_WRONG_CREDENTIALS} from "../log_in/actionTypes";
 
-export function registerProjectObjectives(payload) {
+export function updatingPrivileges(payload) {
     return async dispatch => {
-        const apiRoute = "/add_project_objectives";
+        const apiRoute = "/add_company";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: PROJECT_OBJECTIVES_SUCCESSFULLY_REGISTERED
+                        type: PRIVILEGES_SUCCESSFULLY_UPDATED
                     });
                 } else {
                     dispatch({
-                        type: REGISTERING_PROJECT_OBJECTIVES_FAILED
+                        type: UPDATED_PRIVILEGES_FAILED
                     });
                 }
             },
@@ -34,34 +35,42 @@ export function registerProjectObjectives(payload) {
 }
 
 
-
-
-export function fetchAllProjectObjectives() {
+export function resetPrivilegeUpdate() {
     return async dispatch => {
-        const apiRoute = "/get_all_project_objectives";
+        dispatch({
+            type: PRIVILEGES_UPDATE_RESET
+        });
+    };
+}
+
+
+
+
+export function fetchAllUserPrivileges() {
+    return async dispatch => {
+        const apiRoute = "/get_all_company";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results && result.data.results.length > 0) {
                     dispatch({
-                        type: REGISTERED_PROJECT_OBJECTIVES_FETCHED_SUCCESSFULLY,
+                        type: REGISTERED_PRIVILEGES_FETCHED_SUCCESSFULLY,
                         payload: {
-                            registeredProjectObjectives: result.data.results
+                            registeredPrivileges: result.data.results
                         }
                     });
                 } else if (result.data.results && result.data.results.length === 0) {
                     dispatch({
-                        type: REGISTERED_PROJECT_OBJECTIVES_EMPTY_RESULTS
+                        type: REGISTERED_PRIVILEGES_EMPTY_RESULTS
                     });
                 }
             },
             function(err) {
                 dispatch({
-                    type: ERROR_FETCHING_PROJECT_OBJECTIVES
+                    type: ERROR_FETCHING_PRIVILEGES
                 });
                 console.log(err);
             }
         );
     };
 }
-

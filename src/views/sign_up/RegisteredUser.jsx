@@ -32,7 +32,7 @@ class RegisteredUser extends Component {
         return (
             <div>
             <NavigationBar />
-                <Table tableTitle='Registered Admin'
+                <Table tableTitle='Registered Users'
                        tableHeaderObject={this.state.tableHeaders}
                        tableData={this.props.registeredUser}/>
             </div>

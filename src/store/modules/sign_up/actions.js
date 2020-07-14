@@ -38,7 +38,7 @@ export function registerUser(payload) {
 
 export function fetchAllUser() {
     return async dispatch => {
-        const apiRoute = "/get_all_user";
+        const apiRoute = "/get_all_users";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {

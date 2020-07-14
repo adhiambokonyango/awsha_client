@@ -76,6 +76,7 @@ class SignUp extends Component {
 
         const payload = {
             GenderId:this.state.selectedOption.value,
+
             FirstName:this.state.firstName,
             MiddleName:this.state.middleName,
             Surname:this.state.surname,
@@ -86,7 +87,7 @@ class SignUp extends Component {
         };
 
 
-        this.props.registerAdmin(payload);
+        this.props.registerUser(payload);
         this.setState({
             firstName: '',
             middleName: '',
@@ -119,7 +120,7 @@ class SignUp extends Component {
                                 <div className="form-group">
 
                                     <input
-                                        name="adminFirstName"
+                                        name="firstName"
                                         className="form-control"
                                         placeholder="FirstName"
                                         value={this.state.firstName}
@@ -134,7 +135,7 @@ class SignUp extends Component {
                                 <div className="form-group">
 
                                     <input
-                                        name="adminMiddleName"
+                                        name="middleName"
                                         className="form-control"
                                         placeholder="MiddleName"
                                         value={this.state.middleName}
@@ -149,7 +150,7 @@ class SignUp extends Component {
                                 <div className="form-group">
 
                                     <input
-                                        name="adminSurname"
+                                        name="surname"
                                         className="form-control"
                                         placeholder="Surname"
                                         value={this.state.surname}
@@ -164,7 +165,7 @@ class SignUp extends Component {
                                 <div className="form-group">
 
                                     <input
-                                        name="adminPhoneNumber"
+                                        name="phoneNumber"
                                         className="form-control"
                                         placeholder="PhoneNumber"
                                         value={this.state.phoneNumber}
@@ -179,7 +180,7 @@ class SignUp extends Component {
                                 <div className="form-group">
 
                                     <input
-                                        name="adminEmail"
+                                        name="email"
                                         className="form-control"
                                         placeholder="Email"
                                         value={this.state.email}
@@ -213,7 +214,7 @@ class SignUp extends Component {
                                 <div className="form-group">
 
                                     <input
-                                        name="adminNationalId"
+                                        name="nationalId"
                                         className="form-control"
                                         placeholder="National Id"
                                         value={this.state.nationalId}
@@ -253,7 +254,7 @@ class SignUp extends Component {
                                     type="btn-link"
                                     className="btn btn-lg btn-success btn-block"
                                 >
-                                    <Link to="/registered_admin">View Registered User</Link>
+                                    <Link to="/registered_users">View Registered User</Link>
                                 </button>
                             </fieldset>
                         </form>

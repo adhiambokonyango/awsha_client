@@ -4,54 +4,46 @@ import { connect } from "react-redux";
 import {
     authenticateSystemUser,
     resetWrongCredentials
-} from "../../store/modules/log_in/actions";
+} from "../../store/modules/authenticate/actions";
 import { FormGroup, Label, Input } from "reactstrap";
 import {getConfirmationStatus} from "../../store/modules/confirmation_status/action";
 
 import "./Login.scss";
-class LogIn extends Component {
+import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
+import {RadioButton} from "react-radio-buttons";
+class Authenticate extends Component {
     state = {
         attemptedEmail: "",
         attemptedPassword: "",
         loginHasError: false,
         loginErrorMessage: "",
         emailReadOnly: false,
-        passwordReadOnly: false
+        passwordReadOnly: false,
+
+
     };
 
     componentDidMount() {
         this.setState({ emailReadOnly: false, passwordReadOnly: false });
         this.props.getConfirmationStatus();
+        this.props.fetchAllRegisteredUsers();
+        this.props.fetchAllUserRoles();
+        this.props.fetchAllUserPrivileges();
     }
 
     componentDidUpdate(prevProps) {
-        // if(this.props.confirmationStatus !== prevProps.confirmationStatus) {
-        //     if(this.props.confirmationStatus === 1) {
-        //
-        //         this.setState({loginHasError: true})
-        //         this.props.history.push("/register_project_objectives");
-        //
-        //         } else if (this.props.confirmationStatus === 0){
-        //         this.setState({loginHasError: false})
-        //         this.props.history.push("/register_project_objectives");
-        //     }
-        //
-        //
-        // }
-        //
-
 
 
         /* ---------------------------------------------------------------------------------------------------------------------- */
 
         /*PAGE NAVIGATION LOGIC*/
-         if (this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
-             if (this.props.isLoginSuccessful) {
-                 this.props.history.push("/register_project_objectives");
-             } else if (!this.props.isLoginSuccessful) {
-                 this.props.history.push("/sign_up");
-             }
-         }
+        if (this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
+            if (this.props.isLoginSuccessful) {
+                this.props.history.push("/register_project_objectives");
+            } else if (!this.props.isLoginSuccessful) {
+                this.props.history.push("/sign_up");
+            }
+        }
 
         /* ---------------------------------------------------------------------------------------------------------------------- */
 
@@ -74,7 +66,7 @@ class LogIn extends Component {
         };
 
 
-            this.props.authenticateSystemUser(payload);
+        this.props.authenticateSystemUser(payload);
 
     };
 

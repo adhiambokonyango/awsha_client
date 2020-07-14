@@ -3,7 +3,6 @@ import thunk from "redux-thunk";
 import { routerMiddleware } from "react-router-redux";
 import createHistory from "history/createBrowserHistory";
 import { composeWithDevTools } from "redux-devtools-extension/logOnlyInProduction";
-
 import rootReducer from "./rootReducer";
 
 export default () => {
@@ -33,6 +32,6 @@ export default () => {
     {},
     composeWithDevTools(applyMiddleware(...middlewares))
   );
-
   return store;
+
 };
