@@ -20,8 +20,8 @@ class NavigationBar extends Component {
                    <Col sm={8}><FaList Awsha  size={25}/></Col>
                             <Nav className="mr-auto">
                     <Col sm={1}><FaUser size={25}/></Col>
-                    <Col sm={1}><FaCartPlus size={25}/></Col>
                     <Col sm={1}><FaMailBulk size={25}/></Col>
+                   <Col sm={1}><FaCartPlus size={25}/></Col>
                     <Col sm={1}><FaSignOutAlt size={25}/></Col>
                             </Nav>
                         </Navbar.Collapse>

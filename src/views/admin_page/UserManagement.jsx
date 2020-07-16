@@ -1,11 +1,9 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { FormGroup, Label, Input } from "reactstrap";
-import {updatePermissionStatus, fetchAllRegisteredUsers, fetchAllUserPrivileges} from "../../store/modules/authenticate/actions"
+import {updatePermissionStatus,  fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
 import {fetchAllUser} from "../../store/modules/sign_up/actions";
-import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
-import {RadioButton} from "react-radio-buttons";
+
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";
 
@@ -115,7 +113,7 @@ UserManagement.propTypes = {
 
 const mapStateToProps = state => ({
     registeredUser: state.sign_up.registeredUser,
-    privileges: state.authenticate.privileges,
+    privileges: state.privileges.privileges,
     privilegeSuccessFullyUpdated: state.privileges.privilegeSuccessFullyUpdated
 });
 

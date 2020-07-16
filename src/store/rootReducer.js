@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 import reduceReducers from "reduce-reducers";
 
-import { reducer as sign_up } from "./modules/sign_up";
+ import { reducer as sign_up } from "./modules/sign_up";
 import { reducer as company } from "./modules/company";
 import { reducer as gender_info } from "./modules/gender_info";
 import { reducer as log_in } from "./modules/log_in";
@@ -13,7 +13,6 @@ import { reducer as objectives } from "./modules/objectives";
 import { reducer as company_user } from "./modules/company_users";
 import { reducer as team_members } from "./modules/team_members";
 import { reducer as confirmation_status } from "./modules/confirmation_status";
-import { reducer as authenticate } from "./modules/authenticate";
 import { reducer as privileges } from "./modules/privileges";
 
 
@@ -31,7 +30,7 @@ const rootReducer = reduceReducers(
     sign_up,
       company,
       gender_info,
-      log_in,
+     log_in,
       teams,
       team_members,
       projects,
@@ -40,7 +39,6 @@ const rootReducer = reduceReducers(
       objectives,
     company_user,
     confirmation_status,
-      authenticate,
       privileges
 
 

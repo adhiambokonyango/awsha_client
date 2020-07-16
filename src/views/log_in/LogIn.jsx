@@ -3,7 +3,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
     authenticateSystemUser,
-    resetWrongCredentials
+    resetWrongCredentials,
+    authenticateSystemAdmin,
+    authenticateOfficeAdmin
 } from "../../store/modules/log_in/actions";
 import { FormGroup, Label, Input } from "reactstrap";
 import {getConfirmationStatus} from "../../store/modules/confirmation_status/action";
@@ -21,25 +23,26 @@ class LogIn extends Component {
 
     componentDidMount() {
         this.setState({ emailReadOnly: false, passwordReadOnly: false });
-        this.props.getConfirmationStatus();
+
     }
 
     componentDidUpdate(prevProps) {
-        // if(this.props.confirmationStatus !== prevProps.confirmationStatus) {
-        //     if(this.props.confirmationStatus === 1) {
-        //
-        //         this.setState({loginHasError: true})
-        //         this.props.history.push("/register_project_objectives");
-        //
-        //         } else if (this.props.confirmationStatus === 0){
-        //         this.setState({loginHasError: false})
-        //         this.props.history.push("/register_project_objectives");
-        //     }
-        //
-        //
-        // }
-        //
+        if (this.props.isOfficeAdministratorLoginSuccessful !== prevProps.isOfficeAdministratorLoginSuccessful) {
+            if (this.props.isOfficeAdministratorLoginSuccessful) {
+                this.props.history.push("/register_projects");
+            } else if (!this.props.isOfficeAdministratorLoginSuccessful) {
+                this.props.history.push("/teams");
+            }
+        }
 
+
+        if (this.props.isAdminLoginSuccessful !== prevProps.isAdminLoginSuccessful) {
+            if (this.props.isAdminLoginSuccessful) {
+                this.props.history.push("/first_level_admin");
+            } else if (!this.props.isAdminLoginSuccessful) {
+                this.props.history.push("/admin_page");
+            }
+        }
 
 
         /* ---------------------------------------------------------------------------------------------------------------------- */
@@ -75,6 +78,8 @@ class LogIn extends Component {
 
 
             this.props.authenticateSystemUser(payload);
+        this.props.authenticateSystemAdmin(payload);
+        this.props.authenticateOfficeAdmin(payload);
 
     };
 
@@ -173,8 +178,9 @@ LogIn.propTypes = {
     authenticateSystemUser: PropTypes.func.isRequired,
     resetWrongCredentials: PropTypes.func.isRequired,
     hasWrongLoginCredentials: PropTypes.bool.isRequired,
-    getConfirmationStatus: PropTypes.func.isRequired,
+    authenticateSystemAdmin: PropTypes.func.isRequired,
 
+    authenticateOfficeAdmin: PropTypes.func.isRequired,
 
 
 
@@ -184,13 +190,16 @@ const mapStateToProps = state => ({
     hasWrongLoginCredentials: state.log_in.hasWrongLoginCredentials,
     isLoginSuccessful: state.log_in.isLoginSuccessful,
     confirmationStatus: state.confirmation_status.confirmationStatus,
+    isAdminLoginSuccessful: state.log_in.isAdminLoginSuccessful,
+    isOfficeAdministratorLoginSuccessful: state.log_in.isOfficeAdministratorLoginSuccessful,
 
 });
 
 const mapDispatchToProps = dispatch => ({
     authenticateSystemUser: payload => dispatch(authenticateSystemUser(payload)),
     resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
-    getConfirmationStatus: () => dispatch(getConfirmationStatus()),
+    authenticateSystemAdmin: payload => dispatch(authenticateSystemAdmin(payload)),
+    authenticateOfficeAdmin: payload => dispatch(authenticateOfficeAdmin(payload)),
 
 });
 

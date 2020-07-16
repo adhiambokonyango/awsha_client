@@ -1,4 +1,8 @@
 export const initialState = {
-    privilegeSuccessFullyUpdated: false,
-    registeredPrivileges: []
+
+
+    users:[],
+    roles: [],
+    privileges: [],
+
 };

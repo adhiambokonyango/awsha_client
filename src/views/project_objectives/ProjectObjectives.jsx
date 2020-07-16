@@ -35,6 +35,7 @@ class ProjectObjectives extends Component {
     componentDidMount() {
         this.props.fetchAllProjects();
         this.props.fetchAllObjectives();
+        this.props.fetchAllProjectObjectives();
     }
 
     componentDidUpdate(prevProps) {
@@ -135,7 +136,7 @@ class ProjectObjectives extends Component {
                                     <Select
                                         className="react-select"
                                         classNamePrefix="react-select"
-                                        placeholder="Select Officer"
+                                        placeholder="Select Objective"
                                         name="selectedOptionTwo"
                                         closeMenuOnSelect={true}
                                         value={this.state.selectedOptionTwo}

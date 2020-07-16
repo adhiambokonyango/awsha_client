@@ -6,6 +6,9 @@ import { FaCogs, FaCog, FaSearch, FaList } from "react-icons/fa";
 import {
     DISPLAY_COMPANY_REGISTRATION_PAGE,
     DISPLAY_USER_REGISTRATION_PAGE,
+    DISPLAY_USER_MANAGEMENT_PAGE,
+    DISPLAY_TEAMS,
+    DISPLAY_PROJECTS
 
 } from "../../config/constants/Constants";
 
@@ -74,10 +77,55 @@ class AdminSideBar extends Component {
                       className="side-bar__anchor-text"
                       onClick={e => {
                           e.preventDefault();
+                          this.props.handleSideBarClicked(DISPLAY_TEAMS);
+                      }}
+                  >
+                      <i className="fa fa-dashboard fa-fw" /> &nbsp;Teams
+                  </a>
+              </li>
+
+
+              <li className="list-class">
+                  <a
+                      href=""
+                      className="side-bar__anchor-text"
+                      onClick={e => {
+                          e.preventDefault();
+                          this.props.handleSideBarClicked(DISPLAY_PROJECTS);
+                      }}
+                  >
+                      <i className="fa fa-dashboard fa-fw" /> &nbsp;Projects
+                  </a>
+              </li>
+
+
+              <li className="list-class">
+                  <a
+                      href=""
+                      className="side-bar__anchor-text"
+                      onClick={e => {
+                          e.preventDefault();
+                          this.props.handleSideBarClicked(DISPLAY_USER_MANAGEMENT_PAGE);
+                      }}
+                  >
+                      <i className="fa fa-dashboard fa-fw" /> &nbsp;User Management
+                  </a>
+              </li>
+
+
+
+
+
+              <li className="list-class">
+                  <a
+                      href=""
+                      className="side-bar__anchor-text"
+                      onClick={e => {
+                          e.preventDefault();
                           this.props.handleSideBarClicked(DISPLAY_USER_REGISTRATION_PAGE);
                       }}
                   >
-                      <i className="fa fa-dashboard fa-fw" /> &nbsp;User Mnagement
+                      <i className="fa fa-dashboard fa-fw" /> &nbsp;User Registration
                   </a>
               </li>
 

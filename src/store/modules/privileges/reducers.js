@@ -1,23 +1,22 @@
-
 import {
-    PRIVILEGES_SUCCESSFULLY_UPDATED, PRIVILEGES_UPDATE_RESET,
-    REGISTERED_PRIVILEGES_FETCHED_SUCCESSFULLY,
+     USERS_ACCESS_FETCHED_SUCCESSFULLY, USERS_FETCHED_SUCCESSFULLY, USERS_ROLES_FETCHED_SUCCESSFULLY,
+
 } from "./actionTypes";
 
 export const ACTION_HANDLERS = {
 
-    [PRIVILEGES_SUCCESSFULLY_UPDATED]: state =>
+    [USERS_FETCHED_SUCCESSFULLY]: (state, action) =>
         Object.assign({}, state, {
-            privilegeSuccessFullyUpdated: true
-        }),
-    [PRIVILEGES_UPDATE_RESET]: state =>
-        Object.assign({}, state, {
-            privilegeSuccessFullyUpdated: false
-        }),
-    [REGISTERED_PRIVILEGES_FETCHED_SUCCESSFULLY]: (state, action) =>
-        Object.assign({}, state, {
-            registeredPrivileges: action.payload.registeredPrivileges
+            users: action.payload.users
         }),
 
+    [USERS_ROLES_FETCHED_SUCCESSFULLY]: (state, action) =>
+        Object.assign({}, state, {
+            roles: action.payload.roles
+        }),
+    [USERS_ACCESS_FETCHED_SUCCESSFULLY]: (state, action) =>
+        Object.assign({}, state, {
+            privileges: action.payload.privileges
+        }),
 
 };

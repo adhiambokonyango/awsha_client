@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import { connect } from "react-redux";
 import Modal from "react-awesome-modal";
 import PropTypes from "prop-types";
-import {updatingPrivileges, fetchAllUserPrivileges} from "../../store/modules/privileges/actions";
+import {updatePermissionStatus, fetchAllUserPrivileges} from "../../store/modules/privileges/actions";
 import Table from "../../components/table/table_body/Table";
 import TopBar from "../../components/topbar/TopBar";
 import {promiselessApiPost} from "../../services/api_connector/ApiConnector"
@@ -92,7 +92,7 @@ class Privileges extends Component {
 
 
 Privileges.propTypes = {
-    updatingPrivileges: PropTypes.func.isRequired,
+    updatePermissionStatus: PropTypes.func.isRequired,
     fetchAllUserPrivileges: PropTypes.func.isRequired,
     registeredPrivileges: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
@@ -105,7 +105,7 @@ const mapStateToProps = state => ({
 
 
 const mapDispatchToProps = dispatch => ({
-    updatingPrivileges: payload => dispatch(updatingPrivileges(payload)),
+    updatePermissionStatus: payload => dispatch(updatePermissionStatus(payload)),
     fetchAllUserPrivileges: () => dispatch(fetchAllUserPrivileges())
 });
 
