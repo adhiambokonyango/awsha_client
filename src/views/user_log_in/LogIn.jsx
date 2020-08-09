@@ -6,7 +6,7 @@ import {
     resetWrongCredentials,
     authenticateSystemAdmin,
     authenticateOfficeAdmin
-} from "../../store/modules/log_in/actions";
+} from "../../store/user_management/user_log_in/actions";
 import { FormGroup, Label, Input } from "reactstrap";
 import {getConfirmationStatus} from "../../store/modules/confirmation_status/action";
 
@@ -52,7 +52,7 @@ class LogIn extends Component {
              if (this.props.isLoginSuccessful) {
                  this.props.history.push("/register_project_objectives");
              } else if (!this.props.isLoginSuccessful) {
-                 this.props.history.push("/sign_up");
+                 this.props.history.push("/user_sign_up");
              }
          }
 
@@ -187,11 +187,10 @@ LogIn.propTypes = {
 };
 
 const mapStateToProps = state => ({
-    hasWrongLoginCredentials: state.log_in.hasWrongLoginCredentials,
-    isLoginSuccessful: state.log_in.isLoginSuccessful,
-    confirmationStatus: state.confirmation_status.confirmationStatus,
-    isAdminLoginSuccessful: state.log_in.isAdminLoginSuccessful,
-    isOfficeAdministratorLoginSuccessful: state.log_in.isOfficeAdministratorLoginSuccessful,
+    hasWrongLoginCredentials: state.user_log_in.hasWrongLoginCredentials,
+    isLoginSuccessful: state.user_log_in.isLoginSuccessful,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
+    isOfficeAdministratorLoginSuccessful: state.user_log_in.isOfficeAdministratorLoginSuccessful,
 
 });
 

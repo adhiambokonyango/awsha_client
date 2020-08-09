@@ -15,7 +15,6 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             isLoginSuccessful: true,
            session_details: action.payload.session_details,
-            // RoleType: action.payload.RoleType,
             isSessionActive: action.payload.isSessionActive
         }),
 
@@ -23,7 +22,6 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             isAdminLoginSuccessful: true,
             session_details: action.payload.session_details,
-            // RoleType: action.payload.RoleType,
             isSessionActive: action.payload.isSessionActive
         }),
 
@@ -31,7 +29,6 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             isOfficeAdministratorLoginSuccessful: true,
             session_details: action.payload.session_details,
-            // RoleType: action.payload.RoleType,
             isSessionActive: action.payload.isSessionActive
         }),
 

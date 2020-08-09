@@ -2,11 +2,11 @@ import React, {Component} from 'react';
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import Table from "../../components/table/table_body/Table";
 import PropTypes from "prop-types";
-import {fetchAllUser, registerUser} from "../../store/modules/sign_up/actions";
+import {fetchAllAdministrator} from "../../store/user_management/administrator_sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import {connect} from "react-redux";
 
-class RegisteredUser extends Component {
+class RegisteredAdministrator extends Component {
     state = {
         tableData: [],
         tableHeaders: {
@@ -23,7 +23,7 @@ class RegisteredUser extends Component {
     };
 
     componentDidMount() {
-        this.props.fetchAllUser();
+        this.props.fetchAllAdministrator();
     }
 
 
@@ -34,27 +34,27 @@ class RegisteredUser extends Component {
             <NavigationBar />
                 <Table tableTitle='Registered Users'
                        tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredUser}/>
+                       tableData={this.props.registeredAdministrator}/>
             </div>
         );
     }
 }
 
-RegisteredUser.propTypes = {
-    fetchAllUser: PropTypes.func.isRequired,
-    registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+RegisteredAdministrator.propTypes = {
+    fetchAllAdministrator: PropTypes.func.isRequired,
+    registeredAdministrator: PropTypes.arrayOf(PropTypes.object).isRequired,
 
 };
 
 const mapStateToProps = state => ({
-    registeredUser: state.sign_up.registeredUser,
+    registeredAdministrator: state.administrator_sign_up.registeredAdministrator,
 });
 
 const mapDispatchToProps = dispatch => ({
-    fetchAllUser: () => dispatch(fetchAllUser()),
+    fetchAllAdministrator: () => dispatch(fetchAllAdministrator()),
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(RegisteredUser);
+)(RegisteredAdministrator);

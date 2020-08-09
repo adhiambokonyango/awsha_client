@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {updatePermissionStatus,  fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
-import {fetchAllUser} from "../../store/modules/sign_up/actions";
+import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";

@@ -40,7 +40,6 @@ export function authenticateSystemUser(payload) {
                         type: STORE_USER,
                         payload: {
                             session_details: result.data,
-                            // RoleType: REGULAR_SYSTEM_USER,
                             isSessionActive: true
                         }
                     });
@@ -79,7 +78,6 @@ export function authenticateSystemAdmin(payload) {
                         type: STORE_ADMIN,
                         payload: {
                             session_details: result.data,
-                            // RoleType: REGULAR_SYSTEM_USER,
                             isSessionActive: true
                         }
                     });
@@ -118,7 +116,6 @@ export function authenticateOfficeAdmin(payload) {
                         type: STORE_OFFICE_ADMINISTRATOR,
                         payload: {
                             session_details: result.data,
-                            // RoleType: REGULAR_SYSTEM_USER,
                             isSessionActive: true
                         }
                     });

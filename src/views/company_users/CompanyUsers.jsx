@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-import {fetchAllUser, registerUser} from "../../store/modules/sign_up/actions";
+import {fetchAllUser, registerUser} from "../../store/user_management/user_sign_up/actions";
 
 import {registerCompanyUser, fetchAllCompanyUser} from "../../store/modules/company_users/actions";
 

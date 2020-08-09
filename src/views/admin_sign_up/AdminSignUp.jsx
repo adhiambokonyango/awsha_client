@@ -3,14 +3,14 @@ import React, {Component} from 'react';
 import Table from "../../components/table/table_body/Table";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {fetchAllUser, registerUser} from "../../store/modules/sign_up/actions";
+import {fetchAllAdmin, registerAdmin} from "../../store/user_management/admin_sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
 
 
 
-class SignUp extends Component {
+class AdminSignUp extends Component {
 
     state = {
         firstName: '',
@@ -26,7 +26,7 @@ class SignUp extends Component {
 
         tableData: [],
         tableHeaders: {
-            UserId:'#',
+            AdminId:'#',
             FirstName: 'FirstName',
             MiddleName: 'MiddleName',
             Surname: 'Surname',
@@ -42,7 +42,7 @@ class SignUp extends Component {
 
     componentDidMount() {
         this.props.fetchAllGender();
-        this.props.fetchAllUser();
+        this.props.fetchAllAdmin();
     }
 
     componentDidUpdate(prevProps) {
@@ -87,7 +87,7 @@ class SignUp extends Component {
         };
 
 
-        this.props.registerUser(payload);
+        this.props.registerAdmin(payload);
         this.setState({
             firstName: '',
             middleName: '',
@@ -106,7 +106,7 @@ class SignUp extends Component {
             <div className="col-md-4 col-md-offset-4">
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
-                        <h3 className="panel-title">User Registration</h3>
+                        <h3 className="panel-title">System Admin Registration</h3>
                     </div>
                     <div className="panel-body">
                         <form
@@ -254,7 +254,7 @@ class SignUp extends Component {
                                     type="btn-link"
                                     className="btn btn-lg btn-success btn-block"
                                 >
-                                    <Link to="/registered_users">View Registered User</Link>
+                                    <Link to="/registered_admin">View Registered System Admin</Link>
                                 </button>
                             </fieldset>
                         </form>
@@ -268,31 +268,31 @@ class SignUp extends Component {
 }
 
 
-SignUp.propTypes = {
-    registerUser: PropTypes.func.isRequired,
+AdminSignUp.propTypes = {
+    registerAdmin: PropTypes.func.isRequired,
     signUpSuccessful: PropTypes.bool.isRequired,
-    fetchAllUser: PropTypes.func.isRequired,
-    registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllAdmin: PropTypes.func.isRequired,
+    registeredAdmin: PropTypes.arrayOf(PropTypes.object).isRequired,
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
 };
 
 
 const mapStateToProps = state => ({
-    signUpSuccessful: state.sign_up.signUpSuccessful,
-    registeredUser: state.sign_up.registeredUser,
+    signUpSuccessful: state.admin_sign_up.signUpSuccessful,
+    registeredAdmin: state.admin_sign_up.registeredAdmin,
     registeredGender: state.gender_info.registeredGender
 });
 
 
 
 const mapDispatchToProps = dispatch => ({
-    registerUser: payload => dispatch(registerUser(payload)),
-    fetchAllUser: () => dispatch(fetchAllUser()),
+    registerAdmin: payload => dispatch(registerAdmin(payload)),
+    fetchAllAdmin: () => dispatch(fetchAllAdmin()),
     fetchAllGender: () => dispatch(fetchAllGender())
 });
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(SignUp);
+)(AdminSignUp);
