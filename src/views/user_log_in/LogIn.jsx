@@ -9,6 +9,8 @@ import {
 } from "../../store/user_management/user_log_in/actions";
 import { FormGroup, Label, Input } from "reactstrap";
 import {getConfirmationStatus} from "../../store/modules/confirmation_status/action";
+import { fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
+
 
 import "./Login.scss";
 class LogIn extends Component {
@@ -23,10 +25,12 @@ class LogIn extends Component {
 
     componentDidMount() {
         this.setState({ emailReadOnly: false, passwordReadOnly: false });
-
+        this.props.fetchAllUserPrivileges();
     }
 
     componentDidUpdate(prevProps) {
+        let i = 0;
+
         if (this.props.isOfficeAdministratorLoginSuccessful !== prevProps.isOfficeAdministratorLoginSuccessful) {
             if (this.props.isOfficeAdministratorLoginSuccessful) {
                 this.props.history.push("/register_projects");
@@ -48,17 +52,23 @@ class LogIn extends Component {
         /* ---------------------------------------------------------------------------------------------------------------------- */
 
         /*PAGE NAVIGATION LOGIC*/
+
+        if (this.props.privilege !== prevProps.privilege) {
+            if (this.props.privilege[i].PermisionStatus === 1) {
+                this.props.isLoginSuccessful = true;
+            } else if (this.props.privilege[i].PermissionStatus === 0) {
+                this.props.isLoginSuccessful = false;
+            }
+        }
+
          if (this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
              if (this.props.isLoginSuccessful) {
                  this.props.history.push("/register_project_objectives");
-             } else if (!this.props.isLoginSuccessful) {
+             } else if (this.props.isLoginSuccessful) {
                  this.props.history.push("/user_sign_up");
              }
          }
-
         /* ---------------------------------------------------------------------------------------------------------------------- */
-
-
     };
 
     handleEmailEditTextsFocus = () => {
@@ -179,8 +189,10 @@ LogIn.propTypes = {
     resetWrongCredentials: PropTypes.func.isRequired,
     hasWrongLoginCredentials: PropTypes.bool.isRequired,
     authenticateSystemAdmin: PropTypes.func.isRequired,
-
+    fetchAllUserPrivileges: PropTypes.func.isRequired,
     authenticateOfficeAdmin: PropTypes.func.isRequired,
+    privilege: PropTypes.arrayOf(PropTypes.object).isRequired,
+
 
 
 
@@ -191,6 +203,7 @@ const mapStateToProps = state => ({
     isLoginSuccessful: state.user_log_in.isLoginSuccessful,
     isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
     isOfficeAdministratorLoginSuccessful: state.user_log_in.isOfficeAdministratorLoginSuccessful,
+    privilege: state.privileges.privilege
 
 });
 
@@ -199,6 +212,8 @@ const mapDispatchToProps = dispatch => ({
     resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
     authenticateSystemAdmin: payload => dispatch(authenticateSystemAdmin(payload)),
     authenticateOfficeAdmin: payload => dispatch(authenticateOfficeAdmin(payload)),
+    fetchAllUserPrivileges: () => dispatch(fetchAllUserPrivileges()),
+
 
 });
 

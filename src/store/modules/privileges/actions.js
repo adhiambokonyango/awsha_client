@@ -1,12 +1,10 @@
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    USERS_FETCH_EMPTY_RESULT,
-    USERS_FETCH_FAILED,
-    USERS_FETCHED_SUCCESSFULLY, USERS_ROLES_FETCH_EMPTY_RESULT, USERS_ROLES_FETCH_FAILED,
+     USERS_ROLES_FETCH_EMPTY_RESULT, USERS_ROLES_FETCH_FAILED,
     USERS_ROLES_FETCHED_SUCCESSFULLY,
     USERS_ACCESS_FETCHED_SUCCESSFULLY,
     USERS_ACCESS_FETCH_FAILED,
-    USERS_ACCESS_FETCH_EMPTY_RESULT, UPDATED_PRIVILEGES_FAILED,
+    USERS_ACCESS_FETCH_EMPTY_RESULT,
     PRIVILEGES_UPDATE_RESET,
     PERMISSION_UPDATE_FAILED
 } from "./actionTypes";
@@ -70,7 +68,7 @@ export async function fetchAllUserRoles() {
 
 export function fetchAllUserPrivileges() {
     return async dispatch => {
-        const apiRoute = "/get_all_user_access_privileges";
+        const apiRoute = "/get_user_privileges_by_full_description";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
@@ -78,7 +76,7 @@ export function fetchAllUserPrivileges() {
                     dispatch({
                         type: USERS_ACCESS_FETCHED_SUCCESSFULLY,
                         payload: {
-                            privileges: result.data.results
+                            privilege: result.data.results
                         }
                     });
                 } else if (result.data.results && result.data.results.length === 0) {

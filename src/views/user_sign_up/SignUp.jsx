@@ -34,7 +34,8 @@ class SignUp extends Component {
             Email: 'Email',
             NationalId: 'NationalId',
             GenderId: 'Gender',
-            EncryptedPassword: 'EncryptedPassword'
+            EncryptedPassword: 'EncryptedPassword',
+            PermissionStatus:'PermissionStatus'
 
         }
     };

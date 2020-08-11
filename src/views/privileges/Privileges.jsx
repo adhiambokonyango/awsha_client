@@ -19,24 +19,48 @@ class Privileges extends Component {
             UserAccessPrivilegeId:'#',
             UserId:'UserId',
             UserRoleId:'UserRoleId',
-            AccessPrivilegeId:'AccessPrivilegeId',
-            PermisionStatus:'PermissionStatus',
+
+            AccessPrivilegeDescription:'AccessPrivilegeDescription',
+            PermissionStatus:'PermissionStatus',
 
 
         }
     };
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.privilege !== prevProps.privilege) {
+            if(this.props.privilege && this.props.privilege.length > 0) {
+
+                let teamMembers = this.props.privilege.map(
+                    (item, index) => {
+                        return {
+                            id: index + 1,
+                            UserId: item.UserId,
+                            UserRoleId: item.UserRoleId,
+                            AccessPrivilegeDescription: item.AccessPrivilegeDescription,
+                            PermissionStatus: item.PermissionStatus,
+                        };
+                    }
+                );
+
+                this.setState({tableData: teamMembers});
+
+            }
+        }
+    }
+
+
 
     async componentDidMount() {
-        //this.props.fetchAllUserPrivileges();
-
-        const payload = {
-            userId: '10',
-            roleCode: '1',
-            accessPrivilegeCode: '22'
-        };
-        const accessPrivileges = await promiselessApiPost(payload,"/get_user_access_privileges_for_particular_role");
-        console.log(accessPrivileges);
+        this.props.fetchAllUserPrivileges();
+        //
+        // const payload = {
+        //     userId: '10',
+        //     roleCode: '1',
+        //     accessPrivilegeCode: '22'
+        // };
+        // const accessPrivileges = await promiselessApiPost(payload,"/get_user_access_privileges_for_particular_role");
+        // console.log(accessPrivileges);
     }
 
     handleChange = event => {
@@ -51,11 +75,11 @@ class Privileges extends Component {
         e.preventDefault();
 
         const payload = {
-            PermisionStatus:this.state.permissionStatus,
+            PermissionStatus:this.state.permissionStatus,
 
         };
 
-        this.props.registerCompany(payload);
+        this.props.updatePermissionStatus(payload);
         this.setState({
             permissionStatus:1,
             });
@@ -84,7 +108,7 @@ class Privileges extends Component {
 
                 <Table tableTitle='Registered Privileges'
                        tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredPrivileges}/>
+                       tableData={this.props.privilege}/>
             </div>
         );
     }
@@ -94,12 +118,12 @@ class Privileges extends Component {
 Privileges.propTypes = {
     updatePermissionStatus: PropTypes.func.isRequired,
     fetchAllUserPrivileges: PropTypes.func.isRequired,
-    registeredPrivileges: PropTypes.arrayOf(PropTypes.object).isRequired,
+    privilege: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 
 const mapStateToProps = state => ({
-    registeredPrivileges: state.privileges.registeredPrivileges
+    privilege: state.privileges.privilege
 });
 
 

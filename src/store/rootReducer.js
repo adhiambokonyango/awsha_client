@@ -12,10 +12,10 @@ import { reducer as objective_percentage } from "./modules/objective_percentage"
 import { reducer as objectives } from "./modules/objectives";
 import { reducer as company_user } from "./modules/company_users";
 import { reducer as team_members } from "./modules/team_members";
-import { reducer as privileges } from "./modules/privileges";
 import {reducer as admin_sign_up} from "./user_management/admin_sign_up";
 import {reducer as administrator_sign_up} from "./user_management/administrator_sign_up";
-
+import {reducer as privileges} from "./modules/privileges";
+import {reducer as confirmation_status} from "./modules/confirmation_status";
 // =============================================================
 // The rootReducer object aggregates our earlier reducers into a
 // single reducer that holds our entire immutable application
@@ -37,8 +37,10 @@ const rootReducer = reduceReducers(
       objective_percentage,
       objectives,
     company_user,
+      privileges,
+      confirmation_status
 
-      privileges
+
 
 
 

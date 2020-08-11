@@ -39,6 +39,7 @@ export function authenticateSystemUser(payload) {
                     dispatch({
                         type: STORE_USER,
                         payload: {
+                            isLoginSuccessful:false,
                             session_details: result.data,
                             isSessionActive: true
                         }
@@ -77,6 +78,7 @@ export function authenticateSystemAdmin(payload) {
                     dispatch({
                         type: STORE_ADMIN,
                         payload: {
+                            isAdminLoginSuccessful:false,
                             session_details: result.data,
                             isSessionActive: true
                         }
@@ -115,6 +117,8 @@ export function authenticateOfficeAdmin(payload) {
                     dispatch({
                         type: STORE_OFFICE_ADMINISTRATOR,
                         payload: {
+                            isOfficeAdministratorLoginSuccessful:false,
+
                             session_details: result.data,
                             isSessionActive: true
                         }

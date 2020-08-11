@@ -10,8 +10,8 @@ import AdminPage from "./views/admin_page/AdminPage";
 import Teams from "./views/teams/Teams";
 import Projects from "./views/projects/Projects";
 import ProjectObjectives from "./views/project_objectives/ProjectObjectives";
-import ProjectDetails from "./views/project_details/ProjectDetails";
-import Percentage from "./views/percentage/Percentage";
+// import ProjectDetails from "./views/project_details/ProjectDetails";
+// import Percentage from "./views/percentage/Percentage";
 import Objectives from "./views/objectives/Objectives";
 import CompanyUsers from "./views/company_users/CompanyUsers";
 import RegisteredUser from "./views/user_sign_up/RegisteredUser";
@@ -19,12 +19,13 @@ import TeamMember from "./views/team_members/TeamMember";
 import SignUp from "./views/user_sign_up/SignUp";
 import FirstLevelAdmin from "./components/moh/FirstLevelAdmin";
  import UserManagement from "./views/admin_page/UserManagement";
-import Privileges from "./views/privileges/Privileges";
 import LogIn from "./views/user_log_in/LogIn";
 import AdminSignUp from "./views/admin_sign_up/AdminSignUp";
 import RegisteredAdmin from "./views/admin_sign_up/RegisteredAdmin";
 import RegisteredAdministrator from "./views/administrator_sign_up/RegisteredAdministrator";
 import AdministratorSignUp from "./views/administrator_sign_up/AdministratorSignUp";
+import Privileges from "./views/privileges/Privileges";
+import Demo1 from "./views/Demo1";
 
 
 class App extends Component {
@@ -52,11 +53,12 @@ class App extends Component {
              <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
           {/*  <Route path="/percentage" exact component={Percentage} />*/}
            <Route path="/user_management" exact component={UserManagement} />
-            <Route path="/privileges" exact component={Privileges} />
             <Route path="/register_system_admin" exact component={AdminSignUp} />
             <Route path="/registered_admin" exact component={RegisteredAdmin} />
             <Route path="/registered_administrators" exact component={RegisteredAdministrator} />
             <Route path="/register_administrator" exact component={AdministratorSignUp} />
+            <Route path="/privileges" exact component={Privileges} />
+            <Route path="/demo" exact component={Demo1} />
         </div>
       </Router>
     );

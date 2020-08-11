@@ -6,6 +6,7 @@ import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";
+import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
 
 
 class UserManagement extends Component {
@@ -23,15 +24,28 @@ class UserManagement extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.privileges !== prevProps.privileges) {
-            if (this.props.privileges && this.props.privileges.length > 0) {
+        if (this.props.privilege !== prevProps.privilege) {
+            if (this.props.privilege && this.props.privilege.length > 0) {
 
                 let list = [];
 
-                for (let i = 0; i < this.props.privileges.length; i++) {
+                for (let i = 0; i < this.props.privilege.length; i++) {
                     list.push(
+                        <p><dt>
+                            {" " +this.props.privilege[i].FirstName}
+                        </dt>
 
-                        <CheckBox label={this.props.privileges[i].AccessPrivilegeId} handleCheckBoxIsChecked={this.handleCheckBoxClicked} handleCheckBoxIsUnchecked={this.handleCheckBoxClicked} checkBoxObject={this.props.privileges[i]} isCheckBoxChecked={this.props.privileges[i].PermisionStatus === 1 ? true : false}/>
+                            <dd className="admin__description-item">
+
+                            <CheckBox label={this.props.privilege[i].AccessPrivilegeDescription}
+                                      handleCheckBoxIsChecked={this.handleCheckBoxClicked}
+                                      handleCheckBoxIsUnchecked={this.handleCheckBoxClicked}
+                                      checkBoxObject={this.props.privilege[i]}
+                                      isCheckBoxChecked={this.props.privilege[i].PermissionStatus === 1}/>
+                            </dd><br/>
+                        </p>
+
+
                     )
                     this.setState({data: list});
 
@@ -68,7 +82,7 @@ class UserManagement extends Component {
         const payload = {
             ColumnName: "UserAccessPrivilegeId",
             ColumnValue: checkBoxObject.UserAccessPrivilegeId,
-            PermisionStatus: checkBoxObject.PermisionStatus === 1 ? 0 : 1
+            PermissionStatus: checkBoxObject.PermissionStatus === 1 ? 0 : 1
 
         };
 
@@ -103,7 +117,7 @@ UserManagement.propTypes = {
     fetchAllUser: PropTypes.func.isRequired,
     fetchAllUserPrivileges: PropTypes.func.isRequired,
     updatePermissionStatus: PropTypes.func.isRequired,
-    privileges: PropTypes.arrayOf(PropTypes.object).isRequired,
+    privilege: PropTypes.arrayOf(PropTypes.object).isRequired,
     registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
     privilegeSuccessFullyUpdated: PropTypes.bool.isRequired,
     resetPrivilegeUpdate: PropTypes.func.isRequired,
@@ -112,8 +126,8 @@ UserManagement.propTypes = {
 
 
 const mapStateToProps = state => ({
-    registeredUser: state.sign_up.registeredUser,
-    privileges: state.privileges.privileges,
+    registeredUser: state.user_sign_up.registeredUser,
+    privilege: state.privileges.privilege,
     privilegeSuccessFullyUpdated: state.privileges.privilegeSuccessFullyUpdated
 });
 

@@ -16,7 +16,7 @@ export const ACTION_HANDLERS = {
         }),
     [USERS_ACCESS_FETCHED_SUCCESSFULLY]: (state, action) =>
         Object.assign({}, state, {
-            privileges: action.payload.privileges
+            privilege: action.payload.privilege
         }),
 
 };
