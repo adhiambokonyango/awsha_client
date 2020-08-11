@@ -1,8 +1,7 @@
 export const initialState = {
 
 
-    users:[],
-    roles: [],
+    privilegeSuccessFullyUpdated:false,
     privilege: [],
 
 };

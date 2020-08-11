@@ -1,19 +1,19 @@
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
 
-    USERS_ACCESS_FETCHED_SUCCESSFULLY,
-    USERS_ACCESS_FETCH_FAILED,
-    USERS_ACCESS_FETCH_EMPTY_RESULT,
+    ADMIN_ACCESS_FETCHED_SUCCESSFULLY,
+    ADMIN_ACCESS_FETCH_FAILED,
+    ADMIN_ACCESS_FETCH_EMPTY_RESULT,
     PRIVILEGES_UPDATE_RESET,
-    PERMISSION_UPDATE_FAILED
+    PERMISSION_UPDATE_FAILED,
+    PRIVILEGES_SUCCESSFULLY_UPDATED
 } from "./actionTypes";
 
-import {PRIVILEGES_SUCCESSFULLY_UPDATED} from "./actionTypes";
 
 
-export function updatePermissionStatus(payload) {
+export function updateAdminPermissionStatus(payload) {
     return async dispatch => {
-        const apiRoute = "/update_individual_user_access_privileges";
+        const apiRoute = "/update_individual_admin_user_access_privileges";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
@@ -37,28 +37,28 @@ export function updatePermissionStatus(payload) {
 
 
 
-export function fetchAllUserPrivileges() {
+export function fetchAllAdminUserPrivileges() {
     return async dispatch => {
-        const apiRoute = "/get_user_privileges_by_full_description";
+        const apiRoute = "/get_admin_user_privileges_by_full_description";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results && result.data.results.length > 0) {
                     dispatch({
-                        type: USERS_ACCESS_FETCHED_SUCCESSFULLY,
+                        type: ADMIN_ACCESS_FETCHED_SUCCESSFULLY,
                         payload: {
-                            privilege: result.data.results
+                            adminPrivilege: result.data.results
                         }
                     });
                 } else if (result.data.results && result.data.results.length === 0) {
                     dispatch({
-                        type: USERS_ACCESS_FETCH_EMPTY_RESULT
+                        type: ADMIN_ACCESS_FETCH_EMPTY_RESULT
                     });
                 }
             },
             function(err) {
                 dispatch({
-                    type: USERS_ACCESS_FETCH_FAILED
+                    type: ADMIN_ACCESS_FETCH_FAILED
                 });
                 console.log(err);
             }

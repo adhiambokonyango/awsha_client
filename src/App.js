@@ -26,6 +26,7 @@ import RegisteredAdministrator from "./views/administrator_sign_up/RegisteredAdm
 import AdministratorSignUp from "./views/administrator_sign_up/AdministratorSignUp";
 import Privileges from "./views/privileges/Privileges";
 import Demo1 from "./views/Demo1";
+import AdminManagement from "./views/admin_page/AdminManagement";
 
 
 class App extends Component {
@@ -59,6 +60,7 @@ class App extends Component {
             <Route path="/register_administrator" exact component={AdministratorSignUp} />
             <Route path="/privileges" exact component={Privileges} />
             <Route path="/demo" exact component={Demo1} />
+            <Route path="/admin_management" exact component={AdminManagement} />
         </div>
       </Router>
     );

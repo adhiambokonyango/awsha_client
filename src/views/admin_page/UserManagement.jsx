@@ -6,7 +6,6 @@ import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";
-import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
 
 
 class UserManagement extends Component {
