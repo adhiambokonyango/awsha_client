@@ -17,6 +17,7 @@ import {reducer as administrator_sign_up} from "./user_management/administrator_
 import {reducer as privileges} from "./modules/privileges";
 import {reducer as confirmation_status} from "./modules/confirmation_status";
 import {reducer as admin_privileges} from "./modules/admin_privileges";
+import {reducer as administrator_privileges} from "./modules/administrator_privileges";
 // =============================================================
 // The rootReducer object aggregates our earlier reducers into a
 // single reducer that holds our entire immutable application
@@ -40,7 +41,8 @@ const rootReducer = reduceReducers(
     company_user,
       privileges,
       confirmation_status,
-      admin_privileges
+      admin_privileges,
+      administrator_privileges
 
 
 

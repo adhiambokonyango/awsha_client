@@ -5,7 +5,7 @@ import {
     // USER_LOGIN_SUCCESS,
     // AN_ERROR_OCCURED_DURING_LOGIN,
     RESET_WRONG_CREDENTIALS,
-    WRONG_LOGIN_CREDENTIALS, STORE_ADMIN, STORE_OFFICE_ADMINISTRATOR
+    WRONG_LOGIN_CREDENTIALS, STORE_ADMIN, STORE_OFFICE_ADMINISTRATOR, AN_ERROR_OCCURED_DURING_LOGIN
 
 
 } from "./actionTypes";
@@ -36,6 +36,11 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             hasWrongLoginCredentials: true
         }),
+    [AN_ERROR_OCCURED_DURING_LOGIN]: state =>
+        Object.assign({}, state, {
+            accessDenied: true
+        }),
+
     [RESET_WRONG_CREDENTIALS]: state =>
         Object.assign({}, state, {
             hasWrongLoginCredentials: false

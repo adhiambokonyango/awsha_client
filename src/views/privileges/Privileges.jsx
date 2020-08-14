@@ -1,17 +1,13 @@
 import React, {Component} from 'react';
-
 import { connect } from "react-redux";
-import Modal from "react-awesome-modal";
 import PropTypes from "prop-types";
 import {updatePermissionStatus, fetchAllUserPrivileges} from "../../store/modules/privileges/actions";
 import Table from "../../components/table/table_body/Table";
-import TopBar from "../../components/topbar/TopBar";
-import {promiselessApiPost} from "../../services/api_connector/ApiConnector"
 
 class Privileges extends Component {
 
     state = {
-        permissionStatus:'',
+
 
 
         tableData: [],
@@ -71,40 +67,11 @@ class Privileges extends Component {
         });
     };
 
-    handleSubmit = (e) =>{
-        e.preventDefault();
 
-        const payload = {
-            PermissionStatus:this.state.permissionStatus,
-
-        };
-
-        this.props.updatePermissionStatus(payload);
-        this.setState({
-            permissionStatus:1,
-            });
-    };
 
     render() {
         return (
             <div>
-                <div className="login-panel panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">user access privileges</h3>
-                    </div>
-                    <div className="panel-body">
-                        <form
-                            action=""
-                            method="POST"
-                            onSubmit={this.handleSubmit}
-                            encType="multipart/form-data"
-                        >
-                            <fieldset>
-
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
 
                 <Table tableTitle='Registered Privileges'
                        tableHeaderObject={this.state.tableHeaders}

@@ -11,7 +11,6 @@ import {promiselessApiPost} from "../../services/api_connector/ApiConnector"
 class AdminPrivileges extends Component {
 
     state = {
-        permissionStatus:'',
 
 
         tableData: [],
@@ -53,14 +52,7 @@ class AdminPrivileges extends Component {
 
     async componentDidMount() {
         this.props.fetchAllAdminUserPrivileges();
-        //
-        // const payload = {
-        //     userId: '10',
-        //     roleCode: '1',
-        //     accessPrivilegeCode: '22'
-        // };
-        // const accessPrivileges = await promiselessApiPost(payload,"/get_user_access_privileges_for_particular_role");
-        // console.log(accessPrivileges);
+
     }
 
     handleChange = event => {
@@ -71,40 +63,12 @@ class AdminPrivileges extends Component {
         });
     };
 
-    handleSubmit = (e) =>{
-        e.preventDefault();
 
-        const payload = {
-            AdminPermissionStatus:this.state.permissionStatus,
-
-        };
-
-        this.props.updateAdminPermissionStatus(payload);
-        this.setState({
-            permissionStatus:1,
-        });
-    };
 
     render() {
         return (
             <div>
-                <div className="login-panel panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">admin access privileges</h3>
-                    </div>
-                    <div className="panel-body">
-                        <form
-                            action=""
-                            method="POST"
-                            onSubmit={this.handleSubmit}
-                            encType="multipart/form-data"
-                        >
-                            <fieldset>
 
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
 
                 <Table tableTitle='Registered Privileges'
                        tableHeaderObject={this.state.tableHeaders}
