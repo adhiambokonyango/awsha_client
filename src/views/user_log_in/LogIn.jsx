@@ -33,6 +33,8 @@ class LogIn extends Component {
         this.props.fetchAllUserPrivileges();
         this.props.fetchAllAdminUserPrivileges();
         this.props.fetchAllAdministratorUserPrivileges();
+        this.props.resetWrongCredentials();
+        this.props.authenticateSystemUser();
     }
 
     componentDidUpdate(prevProps) {
@@ -49,9 +51,7 @@ class LogIn extends Component {
 
          if (this.props.isOfficeAdministratorLoginSuccessful !== prevProps.isOfficeAdministratorLoginSuccessful) {
              if (this.props.isOfficeAdministratorLoginSuccessful) {
-                 this.setState({
-                     loginNoError: true
-                 });
+
                  if (this.state.loginNoError === true){
                      this.props.fetchAllAdministratorUserPrivileges();
                      this.props.history.push("/register_projects");
@@ -76,9 +76,7 @@ class LogIn extends Component {
 
         if (this.props.isAdminLoginSuccessful !== prevProps.isAdminLoginSuccessful) {
             if (this.props.isAdminLoginSuccessful) {
-                this.setState({
-                    adminloginNoError: true
-                });
+
                 if (this.state.adminloginNoError === true){
                     this.props.fetchAllAdminUserPrivileges();
                     this.props.history.push("/first_level_admin");
@@ -102,9 +100,6 @@ class LogIn extends Component {
 
         if (this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
             if (this.props.isLoginSuccessful) {
-                this.setState({
-                    userloginNoError: true
-                });
                 if (this.state.userloginNoError === true){
                     this.props.fetchAllUserPrivileges();
                     this.props.history.push("/register_project_objectives");
@@ -115,6 +110,9 @@ class LogIn extends Component {
         }
 
         /* ---------------------------------------------------------------------------------------------------------------------- */
+
+
+
     };
 
     handleEmailEditTextsFocus = () => {
