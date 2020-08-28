@@ -5,14 +5,16 @@ import {
     authenticateSystemUser,
     resetWrongCredentials,
     authenticateSystemAdmin,
-    authenticateOfficeAdmin
+    authenticateOfficeAdmin,
+
 } from "../../store/user_management/user_log_in/actions";
 import { FormGroup, Label, Input } from "reactstrap";
 import {getConfirmationStatus} from "../../store/modules/confirmation_status/action";
-import {fetchAllUserPrivileges, resetPrivilegeUpdate} from "../../store/modules/privileges/actions"
+import {fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
 import {fetchAllAdminUserPrivileges} from "../../store/modules/admin_privileges/actions";
 import {fetchAllAdministratorUserPrivileges} from "../../store/modules/administrator_privileges/actions";
-
+import {registerSessionLogs} from "../../store/activity_log/session_log/actions";
+import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 
 import "./Login.scss";
 class LogIn extends Component {
@@ -25,16 +27,27 @@ class LogIn extends Component {
         passwordReadOnly: false,
         loginNoError: false,
         userloginNoError: false,
-        adminloginNoError: false
+        adminloginNoError: false,
+        //user:"",
+
     };
+
+    componentWillUpdate(nextProps, nextState, nextContext) {
+
+        if (this.props.isAdminLoginSuccessful === true){
+            this.props.history.push('/awsha_home');
+        }
+
+    }
 
     componentDidMount() {
         this.setState({ emailReadOnly: false, passwordReadOnly: false });
         this.props.fetchAllUserPrivileges();
         this.props.fetchAllAdminUserPrivileges();
         this.props.fetchAllAdministratorUserPrivileges();
-        this.props.resetWrongCredentials();
-        this.props.authenticateSystemUser();
+        this.props.fetchAllUser();
+
+
     }
 
     componentDidUpdate(prevProps) {
@@ -54,7 +67,7 @@ class LogIn extends Component {
 
                  if (this.state.loginNoError === true){
                      this.props.fetchAllAdministratorUserPrivileges();
-                     this.props.history.push("/register_projects");
+                     this.props.history.push("/administrator_level");
                  }
              } else if (!this.props.isOfficeAdministratorLoginSuccessful) {
                  this.props.history.push("/teams");
@@ -102,7 +115,8 @@ class LogIn extends Component {
             if (this.props.isLoginSuccessful) {
                 if (this.state.userloginNoError === true){
                     this.props.fetchAllUserPrivileges();
-                    this.props.history.push("/register_project_objectives");
+
+                    this.props.history.push("/user_level");
                 }
             } else if (!this.props.isLoginSuccessful) {
                 this.props.history.push("/user_sign_up");
@@ -112,7 +126,12 @@ class LogIn extends Component {
         /* ---------------------------------------------------------------------------------------------------------------------- */
 
 
-
+        // if(this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
+        //     if(this.props.isLoginSuccessful.length > 0 && this.state.userloginNoError === true) {
+        //         let allregisteredUser = this.props.isLoginSuccessful[i].UserId;
+        //         this.setState({ user: allregisteredUser });
+        //     }
+        // }
     };
 
     handleEmailEditTextsFocus = () => {
@@ -127,15 +146,26 @@ class LogIn extends Component {
         event.preventDefault();
         const payload = {
             AttemptedEmail: this.state.attemptedEmail,
-            AttemptedPassword: this.state.attemptedPassword
+            AttemptedPassword: this.state.attemptedPassword,
+            UserId: this.state.user
+
         };
 
-
-            this.props.authenticateSystemUser(payload);
+        this.props.authenticateSystemUser(payload);
         this.props.authenticateSystemAdmin(payload);
         this.props.authenticateOfficeAdmin(payload);
 
+
     };
+
+    registerSession = () => {
+         const payload = {
+             UserId: this.props.isLoginSuccessful.UserId
+         };
+        this.props.registerSessionLogs(payload);
+    }
+
+
 
     handleChange = event => {
         let newState = this.state;
@@ -149,7 +179,6 @@ class LogIn extends Component {
         this.props.resetWrongCredentials();
         this.setState({ loginHasError: false, loginErrorMessage: "" });
     };
-
 
     render() {
         return (
@@ -189,6 +218,7 @@ class LogIn extends Component {
                                                 <input
                                                     onClick={() => {
                                                         this.handleAnyTextFieldTouched();
+
                                                     }}
                                                     name="attemptedPassword"
                                                     className="form-control"
@@ -203,6 +233,8 @@ class LogIn extends Component {
                                             <button
                                                 type="submit"
                                                 className="btn btn-lg btn-success btn-block"
+                                                onClick={this.registerSession}
+
                                             >
                                                 Sign In
                                             </button>
@@ -233,6 +265,10 @@ LogIn.propTypes = {
     resetWrongCredentials: PropTypes.func.isRequired,
     hasWrongLoginCredentials: PropTypes.bool.isRequired,
     accessDenied:PropTypes.bool.isRequired,
+    isLoginSuccessful:PropTypes.bool.isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
+    isOfficeAdministratorLoginSuccessful:PropTypes.bool.isRequired,
+    sessionLogRegisterSuccessful: PropTypes.bool.isRequired,
     authenticateSystemAdmin: PropTypes.func.isRequired,
     fetchAllUserPrivileges: PropTypes.func.isRequired,
     authenticateOfficeAdmin: PropTypes.func.isRequired,
@@ -241,11 +277,8 @@ LogIn.propTypes = {
     adminPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllAdministratorUserPrivileges: PropTypes.func.isRequired,
     administratorPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
-
-
-
-
-
+    registerSessionLogs: PropTypes.func.isRequired,
+    fetchAllUser: PropTypes.func.isRequired
 
 };
 
@@ -258,6 +291,8 @@ const mapStateToProps = state => ({
     privilege: state.privileges.privilege,
     adminPrivilege: state.admin_privileges.adminPrivilege,
     administratorPrivilege: state.administrator_privileges.administratorPrivilege,
+    sessionLogRegisterSuccessful: state.session_log.sessionLogRegisterSuccessful,
+    registeredUser: state.user_sign_up.registeredUser
 
 });
 
@@ -269,8 +304,8 @@ const mapDispatchToProps = dispatch => ({
     fetchAllUserPrivileges: () => dispatch(fetchAllUserPrivileges()),
     fetchAllAdminUserPrivileges: () => dispatch(fetchAllAdminUserPrivileges()),
     fetchAllAdministratorUserPrivileges: () => dispatch(fetchAllAdministratorUserPrivileges()),
-
-
+    registerSessionLogs: () => dispatch(registerSessionLogs()),
+    fetchAllUser: () => dispatch(fetchAllUser())
 
 });
 

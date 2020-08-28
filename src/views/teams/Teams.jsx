@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
 import { connect } from "react-redux";
-import {fetchAllCompany} from "../../store/modules/company/actions";
 import PropTypes from "prop-types";
 import {registerTeams, fetchAllTeams} from "../../store/modules/teams/actions";
 import Table from "../../components/table/table_body/Table";

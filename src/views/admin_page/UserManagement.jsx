@@ -7,18 +7,25 @@ import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";
 
+import FirstLevelAdmin from "../../components/moh/FirstLevelAdmin";
+
 
 class UserManagement extends Component {
 
     state = {
        permissionStatus:'',
-        data: []
+        data: [],
     };
+
+   
+
+
 
 
     componentDidMount() {
         this.props.fetchAllUser();
         this.props.fetchAllUserPrivileges();
+
 
     }
 
@@ -31,7 +38,7 @@ class UserManagement extends Component {
                 for (let i = 0; i < this.props.privilege.length; i++) {
                     list.push(
                         <p><dt>
-                            {" " +this.props.privilege[i].FirstName}
+                            {" " + this.props.privilege[i].FirstName}
                         </dt>
 
                             <dd className="admin__description-item">
@@ -46,7 +53,10 @@ class UserManagement extends Component {
 
 
                     )
+
+
                     this.setState({data: list});
+
 
                 }
             }
@@ -92,9 +102,10 @@ class UserManagement extends Component {
     render() {
         return (
             <div>
+                <FirstLevelAdmin />
                 <div className="container user-login-card">
                     <div className="row">
-                        <div className="col-md-4 col-md-offset-4">
+                        <div className=" col-md-9">
                             <div className="login-panel panel panel-default">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">User Management</h3>
@@ -120,6 +131,8 @@ UserManagement.propTypes = {
     registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
     privilegeSuccessFullyUpdated: PropTypes.bool.isRequired,
     resetPrivilegeUpdate: PropTypes.func.isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
+
 
 };
 
@@ -127,7 +140,8 @@ UserManagement.propTypes = {
 const mapStateToProps = state => ({
     registeredUser: state.user_sign_up.registeredUser,
     privilege: state.privileges.privilege,
-    privilegeSuccessFullyUpdated: state.privileges.privilegeSuccessFullyUpdated
+    privilegeSuccessFullyUpdated: state.privileges.privilegeSuccessFullyUpdated,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 
@@ -136,7 +150,8 @@ const mapDispatchToProps = dispatch => ({
     updatePermissionStatus: payload => dispatch(updatePermissionStatus(payload)),
     fetchAllUser: () => dispatch(fetchAllUser()),
     fetchAllUserPrivileges: () => dispatch(fetchAllUserPrivileges()),
-    resetPrivilegeUpdate: () => dispatch(resetPrivilegeUpdate())
+    resetPrivilegeUpdate: () => dispatch(resetPrivilegeUpdate()),
+
 });
 
 export default connect(

@@ -1,9 +1,9 @@
 export const initialState = {
 
     isLoginSuccessful: false,
-    hasWrongLoginCredentials: true,
+    hasWrongLoginCredentials: false,
     isAdminLoginSuccessful:false,
     isOfficeAdministratorLoginSuccessful:false,
-    accessDenied:false
+    accessDenied:false,
 
 };

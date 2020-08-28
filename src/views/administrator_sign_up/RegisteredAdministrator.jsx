@@ -21,7 +21,11 @@ class RegisteredAdministrator extends Component {
             EncryptedPassword: 'EncryptedPassword'
         }
     };
-
+    componentWillMount() {
+        if (this.props.isAdminLoginSuccessful === false){
+            this.props.history.push('/');
+        }
+    }
     componentDidMount() {
         this.props.fetchAllAdministrator();
     }
@@ -44,10 +48,12 @@ RegisteredAdministrator.propTypes = {
     fetchAllAdministrator: PropTypes.func.isRequired,
     registeredAdministrator: PropTypes.arrayOf(PropTypes.object).isRequired,
 
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = state => ({
     registeredAdministrator: state.administrator_sign_up.registeredAdministrator,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 const mapDispatchToProps = dispatch => ({

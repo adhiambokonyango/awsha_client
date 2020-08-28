@@ -7,7 +7,6 @@ import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 import { fetchAllTeams} from "../../store/modules/teams/actions";
 import {registerTeamMember, fetchAllTeamMember} from "../../store/modules/team_members/actions";
 
-import {registerCompanyUser, fetchAllCompanyUser} from "../../store/modules/company_users/actions";
 
 class TeamMember extends Component {
 

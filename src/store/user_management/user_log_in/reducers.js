@@ -1,11 +1,11 @@
 import {
     STORE_USER,
-    // BEGIN_USER_AUTHENTIFICATION,
-    //
-    // USER_LOGIN_SUCCESS,
-    // AN_ERROR_OCCURED_DURING_LOGIN,
     RESET_WRONG_CREDENTIALS,
-    WRONG_LOGIN_CREDENTIALS, STORE_ADMIN, STORE_OFFICE_ADMINISTRATOR, AN_ERROR_OCCURED_DURING_LOGIN
+    WRONG_LOGIN_CREDENTIALS,
+    STORE_ADMIN,
+    STORE_OFFICE_ADMINISTRATOR,
+    AN_ERROR_OCCURED_DURING_LOGIN,
+
 
 
 } from "./actionTypes";
@@ -45,5 +45,6 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             hasWrongLoginCredentials: false
         }),
+
 
 };

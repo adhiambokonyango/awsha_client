@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {fetchAllCompany} from "../../src/store/modules/company/actions";
+import {fetchAllCompany} from "../company/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { registerTeamMember} from "../team_member_signup/actions";

@@ -3,9 +3,9 @@ import React, {Component} from 'react';
 import { connect } from "react-redux";
 import Modal from "react-awesome-modal";
 import PropTypes from "prop-types";
-import {registerCompany, fetchAllCompany} from "../../store/modules/company/actions";
-import Table from "../../components/table/table_body/Table";
-import TopBar from "../../components/topbar/TopBar";
+import {registerCompany, fetchAllCompany} from "../company/actions";
+import Table from "../../src/components/table/table_body/Table";
+import TopBar from "../../src/components/topbar/TopBar";
 
 class Company extends Component {
 

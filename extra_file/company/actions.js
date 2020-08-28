@@ -1,5 +1,5 @@
 
-import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
+import {apiGetAll, apiPost} from "../../src/services/api_connector/ApiConnector";
 import {
     COMPANY_SUCCESSFULLY_REGISTERED,
     REGISTERING_COMPANY_FAILED,

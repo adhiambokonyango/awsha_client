@@ -7,7 +7,7 @@ import {
     RESET_WRONG_CREDENTIALS,
     WRONG_LOGIN_CREDENTIALS,
     STORE_ADMIN,
-    STORE_OFFICE_ADMINISTRATOR
+    STORE_OFFICE_ADMINISTRATOR, AN_ERROR_OCCURED_DURING_LOGOUT, LOGOUT
 
 } from "./actionTypes";
 import {
@@ -142,4 +142,28 @@ export function authenticateOfficeAdmin(payload) {
             }
         );
     };
+}
+
+export function logout() {
+    return async dispatch => {
+        const apiRoute = "/logout";
+        const returnedPromise = apiPost(apiRoute);
+        returnedPromise.then(
+            function (result) {
+                if (!result.data.error){
+                    dispatch({
+                        type: LOGOUT
+                    })
+                }
+
+            },
+            function(err) {
+                dispatch({
+                    type: AN_ERROR_OCCURED_DURING_LOGOUT
+                });
+                console.log(err);
+            }
+        )
+    }
+
 }

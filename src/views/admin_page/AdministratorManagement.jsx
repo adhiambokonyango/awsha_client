@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import {updateAdministratorPermissionStatus, fetchAllAdministratorUserPrivileges, resetPrivilegeUpdate} from "../../store/modules/administrator_privileges/actions";
 import CheckBox from "../../components/check_box/CheckBox";
 import {fetchAllAdministrator} from "../../store/user_management/administrator_sign_up/actions";
+import NavigationBar from "./nav_bar/NavigationBar";
+import AdminSideBar from "../../components/sidebar/AdminSideBar";
 
 class AdministratorManagement extends Component {
 
@@ -11,6 +13,12 @@ class AdministratorManagement extends Component {
         permissionStatus:'',
         data: []
     };
+
+    componentWillMount() {
+        if (this.props.isAdminLoginSuccessful === false){
+            this.props.history.push('/');
+        }
+    }
 
 
     componentDidMount() {
@@ -89,9 +97,11 @@ class AdministratorManagement extends Component {
     render() {
         return (
             <div>
+                <NavigationBar />
+
                 <div className="container user-login-card">
-                    <div className="row">
-                        <div className="col-md-4 col-md-offset-4">
+                    <div className="row ">
+                        <div className="  col-md-8 col-md-offset-0">
                             <div className="login-panel panel panel-default">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Administrator Management</h3>
@@ -117,6 +127,7 @@ AdministratorManagement.propTypes = {
     registeredAdministrator: PropTypes.arrayOf(PropTypes.object).isRequired,
     administratorPrivilegeSuccessFullyUpdated: PropTypes.bool.isRequired,
     resetPrivilegeUpdate: PropTypes.func.isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
 
 };
 
@@ -124,7 +135,8 @@ AdministratorManagement.propTypes = {
 const mapStateToProps = state => ({
     registeredAdministrator: state.administrator_sign_up.registeredAdministrator,
     administratorPrivilege: state.administrator_privileges.administratorPrivilege,
-    administratorPrivilegeSuccessFullyUpdated: state.administrator_privileges.privilegeSuccessFullyUpdated
+    administratorPrivilegeSuccessFullyUpdated: state.administrator_privileges.privilegeSuccessFullyUpdated,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 

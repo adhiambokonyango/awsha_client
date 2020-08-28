@@ -22,6 +22,12 @@ class RegisteredAdmin extends Component {
         }
     };
 
+    componentWillMount() {
+        if (this.props.isAdminLoginSuccessful === false){
+            this.props.history.push('/');
+        }
+    }
+
     componentDidMount() {
         this.props.fetchAllAdmin();
     }
@@ -43,11 +49,13 @@ class RegisteredAdmin extends Component {
 RegisteredAdmin.propTypes = {
     fetchAllAdmin: PropTypes.func.isRequired,
     registeredAdmin: PropTypes.arrayOf(PropTypes.object).isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
 
 };
 
 const mapStateToProps = state => ({
     registeredAdmin: state.admin_sign_up.registeredAdmin,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 const mapDispatchToProps = dispatch => ({

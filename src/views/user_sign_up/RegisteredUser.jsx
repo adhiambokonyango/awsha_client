@@ -21,6 +21,11 @@ class RegisteredUser extends Component {
             EncryptedPassword: 'EncryptedPassword'
         }
     };
+    componentWillMount() {
+        if (this.props.isAdminLoginSuccessful === false){
+            this.props.history.push('/');
+        }
+    }
 
     componentDidMount() {
         this.props.fetchAllUser();
@@ -43,11 +48,13 @@ class RegisteredUser extends Component {
 RegisteredUser.propTypes = {
     fetchAllUser: PropTypes.func.isRequired,
     registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
 
 };
 
 const mapStateToProps = state => ({
     registeredUser: state.user_sign_up.registeredUser,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -8,8 +8,22 @@ import { Router, Route } from 'react-router'
 import TopBar from "../../../components/topbar/TopBar";
 import { Link } from 'react-router-dom'
 import './NavigationBar.scss'
+import PropTypes from "prop-types";
+import {connect} from "react-redux";
+import {logout} from "../../../store/user_management/user_log_in/actions";
+
 
 class NavigationBar extends Component {
+    state = {
+
+    }
+
+
+    handleLogout = () => {
+        this.props.logout();
+
+}
+
     render() {
         return (
             <div className="top-bar">
@@ -19,10 +33,27 @@ class NavigationBar extends Component {
 
                    <Col sm={8}><FaList Awsha  size={25}/></Col>
                             <Nav className="mr-auto">
-                    <Col sm={1}><FaUser size={25}/></Col>
+                    <Col sm={1}>
+                       <a
+                       href="/"
+                       >
+                           <FaUser size={25}/>
+                       </a>
+                    </Col>
                     <Col sm={1}><FaMailBulk size={25}/></Col>
                    <Col sm={1}><FaCartPlus size={25}/></Col>
-                    <Col sm={1}><FaSignOutAlt size={25}/></Col>
+                                <Col  sm={1}>
+                                    <button
+                                        type="submit"
+                                        onClick={e => {
+                                            e.preventDefault();
+                                            this.handleLogout();
+                                        }}
+                                    >
+                                        <FaSignOutAlt size={25}  />
+                                    </button>
+                                </Col>
+
                             </Nav>
                         </Navbar.Collapse>
                 </Row>
@@ -34,7 +65,27 @@ class NavigationBar extends Component {
     }
 }
 
-export default NavigationBar;
+
+NavigationBar.propTypes = {
+    logout: PropTypes.func.isRequired,
+
+};
+
+
+const mapStateToProps = state => ({
+
+});
+
+
+
+const mapDispatchToProps = dispatch => ({
+    logout: () => dispatch(logout()),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(NavigationBar);
 
 
 // <Navbar bg="light" expand="lg">

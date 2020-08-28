@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import {updateAdminPermissionStatus, fetchAllAdminUserPrivileges, resetPrivilegeUpdate} from "../../store/modules/admin_privileges/actions";
 import CheckBox from "../../components/check_box/CheckBox";
 import {fetchAllAdmin} from "../../store/user_management/admin_sign_up/actions";
+import NavigationBar from "./nav_bar/NavigationBar";
+import AdminSideBar from "../../components/sidebar/AdminSideBar";
 
 class AdminManagement extends Component {
 
@@ -11,7 +13,17 @@ class AdminManagement extends Component {
         permissionStatus:'',
         data: []
     };
+    componentWillMount() {
+        if (this.props.isAdminLoginSuccessful === false){
+            this.props.history.push('/');
+        }
+    }
 
+    componentWillUnmount() {
+        if (this.props.isAdminLoginSuccessful === true){
+            this.props.history.push('/');
+        }
+    }
 
     componentDidMount() {
         this.props.fetchAllAdmin();
@@ -89,9 +101,11 @@ class AdminManagement extends Component {
     render() {
         return (
             <div>
+                <NavigationBar />
+                <AdminSideBar />
                 <div className="container user-login-card">
                     <div className="row">
-                        <div className="col-md-4 col-md-offset-4">
+                        <div className=" col-md-offset-4">
                             <div className="login-panel panel panel-default">
                                 <div className="panel-heading">
                                     <h3 className="panel-title">Admin Management</h3>
@@ -117,6 +131,7 @@ AdminManagement.propTypes = {
     registeredAdmin: PropTypes.arrayOf(PropTypes.object).isRequired,
     adminPrivilegeSuccessFullyUpdated: PropTypes.bool.isRequired,
     resetPrivilegeUpdate: PropTypes.func.isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
 
 };
 
@@ -124,7 +139,8 @@ AdminManagement.propTypes = {
 const mapStateToProps = state => ({
     registeredAdmin: state.admin_sign_up.registeredAdmin,
     adminPrivilege: state.admin_privileges.adminPrivilege,
-    adminPrivilegeSuccessFullyUpdated: state.admin_privileges.adminPrivilegeSuccessFullyUpdated
+    adminPrivilegeSuccessFullyUpdated: state.admin_privileges.adminPrivilegeSuccessFullyUpdated,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 

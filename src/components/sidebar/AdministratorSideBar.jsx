@@ -4,14 +4,13 @@ import PropTypes from "prop-types";
 import { Route, withRouter } from "react-router-dom";
 import { FaCogs, FaCog, FaSearch, FaList } from "react-icons/fa";
 import {
-    DISPLAY_PROJECT_OBJECTIVE,
-    DISPLAY_OBJECTIVES
+    DISPLAY_PROJECTS, DISPLAY_TEAM_MEMBERS
 
 } from "../../config/constants/Constants";
 
-import './UserSideBar.scss';
+import './AdministratorSideBar.scss';
 
-class UserSideBar extends Component {
+class AdministratorSideBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -60,13 +59,12 @@ class UserSideBar extends Component {
                                 className="side-bar__anchor-text"
                                 onClick={e => {
                                     e.preventDefault();
-                                    this.props.handleSideBarClicked(DISPLAY_OBJECTIVES);
+                                    this.props.handleSideBarClicked(DISPLAY_PROJECTS);
                                 }}
                             >
-                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Objectives
+                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Projects
                             </a>
                         </li>
-
 
                         <li className="list-class">
                             <a
@@ -74,12 +72,14 @@ class UserSideBar extends Component {
                                 className="side-bar__anchor-text"
                                 onClick={e => {
                                     e.preventDefault();
-                                    this.props.handleSideBarClicked(DISPLAY_PROJECT_OBJECTIVE);
+                                    this.props.handleSideBarClicked(DISPLAY_TEAM_MEMBERS);
                                 }}
                             >
-                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Project Objective
+                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Team Members
                             </a>
                         </li>
+
+
 
                     </ul>
                 </div>
@@ -88,8 +88,8 @@ class UserSideBar extends Component {
     }
 }
 
-UserSideBar.propTypes = {
+AdministratorSideBar.propTypes = {
     handleSideBarClicked: PropTypes.func.isRequired
 };
 
-export default withRouter(UserSideBar);
+export default withRouter(AdministratorSideBar);

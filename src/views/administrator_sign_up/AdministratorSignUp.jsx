@@ -36,7 +36,11 @@ class AdministratorSignUp extends Component {
 
         }
     };
-
+    componentWillMount() {
+        if (this.props.isAdminLoginSuccessful === false){
+            this.props.history.push('/');
+        }
+    }
 
     componentDidMount() {
         this.props.fetchAllGender();
@@ -273,13 +277,16 @@ AdministratorSignUp.propTypes = {
     registeredAdministrator: PropTypes.arrayOf(PropTypes.object).isRequired,
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
+    isAdminLoginSuccessful:PropTypes.bool.isRequired,
+
 };
 
 
 const mapStateToProps = state => ({
     signUpSuccessful: state.administrator_sign_up.signUpSuccessful,
     registeredAdministrator: state.administrator_sign_up.registeredAdministrator,
-    registeredGender: state.gender_info.registeredGender
+    registeredGender: state.gender_info.registeredGender,
+    isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
 
 
