@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {fetchAllProjects} from "../../store/modules/projects/actions";
+import {fetchAllProjects} from "../../src/store/modules/projects/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {fetchAllProjectObjectives} from "../../store/modules/project_objectives/actions";
-import {fetchAllObjectivePercentage} from "../../store/modules/objective_percentage/actions";
+import {fetchAllProjectObjectives} from "../../src/store/modules/project_objectives/actions";
+import {fetchAllObjectivePercentage} from "../../src/store/modules/objective_percentage/actions";
 
 
 

@@ -8,13 +8,12 @@ import {
     authenticateOfficeAdmin,
 
 } from "../../store/user_management/user_log_in/actions";
-import { FormGroup, Label, Input } from "reactstrap";
-import {getConfirmationStatus} from "../../store/modules/confirmation_status/action";
 import {fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
 import {fetchAllAdminUserPrivileges} from "../../store/modules/admin_privileges/actions";
 import {fetchAllAdministratorUserPrivileges} from "../../store/modules/administrator_privileges/actions";
-import {registerSessionLogs} from "../../store/activity_log/session_log/actions";
+import {promiselessApiGetAll, promiselessApiPost} from "../../services/api_connector/ApiConnector";
 import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
+import {registerUserSessionLogs} from "../../store/activity_log/user_session_log/actions";
 
 import "./Login.scss";
 class LogIn extends Component {
@@ -28,7 +27,8 @@ class LogIn extends Component {
         loginNoError: false,
         userloginNoError: false,
         adminloginNoError: false,
-        //user:"",
+        userSessionId: ''
+
 
     };
 
@@ -40,7 +40,7 @@ class LogIn extends Component {
 
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         this.setState({ emailReadOnly: false, passwordReadOnly: false });
         this.props.fetchAllUserPrivileges();
         this.props.fetchAllAdminUserPrivileges();
@@ -126,12 +126,6 @@ class LogIn extends Component {
         /* ---------------------------------------------------------------------------------------------------------------------- */
 
 
-        // if(this.props.isLoginSuccessful !== prevProps.isLoginSuccessful) {
-        //     if(this.props.isLoginSuccessful.length > 0 && this.state.userloginNoError === true) {
-        //         let allregisteredUser = this.props.isLoginSuccessful[i].UserId;
-        //         this.setState({ user: allregisteredUser });
-        //     }
-        // }
     };
 
     handleEmailEditTextsFocus = () => {
@@ -147,7 +141,7 @@ class LogIn extends Component {
         const payload = {
             AttemptedEmail: this.state.attemptedEmail,
             AttemptedPassword: this.state.attemptedPassword,
-            UserId: this.state.user
+            SessionLogId: this.state.userSessionId
 
         };
 
@@ -155,17 +149,7 @@ class LogIn extends Component {
         this.props.authenticateSystemAdmin(payload);
         this.props.authenticateOfficeAdmin(payload);
 
-
     };
-
-    registerSession = () => {
-         const payload = {
-             UserId: this.props.isLoginSuccessful.UserId
-         };
-        this.props.registerSessionLogs(payload);
-    }
-
-
 
     handleChange = event => {
         let newState = this.state;
@@ -233,7 +217,6 @@ class LogIn extends Component {
                                             <button
                                                 type="submit"
                                                 className="btn btn-lg btn-success btn-block"
-                                                onClick={this.registerSession}
 
                                             >
                                                 Sign In
@@ -277,8 +260,8 @@ LogIn.propTypes = {
     adminPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllAdministratorUserPrivileges: PropTypes.func.isRequired,
     administratorPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
-    registerSessionLogs: PropTypes.func.isRequired,
-    fetchAllUser: PropTypes.func.isRequired
+    fetchAllUser: PropTypes.func.isRequired,
+    session_details: PropTypes.object.isRequired,
 
 };
 
@@ -291,8 +274,8 @@ const mapStateToProps = state => ({
     privilege: state.privileges.privilege,
     adminPrivilege: state.admin_privileges.adminPrivilege,
     administratorPrivilege: state.administrator_privileges.administratorPrivilege,
-    sessionLogRegisterSuccessful: state.session_log.sessionLogRegisterSuccessful,
-    registeredUser: state.user_sign_up.registeredUser
+    registeredUser: state.user_sign_up.registeredUser,
+    session_details: state.user_log_in.session_details
 
 });
 
@@ -304,8 +287,7 @@ const mapDispatchToProps = dispatch => ({
     fetchAllUserPrivileges: () => dispatch(fetchAllUserPrivileges()),
     fetchAllAdminUserPrivileges: () => dispatch(fetchAllAdminUserPrivileges()),
     fetchAllAdministratorUserPrivileges: () => dispatch(fetchAllAdministratorUserPrivileges()),
-    registerSessionLogs: () => dispatch(registerSessionLogs()),
-    fetchAllUser: () => dispatch(fetchAllUser())
+    fetchAllUser: () => dispatch(fetchAllUser()),
 
 });
 

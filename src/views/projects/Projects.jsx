@@ -4,6 +4,13 @@ import PropTypes from "prop-types";
 import {registerProjects, fetchAllProjects} from "../../store/modules/projects/actions";
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
+import NavigationBar from "../admin_page/nav_bar/NavigationBar";
+import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Form,
+    Container, Row, Col
+
+} from 'react-bootstrap';
+import {FaList} from "react-icons/fa";
+import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
 
 
 class Projects extends Component {
@@ -11,14 +18,15 @@ class Projects extends Component {
     state = {
         projectTitle:'',
         projectDescription:'',
-
-
+        projectProgress:'',
+        selectOptions:'',
+        data:[],
 
         tableData: [],
         tableHeaders: {
             ProjectId:'#',
             ProjectTitle:'ProjectTitle',
-            ProjectDescription:'ProjectDescription',
+
         }
     };
 
@@ -27,21 +35,37 @@ class Projects extends Component {
         this.props.fetchAllProjects();
 
     }
-    // componentDidUpdate(prevProps) {
-    //     if(this.props.registeredCompany !== prevProps.registeredCompany) {
-    //         if(this.props.registeredCompany.length > 0) {
-    //             let allregisteredCompany = this.props.registeredCompany;
-    //
-    //             allregisteredCompany = allregisteredCompany.map(item => {
-    //                 return {
-    //                     label: item.CompanyName,
-    //                     value: item.CompanyId
-    //                 };
-    //             });
-    //             this.setState({ selectOptionsThree: allregisteredCompany });
-    //         }
-    //     }
-    // };
+     componentDidUpdate(prevProps) {
+         if(this.props.registeredProjects !== prevProps.registeredProjects) {
+             if(this.props.registeredProjects && this.props.registeredProjects.length > 0) {
+
+                 let list = [];
+
+                 for(let i = 0;i<this.props.registeredProjects.length;i++) {
+                     list.push(<p><dt>
+                         <a>
+                             <h3 className="panel-title">
+                                 <FaList size={4}/>
+                             {" " +this.props.registeredProjects[i].ProjectTitle}
+                             </h3>
+                         </a><br/>
+                     </dt>
+
+                     </p>);
+                 }
+                 this.setState({data: list});
+
+             }
+         }
+
+         if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
+             if(this.props.projectsSuccessFullyRegistered) {
+                 this.props.fetchAllProjects();
+             }
+
+         }
+
+     };
 
 
 
@@ -60,6 +84,7 @@ class Projects extends Component {
         const payload = {
             ProjectTitle:this.state.projectTitle,
             ProjectDescription:this.state.projectDescription,
+            ProjectProgress:this.state.projectProgress,
 
 
         };
@@ -68,16 +93,23 @@ class Projects extends Component {
         this.setState({
             projectTitle:'',
             projectDescription:'',
+            projectProgress:''
         });
     };
 
     render() {
         return (
             <div>
+                <NavigationBar />
+
                 <div className="login-panel panel panel-default">
+                    <Row>
                     <div className="panel-heading">
-                        <h3 className="panel-title">Register Project</h3>
+                        <h3 className="panel-title">Projects</h3>
                     </div>
+
+                    <Col sm={7}>
+
                     <div className="panel-body">
                         <form
                             action=""
@@ -100,12 +132,28 @@ class Projects extends Component {
                                         autoFocus
                                         required={true}
                                     />
+                                </div>
 
+                                <div className="form-group">
                                     <input
                                         name="projectDescription"
                                         className="form-control"
                                         placeholder="projectDescription"
                                         value={this.state.projectDescription}
+                                        type="text"
+                                        onChange={this.handleChange}
+                                        autoFocus
+                                        required={true}
+                                    />
+
+                                </div>
+
+                                <div className="form-group">
+                                    <input
+                                        name="projectProgress"
+                                        className="form-control"
+                                        placeholder="projectProgress"
+                                        value={this.state.projectProgress}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
@@ -122,11 +170,21 @@ class Projects extends Component {
                             </fieldset>
                         </form>
                     </div>
-                </div>
+                    </Col>
 
-                <Table tableTitle='Registered Projects'
-                       tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredProjects}/>
+                    <Col sm={5}>
+
+                        <div className="login-panel panel panel-default">
+                            <div className="panel-heading">
+                                <h3 className="panel-title">Registered Project</h3>
+                            </div>
+                            <div className="panel-body">
+                               {this.state.data}
+                            </div>
+                        </div>
+                    </Col>
+                    </Row>
+                </div>
             </div>
         );
     }

@@ -18,7 +18,10 @@ export function registerProjects(payload) {
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: PROJECTS_SUCCESSFULLY_REGISTERED
+                        type: PROJECTS_SUCCESSFULLY_REGISTERED,
+                        payload: {
+                           project_session_details: result.data,
+                        }
                     });
                 } else {
                     dispatch({

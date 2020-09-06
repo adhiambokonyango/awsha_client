@@ -7,7 +7,6 @@ import Gender from "./views/gender_info/Gender";
 import AdminPage from "./views/admin_page/AdminPage";
 import Teams from "./views/teams/Teams";
 import Projects from "./views/projects/Projects";
-import ProjectObjectives from "./views/project_objectives/ProjectObjectives";
 // import ProjectDetails from "./views/project_details/ProjectDetails";
 // import Percentage from "./views/percentage/Percentage";
 import Objectives from "./views/objectives/Objectives";
@@ -49,7 +48,6 @@ class App extends Component {
 
             <Route path="/register_projects" exact component={Projects} />
 
-            <Route path="/register_project_objectives" exact component={ProjectObjectives} />
             <Route path="/objectives" exact component={Objectives} />
             <Route path="/team_members" exact component={TeamMember} />
 

@@ -79,7 +79,7 @@ export function authenticateSystemAdmin(payload) {
                         type: STORE_ADMIN,
                         payload: {
                             isAdminLoginSuccessful:false,
-                            session_details: result.data,
+                            admin_session_details: result.data,
                             isSessionActive: true
                         }
                     });
@@ -118,8 +118,7 @@ export function authenticateOfficeAdmin(payload) {
                         type: STORE_OFFICE_ADMINISTRATOR,
                         payload: {
                             isOfficeAdministratorLoginSuccessful:false,
-
-                            session_details: result.data,
+                            administrator_session_details: result.data,
                             isSessionActive: true
                         }
                     });
@@ -167,3 +166,4 @@ export function logout() {
     }
 
 }
+

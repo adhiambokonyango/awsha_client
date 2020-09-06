@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {fetchAllProjects} from "../../store/modules/projects/actions";
+import {fetchAllProjects} from "../../src/store/modules/projects/actions";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {registerProjectObjectives, fetchAllProjectObjectives} from "../../store/modules/project_objectives/actions";
-import Table from "../../components/table/table_body/Table";
+import {registerProjectObjectives, fetchAllProjectObjectives} from "../../src/store/modules/project_objectives/actions";
+import Table from "../../src/components/table/table_body/Table";
 import Select from "react-select";
-import {fetchAllObjectives} from "../../store/modules/objectives/actions";
+import {fetchAllObjectives} from "../../src/store/modules/objectives/actions";
 
 
 

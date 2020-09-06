@@ -1,23 +1,25 @@
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    ERROR_REGISTERING_SESSION_LOG, SESSION_LOG_EMPTY_FETCH, SESSION_LOG_FETCH_ERROR,
-    SESSION_LOG_FETCH_SUCCESSFULLY,
-    SESSION_LOG_REGISTERED_SUCCESSFULLY
+    ERROR_REGISTERING_USER_SESSION_LOG,
+    USER_SESSION_LOG_EMPTY_FETCH,
+    USER_SESSION_LOG_FETCH_ERROR,
+    USER_SESSION_LOG_FETCH_SUCCESSFULLY,
+    USER_SESSION_LOG_REGISTERED_SUCCESSFULLY
 } from './actionTypes'
 
-export function registerSessionLogs(payload) {
+export function registerUserSessionLogs(payload) {
     return async dispatch => {
-        const apiRoute = "/add_session_logs";
+        const apiRoute = "/add_actual_session_activities";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: SESSION_LOG_REGISTERED_SUCCESSFULLY
+                        type: USER_SESSION_LOG_REGISTERED_SUCCESSFULLY
                     });
                 } else {
                     dispatch({
-                        type: ERROR_REGISTERING_SESSION_LOG
+                        type: ERROR_REGISTERING_USER_SESSION_LOG
                     });
                 }
             },
@@ -29,7 +31,7 @@ export function registerSessionLogs(payload) {
 }
 
 
-export function fetchAllSessionLogs() {
+export function fetchAllUserSessionLogs() {
     return async dispatch => {
         const apiRoute = "/get_all_session_logs";
         const returnedPromise = apiGetAll(apiRoute);
@@ -38,20 +40,20 @@ export function fetchAllSessionLogs() {
             function (result) {
                 if(result.data.results && result.date.results.length > 0){
                     dispatch({
-                        type: SESSION_LOG_FETCH_SUCCESSFULLY,
+                        type: USER_SESSION_LOG_FETCH_SUCCESSFULLY,
                         payload: {
                             registeredSessionLogs: result.data.results
                         }
                     })
                 } else if(result.data.results && result.data.results === 0){
                     dispatch({
-                        type: SESSION_LOG_EMPTY_FETCH
+                        type: USER_SESSION_LOG_EMPTY_FETCH
                     })
                 }
             },
             function (err) {
                 dispatch({
-                    type: SESSION_LOG_FETCH_ERROR
+                    type: USER_SESSION_LOG_FETCH_ERROR
                 })
                 console.log(err);
             }

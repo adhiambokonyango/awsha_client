@@ -15,21 +15,21 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             isLoginSuccessful: true,
            session_details: action.payload.session_details,
-            isSessionActive: action.payload.isSessionActive
+            isSessionActive: true
         }),
 
     [STORE_ADMIN]: (state, action) =>
         Object.assign({}, state, {
             isAdminLoginSuccessful: true,
-            session_details: action.payload.session_details,
-            isSessionActive: action.payload.isSessionActive
+            admin_session_details: action.payload.session_details,
+            isSessionActive: true
         }),
 
     [STORE_OFFICE_ADMINISTRATOR]: (state, action) =>
         Object.assign({}, state, {
             isOfficeAdministratorLoginSuccessful: true,
-            session_details: action.payload.session_details,
-            isSessionActive: action.payload.isSessionActive
+            administrator_session_details: action.payload.session_details,
+            isSessionActive: true
         }),
 
     [WRONG_LOGIN_CREDENTIALS]: state =>

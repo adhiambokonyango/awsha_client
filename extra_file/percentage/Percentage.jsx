@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import Table from "../../components/table/table_body/Table";
+import Table from "../../src/components/table/table_body/Table";
 import Select from "react-select";
-import {fetchAllObjectivePercentage, registerObjectivePercentage} from "../../store/modules/objective_percentage/actions";
+import {fetchAllObjectivePercentage, registerObjectivePercentage} from "../../src/store/modules/objective_percentage/actions";
 
 
 
