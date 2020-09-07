@@ -1,4 +1,10 @@
 export const initialState = {
     projectsSuccessFullyRegistered: false,
-    registeredProjects: []
+    registeredProjects: [],
+
+    isSelectionSuccessful: false,
+    hasWrongProjectCredentials: false,
+
+    accessToProjectDenied:false,
+    project_session_details:{},
 };

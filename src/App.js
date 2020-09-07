@@ -29,6 +29,8 @@ import AdministratorLevel from "./components/moh/AdministratorLevel";
 import UserLevel from "./components/moh/UserLevel";
 import NavigationBar from "./views/admin_page/nav_bar/NavigationBar";
 import HomePage from "./components/home_page/HomePage";
+import RegisteredProjects from "./views/projects/RegisteredProjects";
+import ProjectDetail from "./views/projects/ProjectDetail";
 
 
 class App extends Component {
@@ -67,6 +69,9 @@ class App extends Component {
             <Route path="/user_level" exact component={UserLevel} />
             <Route path="/logout" exact component={NavigationBar} />
             <Route path="/awsha_home" exact component={HomePage} />
+
+            <Route path="/Registered Projects Section" exact component={RegisteredProjects} />
+            <Route path="/Project Details Section" exact component={ProjectDetail} />
 
         </div>
       </Router>

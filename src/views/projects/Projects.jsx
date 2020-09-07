@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {registerProjects, fetchAllProjects} from "../../store/modules/projects/actions";
+import {registerProjects, fetchAllProjects, projectSelect} from "../../store/modules/projects/actions";
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
@@ -11,6 +11,7 @@ import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormCon
 } from 'react-bootstrap';
 import {FaList} from "react-icons/fa";
 import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
+import RegisteredProjects from "./RegisteredProjects";
 
 
 class Projects extends Component {
@@ -21,6 +22,8 @@ class Projects extends Component {
         projectProgress:'',
         selectOptions:'',
         data:[],
+
+
 
         tableData: [],
         tableHeaders: {
@@ -43,10 +46,13 @@ class Projects extends Component {
 
                  for(let i = 0;i<this.props.registeredProjects.length;i++) {
                      list.push(<p><dt>
-                         <a>
+                         <a
+                             href="/Project Details Section"
+                         >
                              <h3 className="panel-title">
                                  <FaList size={4}/>
                              {" " +this.props.registeredProjects[i].ProjectTitle}
+
                              </h3>
                          </a><br/>
                      </dt>
@@ -64,6 +70,7 @@ class Projects extends Component {
              }
 
          }
+
 
      };
 
@@ -96,6 +103,7 @@ class Projects extends Component {
             projectProgress:''
         });
     };
+
 
     render() {
         return (
@@ -174,14 +182,7 @@ class Projects extends Component {
 
                     <Col sm={5}>
 
-                        <div className="login-panel panel panel-default">
-                            <div className="panel-heading">
-                                <h3 className="panel-title">Registered Project</h3>
-                            </div>
-                            <div className="panel-body">
-                               {this.state.data}
-                            </div>
-                        </div>
+                        <RegisteredProjects />
                     </Col>
                     </Row>
                 </div>
@@ -196,6 +197,8 @@ Projects.propTypes = {
     projectsSuccessFullyRegistered: PropTypes.bool.isRequired,
     fetchAllProjects: PropTypes.func.isRequired,
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    projectSelect: PropTypes.func.isRequired,
+    project_session_details: PropTypes.object.isRequired
 
 };
 
@@ -203,6 +206,7 @@ Projects.propTypes = {
 const mapStateToProps = state => ({
     projectsSuccessFullyRegistered: state.projects.projectsSuccessFullyRegistered,
     registeredProjects: state.projects.registeredProjects,
+    project_session_details: state.projects.project_session_details
 
 });
 
@@ -211,6 +215,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerProjects: payload => dispatch(registerProjects(payload)),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
+    projectSelect: () => dispatch(projectSelect()),
 
 });
 

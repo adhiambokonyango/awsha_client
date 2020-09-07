@@ -27,7 +27,7 @@ class LogIn extends Component {
         loginNoError: false,
         userloginNoError: false,
         adminloginNoError: false,
-        userSessionId: ''
+
 
 
     };

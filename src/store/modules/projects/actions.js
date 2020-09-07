@@ -6,9 +6,16 @@ import {
 
     REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_PROJECTS,
-    REGISTERED_PROJECTS_EMPTY_RESULTS
+    REGISTERED_PROJECTS_EMPTY_RESULTS,
+    BEGIN_PROJECT_SELECTION,
+    STORE_PROJECT,
+    PROJECT_SELECTION_SUCCESS,
+    WRONG_SELECTION,
+    AN_ERROR_OCCURED_DURING_SELECTION
+
 
 } from "./actionTypes";
+
 
 export function registerProjects(payload) {
     return async dispatch => {
@@ -61,6 +68,45 @@ export function fetchAllProjects() {
             function(err) {
                 dispatch({
                     type: ERROR_FETCHING_PROJECTS
+                });
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function projectSelect(payload) {
+    return async dispatch => {
+        dispatch({
+            type: BEGIN_PROJECT_SELECTION
+        });
+        const apiRoute = "/project_selection";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (!result.data.error) {
+                    dispatch({
+                        type: STORE_PROJECT,
+                        payload: {
+                            isSelectionSuccessful:false,
+                            project_session_details: result.data,
+                            isProjectSessionActive: true
+                        }
+                    });
+                    dispatch({
+                        type: PROJECT_SELECTION_SUCCESS
+                    });
+
+
+                } else {
+                    dispatch({
+                        type: WRONG_SELECTION
+                    });
+                }
+            },
+            function(err) {
+                dispatch({
+                    type: AN_ERROR_OCCURED_DURING_SELECTION
                 });
                 console.log(err);
             }
