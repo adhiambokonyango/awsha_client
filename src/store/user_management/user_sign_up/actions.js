@@ -6,7 +6,7 @@ import {
 
     REGISTERED_USER_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_USER,
-    REGISTERED_USER_EMPTY_RESULTS
+    REGISTERED_USER_EMPTY_RESULTS, SET_USER
 
 } from "./actionTypes";
 
@@ -62,5 +62,16 @@ export function fetchAllUser() {
                 console.log(err);
             }
         );
+    };
+}
+
+export function setUser(user){
+    return async dispatch => {
+        dispatch({
+            type: SET_USER,
+            payload: {
+                user: user
+            }
+        });
     };
 }

@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 
 class RegisteredProjects extends Component {
     state = {
-        data:[],
+        data: {},
     };
 
     componentDidMount() {
@@ -14,31 +14,6 @@ class RegisteredProjects extends Component {
 
     }
     componentDidUpdate(prevProps) {
-        if(this.props.registeredProjects !== prevProps.registeredProjects) {
-            if(this.props.registeredProjects && this.props.registeredProjects.length > 0) {
-
-                let list = [];
-
-                for(let i = 0;i<this.props.registeredProjects.length;i++) {
-                    list.push(<p><dt>
-                        <a
-                            href="/Project Details Section"
-                        >
-                            <h6 >
-                                <FaList size={4}/>
-                                {" " +this.props.registeredProjects[i].ProjectTitle}
-
-                            </h6>
-                        </a><br/>
-                    </dt>
-
-                    </p>);
-                }
-                this.setState({data: list});
-
-            }
-        }
-
         if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
             if(this.props.projectsSuccessFullyRegistered) {
                 this.props.fetchAllProjects();
@@ -49,6 +24,34 @@ class RegisteredProjects extends Component {
 
     };
 
+    blog = () => {
+        const projectTitle = (
+            <ul>
+                {this.props.registeredProjects.map((post) =>
+                    <a
+                        //href="/Project Details Section"
+                        onClick={() => {this.selected()}}
+                    >
+                        <h6>
+                            <li key={post.id}>
+                                {post.ProjectTitle}</li>
+                        </h6>
+                    </a>
+                )}
+            </ul>
+        );
+         return (<div>{projectTitle}</div>);
+    }
+
+    selected = () => {
+        const payload = {
+            ProjectTitle: this.state.data
+        }
+        this.props.projectSelect(payload);
+        this.setState({
+            data: this.blog
+        })
+    }
 
     render() {
         return (
@@ -58,8 +61,7 @@ class RegisteredProjects extends Component {
                         <h3 className="panel-title">Registered Project</h3>
                     </div>
                     <div className="panel-body">
-                        {this.state.data}
-
+                        {this.blog()}
                     </div>
                 </div>
             </div>
@@ -70,6 +72,7 @@ class RegisteredProjects extends Component {
 RegisteredProjects.propTypes = {
     fetchAllProjects: PropTypes.func.isRequired,
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
+    projectSelect: PropTypes.func.isRequired,
 
 };
 
@@ -83,6 +86,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     fetchAllProjects: () => dispatch(fetchAllProjects()),
+    projectSelect: payload => dispatch(projectSelect(payload)),
 
 });
 

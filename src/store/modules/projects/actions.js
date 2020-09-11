@@ -113,3 +113,32 @@ export function projectSelect(payload) {
         );
     };
 }
+
+
+export function selectSpecific() {
+    return async dispatch => {
+        const apiRoute = "/get_specific_projects";
+        const returnedPromise = apiGetAll(apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results && result.data.results.length > 0) {
+                    dispatch({
+                        type: REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
+                        payload: {
+                            specificProject: result.data.results
+                        }
+                    });
+                } else if (result.data.results && result.data.results.length === 0) {
+                    dispatch({
+                        type: REGISTERED_PROJECTS_EMPTY_RESULTS
+                    });
+                }
+            },
+            function(err) {
+                dispatch({
+                    type: ERROR_FETCHING_PROJECTS
+                });
+                console.log(err);
+            });
+    };
+}

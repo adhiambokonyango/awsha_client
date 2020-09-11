@@ -31,6 +31,7 @@ import NavigationBar from "./views/admin_page/nav_bar/NavigationBar";
 import HomePage from "./components/home_page/HomePage";
 import RegisteredProjects from "./views/projects/RegisteredProjects";
 import ProjectDetail from "./views/projects/ProjectDetail";
+import Demo1 from "./views/projects/Demo1";
 
 
 class App extends Component {
@@ -72,6 +73,7 @@ class App extends Component {
 
             <Route path="/Registered Projects Section" exact component={RegisteredProjects} />
             <Route path="/Project Details Section" exact component={ProjectDetail} />
+            <Route path="/demo" exact component={Demo1} />
 
         </div>
       </Router>
