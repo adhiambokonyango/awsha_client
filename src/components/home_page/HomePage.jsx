@@ -15,7 +15,10 @@ class HomePage extends Component {
                       <div class="card">
                           <div class="card-image">
                               <img src={ require('./images/sample.jpg') } />
-                              <a class="btn-floating halfway-fab waves-effect waves-light red">
+                              <a
+                                  class="btn-floating halfway-fab waves-effect waves-light red"
+                                  href="/"
+                              >
                                   <i class="material-icons"><FaCogs /></i>
 
                               </a>
