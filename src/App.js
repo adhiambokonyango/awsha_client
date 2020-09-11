@@ -40,7 +40,7 @@ class App extends Component {
     return (
       <Router>
         <div>
-            <Route path="/" exact component={LogIn} />
+            <Route path="/log in" exact component={LogIn} />
 
             <Route path="/admin_page" exact component={AdminPage} />
           <Route path="/register_users" exact component={SignUp} />
@@ -69,7 +69,7 @@ class App extends Component {
             <Route path="/administrator_management" exact component={AdministratorManagement} />
             <Route path="/user_level" exact component={UserLevel} />
             <Route path="/logout" exact component={NavigationBar} />
-            <Route path="/awsha_home" exact component={HomePage} />
+            <Route path="/" exact component={HomePage} />
 
             <Route path="/Registered Projects Section" exact component={RegisteredProjects} />
             <Route path="/Project Details Section" exact component={ProjectDetail} />

@@ -17,7 +17,7 @@ class HomePage extends Component {
                               <img src={ require('./images/sample.jpg') } />
                               <a
                                   class="btn-floating halfway-fab waves-effect waves-light red"
-                                  href="/"
+                                  href="/log in"
                               >
                                   <i class="material-icons"><FaCogs /></i>
 

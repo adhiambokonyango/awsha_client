@@ -65,13 +65,4 @@ export function fetchAllUser() {
     };
 }
 
-export function setUser(user){
-    return async dispatch => {
-        dispatch({
-            type: SET_USER,
-            payload: {
-                user: user
-            }
-        });
-    };
-}
+

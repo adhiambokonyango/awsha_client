@@ -3,7 +3,7 @@ import {
     AN_ERROR_OCCURED_DURING_SELECTION,
     PROJECTS_SUCCESSFULLY_REGISTERED,
     REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
-    REGISTERING_PROJECTS_FAILED, STORE_PROJECT, WRONG_SELECTION
+    REGISTERING_PROJECTS_FAILED, SET_PROJECT, STORE_PROJECT, WRONG_SELECTION
 } from "./actionTypes";
 
 export const ACTION_HANDLERS = {
@@ -35,6 +35,11 @@ export const ACTION_HANDLERS = {
     [AN_ERROR_OCCURED_DURING_SELECTION]: state =>
         Object.assign({}, state, {
             accessToProjectDenied: true
+        }),
+
+    [SET_PROJECT]: (state, action) =>
+        Object.assign({}, state, {
+            projectSelect: action.payload.projectSelect
         }),
 
 

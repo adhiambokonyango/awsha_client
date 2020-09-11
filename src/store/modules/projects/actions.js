@@ -11,10 +11,11 @@ import {
     STORE_PROJECT,
     PROJECT_SELECTION_SUCCESS,
     WRONG_SELECTION,
-    AN_ERROR_OCCURED_DURING_SELECTION
+    AN_ERROR_OCCURED_DURING_SELECTION, SET_PROJECT
 
 
 } from "./actionTypes";
+import {SET_USER} from "../../user_management/user_sign_up/actionTypes";
 
 
 export function registerProjects(payload) {
@@ -115,30 +116,13 @@ export function projectSelect(payload) {
 }
 
 
-export function selectSpecific() {
+export function setProject(projectSelect){
     return async dispatch => {
-        const apiRoute = "/get_specific_projects";
-        const returnedPromise = apiGetAll(apiRoute);
-        returnedPromise.then(
-            function(result) {
-                if (result.data.results && result.data.results.length > 0) {
-                    dispatch({
-                        type: REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
-                        payload: {
-                            specificProject: result.data.results
-                        }
-                    });
-                } else if (result.data.results && result.data.results.length === 0) {
-                    dispatch({
-                        type: REGISTERED_PROJECTS_EMPTY_RESULTS
-                    });
-                }
-            },
-            function(err) {
-                dispatch({
-                    type: ERROR_FETCHING_PROJECTS
-                });
-                console.log(err);
-            });
+        dispatch({
+            type: SET_PROJECT,
+            payload: {
+                projectSelect: projectSelect
+            }
+        });
     };
 }

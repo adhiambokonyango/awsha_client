@@ -12,56 +12,6 @@ state = {
         {name: "Pete Hunt", country: "USA"},
         {name: "Jordan Walke", country: "Australia"}
         ],
-    projects: [
-        {
-            project_id:"",
-            project_title: "",
-            project_description: "",
-            project_progress: ""
-        }
-    ],
-    data: []
-
-};
-
-    componentDidMount() {
-        this.props.fetchAllProjects();
-    };
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.registeredProjects !== prevProps.registeredProjects) {
-            if(this.props.registeredProjects && this.props.registeredProjects.length > 0) {
-                let i = 0;
-
-
-                    let array = this.props.registeredProjects.map(function (item,index){
-                        return(
-                            <ul key={index}>
-                                {index}={this.props.registeredProjects[i].ProjectId}
-                                {item.project_title}={this.props.registeredProjects[i].ProjectTitle}
-                                {item.project_description}={this.props.registeredProjects[i].ProjectDescription}
-                                {item.project_progress}={this.props.registeredProjects[i].ProjectProgress}
-                            </ul>
-                        )
-                    });
-                    return (
-                        {array}
-                    )
-            }}
-
-        };
-
-projectDisplay (){
-    var project = this.state.projects.map(function (item, index){
-        return (
-            <div key={index}>
-                {item.project_title}
-            </div>
-        )
-    })
-    return(
-        {project}
-    )
 };
 
     test (){
@@ -81,8 +31,7 @@ projectDisplay (){
     render() {
         return (
             <div>
-                {this.state.projects}
-                {this.componentDidUpdate()}
+                {this.test()}
             </div>
         );
     }
@@ -91,7 +40,6 @@ projectDisplay (){
 };
 
 Tests.propTypes = {
-    profiles: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllProjects: PropTypes.func.isRequired,
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
