@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+
+
+
+
 .row .col.s12 {
     width: 100%;
     margin-left: auto;
@@ -306,7 +311,8 @@ a {
     margin-bottom: 8px;
 }
 .card .card-title {
-    font-size: 24px;
+    font-family: 'Grand Hotel', cursive;
+    font-size: 30px;
     font-weight: 300;
 }
 
