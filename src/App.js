@@ -32,6 +32,7 @@ import HomePage from "./components/home_page/HomePage";
 import RegisteredProjects from "./views/projects/RegisteredProjects";
 import ProjectDetail from "./views/projects/ProjectDetail";
 import Demo1 from "./views/projects/Demo1";
+import Demo2 from "./views/projects/Demo2";
 
 
 class App extends Component {
@@ -71,9 +72,9 @@ class App extends Component {
             <Route path="/logout" exact component={NavigationBar} />
             <Route path="/" exact component={HomePage} />
 
-            <Route path="/Registered Projects Section" exact component={RegisteredProjects} />
-            <Route path="/Project Details Section" exact component={ProjectDetail} />
-            <Route path="/demo" exact component={Demo1} />
+            <Route path="/registered_projects" exact component={RegisteredProjects} />
+            <Route path="/project_detail" exact component={ProjectDetail} />
+            <Route path="/demo" exact component={Demo2} />
 
         </div>
       </Router>

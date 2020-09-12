@@ -3,7 +3,7 @@ import NavigationBar from "../../views/admin_page/nav_bar/NavigationBar";
 import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {FaCartPlus, FaList, FaMailBulk, FaSignOutAlt, FaUser, FaSignInAlt, FaCircle, FaCogs} from "react-icons/fa";
 import './HomePage.css';
-import './images/sample.jpg';
+import './images/awsha_photo.jpg';
 
 
 class HomePage extends Component {
@@ -14,7 +14,7 @@ class HomePage extends Component {
 
                       <div class="card">
                           <div class="card-image">
-                              <img src={ require('./images/sample.jpg') } />
+                              <img src={ require('./images/awsha_photo.jpg') } />
                               <a
                                   class="btn-floating halfway-fab waves-effect waves-light red"
                                   href="/log in"

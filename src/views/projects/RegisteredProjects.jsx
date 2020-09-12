@@ -1,37 +1,29 @@
 import React, {Component} from 'react';
-import {FaList} from "react-icons/fa";
-import {registerProjects, fetchAllProjects, setProject} from "../../store/modules/projects/actions";
+import { fetchAllProjects, setProject} from "../../store/modules/projects/actions";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 
+
 class RegisteredProjects extends Component {
-    state = {
-        data: {},
-    };
 
     componentDidMount() {
         this.props.fetchAllProjects();
 
+
     }
-    componentDidUpdate(prevProps) {
-        if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
-            if(this.props.projectsSuccessFullyRegistered) {
-                this.props.fetchAllProjects();
-            }
 
-        }
-
-
-    };
 
     blog = () => {
         const projectTitle = (
             <ul>
                 {this.props.registeredProjects.map((post) =>
-                    <a onClick={() => {this.selected(post)}}><h6>
-                        <li key={post.id}>
+                    <a
+                        onClick={() => {this.selected(post)}}
+
+                    ><h6>
+                        <ul key={post.id}>
                             {post.ProjectTitle}
-                        </li>
+                        </ul>
                     </h6></a>
                 )}
             </ul>
@@ -41,7 +33,8 @@ class RegisteredProjects extends Component {
     }
 
     selected = (projectSelect) => {
-       this.props.setProject(projectSelect);
+        this.props.setProject(projectSelect);
+         this.props.history.push('/project_detail');
     }
 
     render() {

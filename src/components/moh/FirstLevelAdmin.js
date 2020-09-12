@@ -52,7 +52,7 @@ class FirstLevelAdmin extends Component {
 
 
                     <Col sm={8}>
-                        <AdminPage />
+
                     </Col>
 
 
