@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import {fetchAllProjects, setProject} from "../../store/modules/projects/actions";
+import {fetchAllProjects} from "../../store/modules/projects/actions";
 import {connect} from "react-redux";
+import CheckBoxGroup from "../../components/check_box_group/CheckBoxGroup";
 
 class ProjectDetail extends Component {
-    state = {
-        id:'',
-        title:''
-    }
-
     componentDidMount() {
-        console.log(this.props);
+        this.props.fetchAllProjects();
     }
 
     render()
@@ -21,6 +17,10 @@ class ProjectDetail extends Component {
                 <p>{projectSelect.ProjectTitle}</p>
                 <p>{projectSelect.ProjectDescription}</p>
                 <p>{projectSelect.ProjectProgress}</p>
+
+                <CheckBoxGroup title="Branches"
+                               checkBoxObjectsArray={this.props.registeredProjects}
+                />
             </div>
         );
     }

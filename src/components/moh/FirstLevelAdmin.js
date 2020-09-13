@@ -10,10 +10,8 @@ import {
     DISPLAY_ADMINISTRATOR_REGISTRATION, DISPLAY_ADMINISTRATOR_MANAGEMENT
 } from "../../config/constants/Constants";
 import NavigationBar from "../../views/admin_page/nav_bar/NavigationBar";
-import AdminPage from "../../views/admin_page/AdminPage";
 import { Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {connect} from "react-redux";
-import UserManagement from "../../views/admin_page/UserManagement";
 
 class FirstLevelAdmin extends Component {
 
@@ -22,7 +20,6 @@ class FirstLevelAdmin extends Component {
             this.props.history.push('/');
         }
     }
-
 
     handleSideBareItemClicked = (clickedItem) =>{
         if(clickedItem === DISPLAY_COMPANY_REGISTRATION_PAGE) {
@@ -42,48 +39,29 @@ class FirstLevelAdmin extends Component {
         }
     };
 
-
     render() {
         return (
-
             <div>
                 <NavigationBar />
                 <AdminSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
-
-
                     <Col sm={8}>
-
                     </Col>
-
-
-
                 <div className="col-sm-8">
                 </div>
-
             </div>
-
-
         );
     }
-
-
 };
 
 FirstLevelAdmin.propTypes = {
-
     isAdminLoginSuccessful:PropTypes.bool.isRequired,
-
-
 };
 
 const mapStateToProps = state => ({
-
     isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
-
 });
 
 const mapDispatchToProps = dispatch => ({
-
 });
 
 export default connect(

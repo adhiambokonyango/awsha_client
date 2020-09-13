@@ -96,7 +96,7 @@ CheckBoxGroup.defaultProps = {
     {
       UserRoleId: "4",
       RoleDescription: "System Admin",
-      label: "System Admin",
+      label: "mary",
       isCheckBoxChecked: false
     },
     {

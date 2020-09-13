@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {updatePermissionStatus,  fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
 import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
-
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";
-
-import FirstLevelAdmin from "../../components/moh/FirstLevelAdmin";
 
 
 class UserManagement extends Component {
@@ -17,16 +14,9 @@ class UserManagement extends Component {
         data: [],
     };
 
-   
-
-
-
-
     componentDidMount() {
         this.props.fetchAllUser();
         this.props.fetchAllUserPrivileges();
-
-
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -50,34 +40,18 @@ class UserManagement extends Component {
                                       isCheckBoxChecked={this.props.privilege[i].PermissionStatus === 1}/>
                             </dd><br/>
                         </p>
-
-
                     )
-
-
                     this.setState({data: list});
-
-
                 }
             }
-
-
         }
-
         if(this.props.privilegeSuccessFullyUpdated !== prevProps.privilegeSuccessFullyUpdated) {
             if(this.props.privilegeSuccessFullyUpdated) {
                 this.props.fetchAllUserPrivileges();
                 this.props.resetPrivilegeUpdate();
             }
-
         }
     }
-
-
-
-
-
-
     handleChange = event => {
         let newState = this.state;
         newState[event.target.name] = event.target.value;
@@ -101,10 +75,9 @@ class UserManagement extends Component {
 
 
     render() {
-
         return (
             <div>
-                <FirstLevelAdmin />
+
                 <div className="container user-login-card">
                     <div className="row">
                         <div className=" col-md-9">

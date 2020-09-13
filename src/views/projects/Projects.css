@@ -1,0 +1,58 @@
+.listed_projects{
+    display: block;
+}
+
+.listed_projects ul{
+margin-top: 1rem !important;
+
+}
+
+.listed_projects ul a{
+    color: #0c0c0c;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+}
+
+/* unvisited link */
+.listed_projects ul a {
+    color: #0c0c0c;
+}
+
+/* visited link */
+a:visited {
+    color: black;
+}
+
+/* mouse over link */
+a:hover {
+    color: #122b40;
+}
+
+/* selected link */
+a:active {
+    color: #122b40;
+}
+
+/*scroll menu*/
+div.scrollmenu {
+    background-color: #546e7a ;
+    overflow: auto;
+    white-space: nowrap;
+    border-radius: 10px;
+}
+
+div.scrollmenu a {
+    display: block;
+    color: white;
+    text-align: -moz-left;
+    /*padding: 14px;*/
+    text-decoration: none;
+}
+
+div.scrollmenu a:hover {
+    background-color: #777;
+}
+
+.listed_projects .card{
+    margin-top: 0;
+}

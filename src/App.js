@@ -33,6 +33,7 @@ import RegisteredProjects from "./views/projects/RegisteredProjects";
 import ProjectDetail from "./views/projects/ProjectDetail";
 import Demo1 from "./views/projects/Demo1";
 import Demo2 from "./views/projects/Demo2";
+import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 
 
 class App extends Component {
@@ -42,19 +43,14 @@ class App extends Component {
       <Router>
         <div>
             <Route path="/log in" exact component={LogIn} />
-
             <Route path="/admin_page" exact component={AdminPage} />
           <Route path="/register_users" exact component={SignUp} />
           <Route path="/gender" exact component={Gender} />
-
            <Route path="/teams" exact component={Teams} />
             <Route path="/registered_users" exact component={RegisteredUser} />
-
             <Route path="/register_projects" exact component={Projects} />
-
             <Route path="/objectives" exact component={Objectives} />
             <Route path="/team_members" exact component={TeamMember} />
-
              <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
             <Route path="/administrator_level" exact component={AdministratorLevel} />
           {/*  <Route path="/percentage" exact component={Percentage} />*/}
@@ -71,10 +67,10 @@ class App extends Component {
             <Route path="/user_level" exact component={UserLevel} />
             <Route path="/logout" exact component={NavigationBar} />
             <Route path="/" exact component={HomePage} />
-
             <Route path="/registered_projects" exact component={RegisteredProjects} />
             <Route path="/project_detail" exact component={ProjectDetail} />
             <Route path="/demo" exact component={Demo2} />
+            <Route path="/check" exact component={CheckBoxGroup} />
 
         </div>
       </Router>
