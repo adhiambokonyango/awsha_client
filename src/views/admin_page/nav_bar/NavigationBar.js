@@ -31,27 +31,19 @@ class NavigationBar extends Component {
                 <Row className="first_row">
                     <Navbar.Collapse id="basic-navbar-nav">
 
-                   <Col sm={8}><FaList Awsha  size={25}/></Col>
+                   <Col sm={8} md={8} lg={8}><FaList Awsha  size={25}/></Col>
                             <Nav className="mr-auto">
-                    <Col sm={1}>
+                    <Col sm={1} md={1} lg={1}>
                        <a
                        href="/"
                        >
                            <FaUser size={25}/>
                        </a>
                     </Col>
-                    <Col sm={1}><FaMailBulk size={25}/></Col>
-                   <Col sm={1}><FaCartPlus size={25}/></Col>
-                                <Col  sm={1}>
-                                    <button
-                                        type="submit"
-                                        onClick={e => {
-                                            e.preventDefault();
-                                            this.handleLogout();
-                                        }}
-                                    >
+                    <Col sm={1} md={1} lg={1}><FaMailBulk size={25}/></Col>
+                   <Col sm={1} md={1} lg={1}><FaCartPlus size={25}/></Col>
+                                <Col  sm={1} md={1} lg={1}>
                                         <FaSignOutAlt size={25}  />
-                                    </button>
                                 </Col>
 
                             </Nav>

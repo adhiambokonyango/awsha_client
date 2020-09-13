@@ -11,8 +11,9 @@ import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormCon
 } from 'react-bootstrap';
 import {FaCogs, FaList} from "react-icons/fa";
 import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
-import RegisteredProjects from "./RegisteredProjects";
 import './Projects.css';
+import Footer from "../../components/footer/Footer";
+import SideShow from "../../components/sideshow/SideShow";
 
 
 class Projects extends Component {
@@ -124,6 +125,7 @@ class Projects extends Component {
         return (
             <div>
                 <NavigationBar />
+
                 <Row>
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
@@ -142,7 +144,7 @@ class Projects extends Component {
                                      <textarea
                                          name="projectTitle"
                                          cols="20" rows="2"
-                                         className="form-control description"
+                                         className="form-control "
                                          placeholder="Title"
                                          value={this.state.projectTitle}
                                          onChange={this.handleChange}
@@ -163,11 +165,11 @@ class Projects extends Component {
                                     {/*/>*/}
                                 </div>
 
-                                <div className="form-group">
+                                <div className="form-group description">
                                     <textarea
                                         name="projectDescription"
                                         cols="50" rows="5"
-                                        className="form-control description"
+                                        className="form-control "
                                         placeholder="projectDescription"
                                         value={this.state.projectDescription}
                                         onChange={this.handleChange}
@@ -192,7 +194,7 @@ class Projects extends Component {
                                     <textarea
                                         name="projectProgress"
                                         cols="5" rows="2"
-                                        className="form-control description"
+                                        className="form-control "
                                         placeholder="Progress"
                                         value={this.state.projectProgress}
                                         onChange={this.handleChange}
@@ -235,7 +237,13 @@ class Projects extends Component {
                             </div>
                         </div>
                     </Col>
+
+                    <Col sm={12} md={2} lg={2}>
+                        <SideShow/>
+                    </Col>
                 </Row>
+
+                <Footer/>
             </div>
         );
     }

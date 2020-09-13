@@ -29,9 +29,7 @@ import AdministratorLevel from "./components/moh/AdministratorLevel";
 import UserLevel from "./components/moh/UserLevel";
 import NavigationBar from "./views/admin_page/nav_bar/NavigationBar";
 import HomePage from "./components/home_page/HomePage";
-import RegisteredProjects from "./views/projects/RegisteredProjects";
 import ProjectDetail from "./views/projects/ProjectDetail";
-import Demo1 from "./views/projects/Demo1";
 import Demo2 from "./views/projects/Demo2";
 import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 
@@ -67,7 +65,6 @@ class App extends Component {
             <Route path="/user_level" exact component={UserLevel} />
             <Route path="/logout" exact component={NavigationBar} />
             <Route path="/" exact component={HomePage} />
-            <Route path="/registered_projects" exact component={RegisteredProjects} />
             <Route path="/project_detail" exact component={ProjectDetail} />
             <Route path="/demo" exact component={Demo2} />
             <Route path="/check" exact component={CheckBoxGroup} />
