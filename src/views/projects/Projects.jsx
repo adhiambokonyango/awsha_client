@@ -78,7 +78,7 @@ class Projects extends Component {
 
                     ><h6>
                         <ul key={post.id} >
-                            <FaCogs/> {post.ProjectTitle}
+                            <FaCogs/>{" "}{post.ProjectTitle}
                         </ul>
                     </h6></a>
                 )}

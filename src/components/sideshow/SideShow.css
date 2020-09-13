@@ -5,3 +5,26 @@
     height: auto;
     background-color: black;
 }
+
+.sideshow .showcase_areas{
+    min-height: 20rem;
+    background-image: url('./images/awsha_photo.jpg');
+    padding-top: 7rem;
+    font-size: 3rem;
+    font-family: 'Grand Hotel', cursive;
+}
+
+
+.sideshow .showcase_areas h1 {
+    color: white;
+    text-align: center;
+
+}
+
+.showcase_areas .slang{
+    font-family: italic;
+    font-size: 1rem;
+    color: #FFFFFF;
+    text-align: center;
+    padding-bottom: 0.1rem;
+}

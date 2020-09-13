@@ -27,7 +27,7 @@ class NavigationBar extends Component {
     render() {
         return (
             <div className="top-bar">
-            <Container>
+
                 <Row className="first_row">
                     <Navbar.Collapse id="basic-navbar-nav">
 
@@ -50,7 +50,7 @@ class NavigationBar extends Component {
                         </Navbar.Collapse>
                 </Row>
 
-            </Container>
+
             </div>
 
         );
