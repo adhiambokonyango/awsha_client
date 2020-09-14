@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import './Footer.css';
+import './images/awsha_photo.jpg'
 
 
 class Footer extends Component {

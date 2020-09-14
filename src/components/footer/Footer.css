@@ -30,5 +30,8 @@
     background-color: #122b40;
     text-align: center;
     padding-top: 0.5rem;
+    background-image: url('./images/awsha_photo.jpg');
+    color: white;
+    font-size: 0.6rem;
 }
 
