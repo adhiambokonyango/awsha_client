@@ -78,7 +78,7 @@ class Projects extends Component {
 
                     ><h6>
                         <ul key={post.id} >
-                            <FaCogs/>{" "}{post.ProjectTitle}
+                            {"  "}<FaCogs/>{" "}{post.ProjectTitle}
                         </ul>
                     </h6></a>
                 )}
@@ -229,10 +229,12 @@ class Projects extends Component {
                         <div className="card">
                             <div className="card-content">
                                 <h3 className="panel-title card_header">Registered Projects</h3>
-                                <div className="scrollmenu">
-                                    <ul>
-                                        {this.blog()}
-                                    </ul>
+                                <div className="vertical_scroll">
+                                    <div className="scrollmenu">
+                                        <ul >
+                                            {this.blog()}
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>

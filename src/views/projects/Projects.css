@@ -15,7 +15,7 @@ margin-top: 1rem !important;
 
 /* unvisited link */
 .listed_projects ul a {
-    color: #0c0c0c;
+    color: white;
 }
 
 /* visited link */
@@ -34,14 +34,14 @@ a:active {
 }
 
 /*scroll menu*/
-div.scrollmenu {
+.scrollmenu {
     background-color: #546e7a ;
     overflow: auto;
     white-space: nowrap;
     border-radius: 10px;
 }
 
-div.scrollmenu a {
+.scrollmenu a {
     display: block;
     color: white;
     text-align: -moz-left;
@@ -49,10 +49,23 @@ div.scrollmenu a {
     text-decoration: none;
 }
 
-div.scrollmenu a:hover {
+.scrollmenu a:hover {
     background-color: #777;
 }
 
 .listed_projects .card{
     margin-top: 0;
+}
+
+.vertical_scroll{
+    max-height: 25rem;
+    overflow-y: scroll;
+}
+
+.listed_projects .card{
+    height: 31.8rem;
+}
+
+.listed_projects .card .card_content{
+    max-height: 15rem;
 }

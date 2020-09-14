@@ -9,7 +9,8 @@
 
 .footer_section .footer_container {
     border-top-style: solid;
-   border-top-color: #FFFFFF;
+   border-top-color: #122b40;
+    border-top-width: 0.3rem;
 }
 
 .footer_section .footer_container .footer_row .footer_header{
@@ -20,7 +21,8 @@
     text-align: center;
     padding-top: 0.5rem;
     border-bottom-style: solid;
-    border-bottom-color: red;
+    border-bottom-color: #122b40;
+    border-bottom-width: 0.2rem;
 }
 
 .sub_footer{
