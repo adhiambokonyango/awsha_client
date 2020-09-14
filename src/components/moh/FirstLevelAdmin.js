@@ -12,6 +12,8 @@ import {
 import NavigationBar from "../../views/admin_page/nav_bar/NavigationBar";
 import { Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {connect} from "react-redux";
+import Footer from "../footer/Footer";
+import SideShow from "../sideshow/SideShow";
 
 class FirstLevelAdmin extends Component {
 
@@ -43,11 +45,19 @@ class FirstLevelAdmin extends Component {
         return (
             <div>
                 <NavigationBar />
-                <AdminSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
-                    <Col sm={8}>
+
+                <Row>
+                    <AdminSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
+                    <Col sm={12} md={6} lg={6}>
+                        <div className="card">
+
+                        </div>
                     </Col>
-                <div className="col-sm-8">
-                </div>
+                    <Col sm={12} md={2} lg={2}>
+                        <SideShow/>
+                    </Col>
+                </Row>
+                <Footer/>
             </div>
         );
     }

@@ -33,15 +33,10 @@ class UserLevel extends Component {
 
             <div>
                 <NavigationBar />
-
+                <UserSideBar />
                 <Col sm={8}>
-                    <AdminPage />
+
                 </Col>
-
-
-
-                <div className="col-sm-8">
-                </div>
 
             </div>
 

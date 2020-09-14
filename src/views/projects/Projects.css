@@ -35,7 +35,7 @@ a:active {
 
 /*scroll menu*/
 .scrollmenu {
-    background-color: #546e7a ;
+    background-color: #404040 ;
     overflow: auto;
     white-space: nowrap;
     border-radius: 10px;
@@ -68,4 +68,20 @@ a:active {
 
 .listed_projects .card .card_content{
     max-height: 15rem;
+}
+
+.headings{
+    padding-left: 3rem;
+    font-family: 'Grand Hotel', cursive;
+}
+
+.titles{
+    padding-left: 1rem;
+    padding-bottom: 0;
+    padding-top: 0.1rem;
+    font-family: 'Grand Hotel', cursive;
+}
+
+.subs{
+    padding-left: 1rem;
 }

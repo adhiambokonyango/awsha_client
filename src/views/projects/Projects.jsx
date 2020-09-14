@@ -73,10 +73,8 @@ class Projects extends Component {
         const projectTitle = (
             <ul>
                 {this.props.registeredProjects.map((post) =>
-                    <a
-                        onClick={() => {this.selected(post)}}
-
-                    ><h6>
+                    <a onClick={() => {this.selected(post)}}>
+                        <h6>
                         <ul key={post.id} >
                             {"  "}<FaCogs/>{" "}{post.ProjectTitle}
                         </ul>
@@ -128,18 +126,20 @@ class Projects extends Component {
 
                 <Row>
                 <div className="login-panel panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Projects</h3>
-                    </div>
+                    {/*<div className="panel-heading">*/}
+                    {/*    <h3 className="panel-title">Projects</h3>*/}
+                    {/*</div>*/}
                     <Col sm={5}>
-                    <div className="panel-body">
+                        <h3 className="title titles">Projects</h3>
+                        <h3 className="panel-title subs">Register Project</h3>
+                    <div className="panel-body ">
                         <form
                             action=""
                             method="POST"
                             onSubmit={this.handleSubmit}
                             encType="multipart/form-data"
                         >
-                            <fieldset>
+                            <fieldset className="form_input">
                                 <div className="form-group">
                                      <textarea
                                          name="projectTitle"
@@ -165,7 +165,7 @@ class Projects extends Component {
                                     {/*/>*/}
                                 </div>
 
-                                <div className="form-group description">
+                                <div className="form-group ">
                                     <textarea
                                         name="projectDescription"
                                         cols="50" rows="5"

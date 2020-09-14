@@ -1,36 +1,37 @@
 .footer_section{
     margin-top: 1rem;
     height: 15rem;
-    background-color: black ;
+    background-color: #303030 ;
     background-image: image('../home_page/images/awsha_photo.jpg');
     display: block;
+    color: white;
 
 }
 
 .footer_section .footer_container {
     border-top-style: solid;
-   border-top-color: #122b40;
-    border-top-width: 0.3rem;
+   border-top-color: #f26b3a;
+    border-top-width: 0.1rem;
 }
 
 .footer_section .footer_container .footer_row .footer_header{
 
    margin-top: 1rem;
-    background-color: #FFFFFF;
+    background-color: #000000;
     height: 2rem;
     text-align: center;
     padding-top: 0.5rem;
     border-bottom-style: solid;
-    border-bottom-color: #122b40;
-    border-bottom-width: 0.2rem;
+    border-bottom-color: #f26b3a;
+    border-bottom-width: 0.01rem;
 }
 
 .sub_footer{
     height: 2rem;
-    background-color: #122b40;
+    background-color: #282828;
     text-align: center;
-    padding-top: 0.5rem;
-    background-image: url('./images/awsha_photo.jpg');
+    padding-top: 0.7rem;
+    /*background-image: url('./images/awsha_photo.jpg');*/
     color: white;
     font-size: 0.6rem;
 }
