@@ -170,7 +170,7 @@ class Projects extends Component {
                                         name="projectDescription"
                                         cols="50" rows="5"
                                         className="form-control "
-                                        placeholder="projectDescription"
+                                        placeholder="Description"
                                         value={this.state.projectDescription}
                                         onChange={this.handleChange}
                                         autoFocus

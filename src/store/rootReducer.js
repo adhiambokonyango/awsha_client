@@ -17,6 +17,7 @@ import {reducer as confirmation_status} from "./modules/confirmation_status";
 import {reducer as admin_privileges} from "./modules/admin_privileges";
 import {reducer as administrator_privileges} from "./modules/administrator_privileges";
 import {reducer as session_log} from "./activity_log/user_session_log";
+import {reducer as branches} from "./modules/branches";
 // =============================================================
 // The rootReducer object aggregates our earlier reducers into a
 // single reducer that holds our entire immutable application
@@ -40,7 +41,8 @@ const rootReducer = reduceReducers(
       confirmation_status,
       admin_privileges,
       administrator_privileges,
-      session_log
+      session_log,
+      branches
   })
 );
 

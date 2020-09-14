@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import {fetchAllProjects} from "../../store/modules/projects/actions";
+import {fetchAllProjects} from "../store/modules/projects/actions";
 import {FaList} from "react-icons/fa";
 
 

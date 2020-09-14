@@ -30,7 +30,7 @@ import UserLevel from "./components/moh/UserLevel";
 import NavigationBar from "./views/admin_page/nav_bar/NavigationBar";
 import HomePage from "./components/home_page/HomePage";
 import ProjectDetail from "./views/projects/ProjectDetail";
-import Demo2 from "./views/projects/Demo2";
+import Demo2 from "./views/Demo2";
 import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 
 
