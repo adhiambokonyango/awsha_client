@@ -207,9 +207,7 @@ class Projects extends Component {
                             </div>
                         </div>
                     </Col>
-                    <Col sm={12} md={2} lg={2}>
-                        <SideShow/>
-                    </Col>
+
                 </Row>
                 <Footer/>
             </div>

@@ -1,29 +1,23 @@
 .footer_section{
-    margin-top: 1rem;
-    height: 15rem;
-    background-color: #404040 ;
+    margin-top: 2.5rem;
+    height: 3rem;
+    background-color: #ddd ;
     background-image: image('../home_page/images/awsha_photo.jpg');
     display: block;
     color: white;
+    /*margin-top: 18.5rem;*/
 
 }
+
+
 
 .footer_section .footer_container {
-    border-top-style: solid;
-   border-top-color: #303030;
-    border-top-width: 0.1rem;
+    color: black;
 }
 
-.footer_section .footer_container .footer_row .footer_header{
-
-   margin-top: 1rem;
-    background-color: #282828;
-    height: 2rem;
-    text-align: center;
-    padding-top: 0.5rem;
-    border-bottom-style: solid;
-    border-bottom-color: #303030;
-    border-bottom-width: 0.01rem;
+.footer_section .footer_container .footer_icons{
+    padding-top: 1rem;
+    align-items: self-end;
 }
 
 .sub_footer{

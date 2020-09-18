@@ -1,4 +1,5 @@
 export const initialState = {
     signUpSuccessful: false,
-    registeredUser: []
+    registeredUser: [],
+    userSelect:{}
 };

@@ -15,7 +15,7 @@ margin-top: 1rem !important;
 
 /* unvisited link */
 .listed_projects ul a {
-    color: white;
+    color: black;
 }
 
 /* visited link */
@@ -35,7 +35,7 @@ a:active {
 
 /*scroll menu*/
 .scrollmenu {
-    background-color: #404040 ;
+    background-color: #ddd ;
     overflow: auto;
     white-space: nowrap;
     border-radius: 10px;

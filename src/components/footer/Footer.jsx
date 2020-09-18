@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
 import './Footer.css';
+import {FaFacebook, FaInstagram, FaTwitter, FaYoutube} from "react-icons/all";
 
 
 
@@ -9,27 +10,24 @@ class Footer extends Component {
         return (
             <div>
                    <div className="footer_section">
-                       <div className="footer_container">
-                           <Container>
-                               <Row className="footer_row">
-                                   <Col sm={12} md={3} lg={3}>
-                                       <h1 className="footer_header">HEAD OFFICE</h1>
-                                       <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal </p>
-                                   </Col>
-                                   <Col sm={12} md={3} lg={3}>
-                                       <h1 className="footer_header">FACEBOOK FEEDS</h1>
-                                       <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal </p>
-                                   </Col>
-                                   <Col sm={12} md={3} lg={3}>
-                                       <h1 className="footer_header">TWITTER FEEDS</h1>
-                                       <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal </p>
-                                   </Col>
-                                   <Col sm={12} md={3} lg={3}>
-                                       <h1 className="footer_header">CONTACT US</h1>
-                                       <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal </p>
-                                   </Col>
-                               </Row>
-                           </Container>
+                       <div className="footer_container ">
+                           <Row className="footer_icons ">
+                               <Col sm={4} md={4} lg={4}>
+
+                               </Col>
+                               <Col sm={1} md={1} lg={1}>
+                                   <FaTwitter size={25}/>
+                               </Col>
+                               <Col sm={1} md={1} lg={1}>
+                                   <FaYoutube size={25}/>
+                               </Col>
+                               <Col sm={1} md={1} lg={1}>
+                                   <FaInstagram size={25}/>
+                               </Col>
+                               <Col sm={1} md={1} lg={1}>
+                                   <FaFacebook size={25}/>
+                               </Col>
+                           </Row>
                        </div>
                    </div>
                 <div className="sub_footer">

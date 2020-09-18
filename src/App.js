@@ -34,6 +34,7 @@ import Demo2 from "./views/Demo2";
 import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 import BranchProject from "./views/BranchProjects/BranchProject";
 import ProjectStatus from "./views/BranchProjects/ProjectStatus";
+import {Container} from "react-bootstrap";
 
 
 class App extends Component {
@@ -41,38 +42,42 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div>
-            <Route path="/log in" exact component={LogIn} />
-            <Route path="/admin_page" exact component={AdminPage} />
-          <Route path="/register_users" exact component={SignUp} />
-          <Route path="/gender" exact component={Gender} />
-           <Route path="/teams" exact component={Teams} />
-            <Route path="/registered_users" exact component={RegisteredUser} />
-            <Route path="/register_projects" exact component={Projects} />
-            <Route path="/objectives" exact component={Objectives} />
-            <Route path="/team_members" exact component={TeamMember} />
-             <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
-            <Route path="/administrator_level" exact component={AdministratorLevel} />
-          {/*  <Route path="/percentage" exact component={Percentage} />*/}
-           <Route path="/user_management" exact component={UserManagement} />
-            <Route path="/register_system_admin" exact component={AdminSignUp} />
-            <Route path="/registered_admin" exact component={RegisteredAdmin} />
-            <Route path="/registered_administrators" exact component={RegisteredAdministrator} />
-            <Route path="/register_administrator" exact component={AdministratorSignUp} />
-            <Route path="/privileges" exact component={Privileges} />
-            <Route path="/admin_management" exact component={AdminManagement} />
-            <Route path="/admin_privileges" exact component={AdminPrivileges} />
-            <Route path="/administrator_privileges" exact component={AdministratorPrivileges} />
-            <Route path="/administrator_management" exact component={AdministratorManagement} />
-            <Route path="/user_level" exact component={UserLevel} />
-            <Route path="/logout" exact component={NavigationBar} />
-            <Route path="/" exact component={HomePage} />
-            <Route path="/project_detail" exact component={ProjectDetail} />
-            <Route path="/demo" exact component={Demo2} />
-            <Route path="/check" exact component={CheckBoxGroup} />
-            <Route path="/branch_project" exact component={BranchProject} />
-            <Route path="/project_status" exact component={ProjectStatus} />
-        </div>
+
+            <div>
+                <Route path="/log in" exact component={LogIn} />
+                <Route path="/admin_page" exact component={AdminPage} />
+                <Route path="/register_users" exact component={SignUp} />
+                <Route path="/gender" exact component={Gender} />
+                <Route path="/teams" exact component={Teams} />
+                <Route path="/registered_users" exact component={RegisteredUser} />
+                <Route path="/register_projects" exact component={Projects} />
+                <Route path="/objectives" exact component={Objectives} />
+                <Route path="/team_members" exact component={TeamMember} />
+                <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
+                <Route path="/administrator_level" exact component={AdministratorLevel} />
+                {/*  <Route path="/percentage" exact component={Percentage} />*/}
+                <Route path="/user_management" exact component={UserManagement} />
+                <Route path="/register_system_admin" exact component={AdminSignUp} />
+                <Route path="/registered_admin" exact component={RegisteredAdmin} />
+                <Route path="/registered_administrators" exact component={RegisteredAdministrator} />
+                <Route path="/register_administrator" exact component={AdministratorSignUp} />
+                <Route path="/privileges" exact component={Privileges} />
+                <Route path="/admin_management" exact component={AdminManagement} />
+                <Route path="/admin_privileges" exact component={AdminPrivileges} />
+                <Route path="/administrator_privileges" exact component={AdministratorPrivileges} />
+                <Route path="/administrator_management" exact component={AdministratorManagement} />
+                <Route path="/user_level" exact component={UserLevel} />
+                <Route path="/logout" exact component={NavigationBar} />
+                <Route path="/" exact component={HomePage} />
+                <Route path="/project_detail" exact component={ProjectDetail} />
+                <Route path="/demo" exact component={Demo2} />
+                <Route path="/check" exact component={CheckBoxGroup} />
+                <Route path="/branch_project" exact component={BranchProject} />
+                <Route path="/project_status" exact component={ProjectStatus} />
+                <Route path="/nav_bar" exact component={NavigationBar} />
+            </div>
+
+
       </Router>
     );
   }

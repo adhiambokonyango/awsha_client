@@ -2,7 +2,7 @@
 import {
     SIGN_UP_SUCCESSFUL,
     REGISTERED_USER_FETCHED_SUCCESSFULLY,
-    SIGN_UP_FAILED
+    SIGN_UP_FAILED, SET_USER
 } from "./actionTypes";
 
 export const ACTION_HANDLERS = {
@@ -19,6 +19,9 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             registeredUser: action.payload.registeredUser
         }),
-
+    [SET_USER]: (state, action) =>
+        Object.assign({}, state, {
+            userSelect: action.payload.userSelect
+        }),
 
 };

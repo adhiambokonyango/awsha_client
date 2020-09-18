@@ -6,9 +6,10 @@ import {
 
     REGISTERED_USER_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_USER,
-    REGISTERED_USER_EMPTY_RESULTS,
+    REGISTERED_USER_EMPTY_RESULTS, SET_USER,
 
 } from "./actionTypes";
+import {SET_PROJECT} from "../../modules/projects/actionTypes";
 
 export function registerUser(payload) {
     return async dispatch => {
@@ -65,4 +66,13 @@ export function fetchAllUser() {
     };
 }
 
-
+export function setUser(userSelect){
+    return async dispatch => {
+        dispatch({
+            type: SET_USER,
+            payload: {
+                userSelect: userSelect
+            }
+        });
+    };
+}

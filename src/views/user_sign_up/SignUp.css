@@ -3,3 +3,7 @@
     font-size: 0.7rem;
     font-style: oblique;
 }
+
+.panel-default .listed_projects .card{
+    margin-top: 1rem;
+}
