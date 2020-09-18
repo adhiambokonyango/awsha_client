@@ -7,7 +7,11 @@ import {fetchAllUser, registerUser} from "../../store/user_management/user_sign_
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-
+import {fetchAllAdminUserPrivileges} from "../../store/modules/admin_privileges/actions";
+import {
+    resetWrongCredentials,
+} from "../../store/user_management/user_log_in/actions";
+import './SignUp.css';
 
 
 class SignUp extends Component {
@@ -37,7 +41,12 @@ class SignUp extends Component {
             EncryptedPassword: 'EncryptedPassword',
             PermissionStatus:'PermissionStatus'
 
-        }
+        },
+
+        // check system admin permission status
+        userRegistrationPermissionStatus: false,
+
+        loginErrorMessage:"",
     };
 
     componentWillMount() {
@@ -48,6 +57,7 @@ class SignUp extends Component {
     componentDidMount() {
         this.props.fetchAllGender();
         this.props.fetchAllUser();
+        this.props.fetchAllAdminUserPrivileges();
     }
 
     componentDidUpdate(prevProps) {
@@ -64,50 +74,71 @@ class SignUp extends Component {
                 this.setState({ selectOptions: allregisteredGender });
             }
         }
+
+
+        if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
+            if (this.props.adminPrivilege[0].AdminPermissionStatus === 1) {
+                this.setState({
+                    userRegistrationPermissionStatus: true
+                })
+
+            } else if (this.props.adminPrivilege[0].AdminPermissionStatus === 0){
+                this.setState({
+                    userRegistrationPermissionStatus: false
+                })
+            }
+        }
     };
 
 
+    handleAnyTextFieldTouched = () => {
+        this.props.resetWrongCredentials();
+        this.setState({ loginErrorMessage: "Access denied!" });
+    };
 
     handleChange = event => {
-        let newState = this.state;
-        newState[event.target.name] = event.target.value;
-        this.setState({
-            ...newState
-        });
+        if(this.state.userRegistrationPermissionStatus === true){
+            let newState = this.state;
+            newState[event.target.name] = event.target.value;
+            this.setState({
+                ...newState
+            });
+        } else if(this.state.userRegistrationPermissionStatus === false){
+            this.handleAnyTextFieldTouched();
+        }
     };
 
     handleSubmit = (e) =>{
         e.preventDefault();
 
-        const payload = {
-            GenderId:this.state.selectedOption.value,
+            const payload = {
+                GenderId:this.state.selectedOption.value,
 
-            FirstName:this.state.firstName,
-            MiddleName:this.state.middleName,
-            Surname:this.state.surname,
-            PhoneNumber:this.state.phoneNumber,
-            Email:this.state.email,
-            NationalId:this.state.nationalId,
-            EncryptedPassword:this.state.encryptedPassword,
-        };
+                FirstName:this.state.firstName,
+                MiddleName:this.state.middleName,
+                Surname:this.state.surname,
+                PhoneNumber:this.state.phoneNumber,
+                Email:this.state.email,
+                NationalId:this.state.nationalId,
+                EncryptedPassword:this.state.encryptedPassword,
+            };
 
+            this.props.registerUser(payload);
 
-        this.props.registerUser(payload);
-        this.setState({
-            firstName: '',
-            middleName: '',
-            surname: '',
-            phoneNumber: '',
-            email: '',
-            nationalId: '',
-            password: ''});
+            this.setState({
+                firstName: '',
+                middleName: '',
+                surname: '',
+                phoneNumber: '',
+                email: '',
+                nationalId: '',
+                password: ''});
 
     };
 
     render() {
         return (
             <>
-
             <div className="col-md-4 col-md-offset-4">
                 <div className="login-panel panel panel-default">
                     <div className="panel-heading">
@@ -134,7 +165,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
@@ -149,7 +182,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
@@ -164,7 +199,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
@@ -179,7 +216,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
@@ -194,7 +233,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
@@ -213,6 +254,9 @@ class SignUp extends Component {
                                         }
                                         options={this.state.selectOptions}
                                     />
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
 
@@ -228,7 +272,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
                                 <div className="form-group">
@@ -243,7 +289,9 @@ class SignUp extends Component {
                                         autoFocus
                                         required={true}
                                     />
-
+                                    <div className="error_messages">
+                                        {this.state.loginErrorMessage}
+                                    </div>
                                 </div>
 
 
@@ -281,6 +329,10 @@ SignUp.propTypes = {
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
     isAdminLoginSuccessful:PropTypes.bool.isRequired,
+    fetchAllAdminUserPrivileges: PropTypes.func.isRequired,
+    adminPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
+    resetWrongCredentials: PropTypes.func.isRequired,
+
 };
 
 
@@ -289,6 +341,8 @@ const mapStateToProps = state => ({
     registeredUser: state.user_sign_up.registeredUser,
     registeredGender: state.gender_info.registeredGender,
     isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
+    adminPrivilege: state.admin_privileges.adminPrivilege,
+
 });
 
 
@@ -296,7 +350,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerUser: payload => dispatch(registerUser(payload)),
     fetchAllUser: () => dispatch(fetchAllUser()),
-    fetchAllGender: () => dispatch(fetchAllGender())
+    fetchAllGender: () => dispatch(fetchAllGender()),
+    fetchAllAdminUserPrivileges: () => dispatch(fetchAllAdminUserPrivileges()),
+    resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
+
 });
 
 export default connect(

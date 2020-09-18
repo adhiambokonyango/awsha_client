@@ -13,17 +13,17 @@ class AdminManagement extends Component {
         permissionStatus:'',
         data: []
     };
-    componentWillMount() {
-        if (this.props.isAdminLoginSuccessful === false){
-            this.props.history.push('/');
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.props.isAdminLoginSuccessful === true){
-            this.props.history.push('/');
-        }
-    }
+    // componentWillMount() {
+    //     if (this.props.isAdminLoginSuccessful === false){
+    //         this.props.history.push('/');
+    //     }
+    // }
+    //
+    // componentWillUnmount() {
+    //     if (this.props.isAdminLoginSuccessful === true){
+    //         this.props.history.push('/');
+    //     }
+    // }
 
     componentDidMount() {
         this.props.fetchAllAdmin();

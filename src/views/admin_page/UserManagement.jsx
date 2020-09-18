@@ -5,34 +5,21 @@ import {updatePermissionStatus,  fetchAllUserPrivileges} from "../../store/modul
 import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 import CheckBox from "../../components/check_box/CheckBox";
 import {resetPrivilegeUpdate} from "../../store/modules/privileges/actions";
-
-
 class UserManagement extends Component {
-
     state = {
-       permissionStatus:'',
         data: [],
     };
-
     componentDidMount() {
         this.props.fetchAllUser();
         this.props.fetchAllUserPrivileges();
     }
-
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.privilege !== prevProps.privilege) {
             if (this.props.privilege && this.props.privilege.length > 0) {
-
                 let list = [];
-
                 for (let i = 0; i < this.props.privilege.length; i++) {
-                    list.push(
-                        <p><dt>
-                            {" " + this.props.privilege[i].FirstName}
-                        </dt>
-
+                    list.push(<p><dt>{" " + this.props.privilege[i].FirstName}</dt>
                             <dd className="admin__description-item">
-
                             <CheckBox label={this.props.privilege[i].AccessPrivilegeDescription}
                                       handleCheckBoxIsChecked={this.handleCheckBoxClicked}
                                       handleCheckBoxIsUnchecked={this.handleCheckBoxClicked}
@@ -59,25 +46,18 @@ class UserManagement extends Component {
             ...newState
         });
     };
-
     handleCheckBoxClicked = async (checkBoxObject) =>{
-
         const payload = {
             ColumnName: "UserAccessPrivilegeId",
             ColumnValue: checkBoxObject.UserAccessPrivilegeId,
             PermissionStatus: checkBoxObject.PermissionStatus === 1 ? 0 : 1
 
         };
-
         await this.props.updatePermissionStatus(payload);
     };
-
-
-
     render() {
         return (
             <div>
-
                 <div className="container user-login-card">
                     <div className="row">
                         <div className=" col-md-9">
@@ -97,7 +77,6 @@ class UserManagement extends Component {
         );
     }
 }
-
 UserManagement.propTypes = {
     fetchAllUser: PropTypes.func.isRequired,
     fetchAllUserPrivileges: PropTypes.func.isRequired,
@@ -107,28 +86,19 @@ UserManagement.propTypes = {
     privilegeSuccessFullyUpdated: PropTypes.bool.isRequired,
     resetPrivilegeUpdate: PropTypes.func.isRequired,
     isAdminLoginSuccessful:PropTypes.bool.isRequired,
-
-
 };
-
-
 const mapStateToProps = state => ({
     registeredUser: state.user_sign_up.registeredUser,
     privilege: state.privileges.privilege,
     privilegeSuccessFullyUpdated: state.privileges.privilegeSuccessFullyUpdated,
     isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
 });
-
-
-
 const mapDispatchToProps = dispatch => ({
     updatePermissionStatus: payload => dispatch(updatePermissionStatus(payload)),
     fetchAllUser: () => dispatch(fetchAllUser()),
     fetchAllUserPrivileges: () => dispatch(fetchAllUserPrivileges()),
     resetPrivilegeUpdate: () => dispatch(resetPrivilegeUpdate()),
-
 });
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps

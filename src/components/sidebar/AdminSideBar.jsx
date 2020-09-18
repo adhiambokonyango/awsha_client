@@ -70,46 +70,7 @@ class AdminSideBar extends Component {
               </div>
             </li>
 
-            <li className="list-class">
-              <a
-                href=""
-                className="side-bar__anchor-text"
-                onClick={e => {
-                  e.preventDefault();
-                  this.props.handleSideBarClicked(DISPLAY_COMPANY_REGISTRATION_PAGE);
-                }}
-              >
-                <i className="fa fa-dashboard fa-fw" /> &nbsp;Agencies
-              </a>
-            </li>
-
-
-              <li className="list-class">
-                  <a
-                      href=""
-                      className="side-bar__anchor-text"
-                      onClick={e => {
-                          e.preventDefault();
-                          this.props.handleSideBarClicked(DISPLAY_TEAMS);
-                      }}
-                  >
-                      <i className="fa fa-dashboard fa-fw" /> &nbsp;Teams
-                  </a>
-              </li>
-
-
-              <li className="list-class">
-                  <a
-                      href=""
-                      className="side-bar__anchor-text"
-                      onClick={e => {
-                          e.preventDefault();
-                          this.props.handleSideBarClicked(DISPLAY_PROJECTS);
-                      }}
-                  >
-                      <i className="fa fa-dashboard fa-fw" /> &nbsp;Projects
-                  </a>
-              </li>
+             
 
               <li className="list-class">
                   <a

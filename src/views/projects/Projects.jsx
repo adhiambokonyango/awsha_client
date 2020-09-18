@@ -1,53 +1,38 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {registerProjects, fetchAllProjects, projectSelect, setProject} from "../../store/modules/projects/actions";
+import {registerProjects, fetchAllProjects, setProject} from "../../store/modules/projects/actions";
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Form,
     Container, Row, Col
-
 } from 'react-bootstrap';
 import {FaCogs, FaList} from "react-icons/fa";
 import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
 import './Projects.css';
 import Footer from "../../components/footer/Footer";
 import SideShow from "../../components/sideshow/SideShow";
-
-
 class Projects extends Component {
-
     state = {
         projectTitle:'',
         projectDescription:'',
         projectProgress:'',
         selectOptions:'',
         data:[],
-
-
-
         tableData: [],
         tableHeaders: {
             ProjectId:'#',
             ProjectTitle:'ProjectTitle',
-
         }
     };
-
-
     componentDidMount() {
         this.props.fetchAllProjects();
-
     }
-
-
     componentDidUpdate(prevProps) {
          if(this.props.registeredProjects !== prevProps.registeredProjects) {
              if(this.props.registeredProjects && this.props.registeredProjects.length > 0) {
-
                  let list = [];
-
                  for(let i = 0;i<this.props.registeredProjects.length;i++) {
                      list.push(<p><dt>
                          <a >
@@ -55,20 +40,18 @@ class Projects extends Component {
                                  <FaList size={4}/>
                              {" " +this.props.registeredProjects[i].ProjectTitle}
                              </h3>
-                         </a><br/></dt></p>);
+                         </a><br/></dt></p>
+                     );
                  }
                  this.setState({data: list});
              }
          }
-
          if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
              if(this.props.projectsSuccessFullyRegistered) {
                  this.props.fetchAllProjects();
              }
          }
      };
-
-
     blog = () => {
         const projectTitle = (
             <ul>
@@ -77,22 +60,17 @@ class Projects extends Component {
                         <h6>
                         <ul key={post.id} >
                             {"  "}<FaCogs/>{" "}{post.ProjectTitle}
-                        </ul>
-                    </h6></a>
+                        </ul></h6>
+                    </a>
                 )}
             </ul>
-
         );
         return (<div>{projectTitle}</div>);
     }
-
     selected = (projectSelect) => {
         this.props.setProject(projectSelect);
         this.props.history.push('/project_detail');
     }
-
-
-
     handleChange = event => {
         let newState = this.state;
         newState[event.target.name] = event.target.value;
@@ -100,16 +78,13 @@ class Projects extends Component {
             ...newState
         });
     };
-
     handleSubmit = (e) =>{
         e.preventDefault();
-
         const payload = {
             ProjectTitle:this.state.projectTitle,
             ProjectDescription:this.state.projectDescription,
             ProjectProgress:this.state.projectProgress,
         };
-
         this.props.registerProjects(payload);
         this.setState({
             projectTitle:'',
@@ -117,13 +92,10 @@ class Projects extends Component {
             projectProgress:''
         });
     };
-
-
     render() {
         return (
             <div>
                 <NavigationBar />
-
                 <Row>
                 <div className="login-panel panel panel-default">
                     {/*<div className="panel-heading">*/}
@@ -151,7 +123,6 @@ class Projects extends Component {
                                          autoFocus
                                          required={true}
                                      >
-
                                     </textarea>
                                     {/*<input*/}
                                     {/*    name="projectTitle"*/}
@@ -164,7 +135,6 @@ class Projects extends Component {
                                     {/*    required={true}*/}
                                     {/*/>*/}
                                 </div>
-
                                 <div className="form-group ">
                                     <textarea
                                         name="projectDescription"
@@ -176,7 +146,6 @@ class Projects extends Component {
                                         autoFocus
                                         required={true}
                                     >
-
                                     </textarea>
                                     {/*<input*/}
                                     {/*    name="projectDescription"*/}
@@ -189,7 +158,6 @@ class Projects extends Component {
                                     {/*    required={true}*/}
                                     {/*/>*/}
                                 </div>
-
                                 <div className="form-group">
                                     <textarea
                                         name="projectProgress"
@@ -239,19 +207,15 @@ class Projects extends Component {
                             </div>
                         </div>
                     </Col>
-
                     <Col sm={12} md={2} lg={2}>
                         <SideShow/>
                     </Col>
                 </Row>
-
                 <Footer/>
             </div>
         );
     }
 }
-
-
 Projects.propTypes = {
     registerProjects: PropTypes.func.isRequired,
     projectsSuccessFullyRegistered: PropTypes.bool.isRequired,
@@ -259,29 +223,17 @@ Projects.propTypes = {
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
     setProject: PropTypes.func.isRequired,
     projectSelect: PropTypes.object.isRequired,
-    project_session_details: PropTypes.object.isRequired
-
 };
-
-
 const mapStateToProps = state => ({
     projectsSuccessFullyRegistered: state.projects.projectsSuccessFullyRegistered,
     registeredProjects: state.projects.registeredProjects,
-    project_session_details: state.projects.project_session_details,
     projectSelect: state.projects.projectSelect,
-
 });
-
-
-
 const mapDispatchToProps = dispatch => ({
     registerProjects: payload => dispatch(registerProjects(payload)),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
-    projectSelect: () => dispatch(projectSelect()),
     setProject: payload => dispatch(setProject(payload)),
-
 });
-
 export default connect(
     mapStateToProps,
     mapDispatchToProps

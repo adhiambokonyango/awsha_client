@@ -1,4 +1,3 @@
-
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
     PROJECTS_SUCCESSFULLY_REGISTERED,
@@ -7,17 +6,8 @@ import {
     REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_PROJECTS,
     REGISTERED_PROJECTS_EMPTY_RESULTS,
-    BEGIN_PROJECT_SELECTION,
-    STORE_PROJECT,
-    PROJECT_SELECTION_SUCCESS,
-    WRONG_SELECTION,
-    AN_ERROR_OCCURED_DURING_SELECTION, SET_PROJECT
-
-
+   SET_PROJECT
 } from "./actionTypes";
-import {SET_USER} from "../../user_management/user_sign_up/actionTypes";
-
-
 export function registerProjects(payload) {
     return async dispatch => {
         const apiRoute = "/add_projects";
@@ -43,10 +33,6 @@ export function registerProjects(payload) {
         );
     };
 }
-
-
-
-
 export function fetchAllProjects() {
     return async dispatch => {
         const apiRoute = "/get_all_projects";
@@ -75,47 +61,6 @@ export function fetchAllProjects() {
         );
     };
 }
-
-export function projectSelect(payload) {
-    return async dispatch => {
-        dispatch({
-            type: BEGIN_PROJECT_SELECTION
-        });
-        const apiRoute = "/project_selection";
-        const returnedPromise = apiPost(payload, apiRoute);
-        returnedPromise.then(
-            function(result) {
-                if (!result.data.error) {
-                    dispatch({
-                        type: STORE_PROJECT,
-                        payload: {
-                            isSelectionSuccessful:false,
-                            project_session_details: result.data,
-                            isProjectSessionActive: true
-                        }
-                    });
-                    dispatch({
-                        type: PROJECT_SELECTION_SUCCESS
-                    });
-
-
-                } else {
-                    dispatch({
-                        type: WRONG_SELECTION
-                    });
-                }
-            },
-            function(err) {
-                dispatch({
-                    type: AN_ERROR_OCCURED_DURING_SELECTION
-                });
-                console.log(err);
-            }
-        );
-    };
-}
-
-
 export function setProject(projectSelect){
     return async dispatch => {
         dispatch({

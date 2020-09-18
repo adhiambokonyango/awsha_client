@@ -7,13 +7,10 @@ import { FaEdit, FaUser, FaSignOutAlt, FaCartPlus, FaList, FaMailBulk } from "re
 import './NavigationBar.scss'
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
-import {logout} from "../../../store/user_management/user_log_in/actions";
 
 
 class NavigationBar extends Component {
-    handleLogout = () => {
-        this.props.logout();
-}
+
     render() {
         return (
                 <Row className="first_row">
@@ -34,13 +31,11 @@ class NavigationBar extends Component {
     }
 }
 NavigationBar.propTypes = {
-    logout: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
 
 });
 const mapDispatchToProps = dispatch => ({
-    logout: () => dispatch(logout()),
 });
 
 export default connect(

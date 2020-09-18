@@ -143,27 +143,3 @@ export function authenticateOfficeAdmin(payload) {
     };
 }
 
-export function logout() {
-    return async dispatch => {
-        const apiRoute = "/logout";
-        const returnedPromise = apiPost(apiRoute);
-        returnedPromise.then(
-            function (result) {
-                if (!result.data.error){
-                    dispatch({
-                        type: LOGOUT
-                    })
-                }
-
-            },
-            function(err) {
-                dispatch({
-                    type: AN_ERROR_OCCURED_DURING_LOGOUT
-                });
-                console.log(err);
-            }
-        )
-    }
-
-}
-

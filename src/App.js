@@ -32,6 +32,8 @@ import HomePage from "./components/home_page/HomePage";
 import ProjectDetail from "./views/projects/ProjectDetail";
 import Demo2 from "./views/Demo2";
 import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
+import BranchProject from "./views/BranchProjects/BranchProject";
+import ProjectStatus from "./views/BranchProjects/ProjectStatus";
 
 
 class App extends Component {
@@ -68,7 +70,8 @@ class App extends Component {
             <Route path="/project_detail" exact component={ProjectDetail} />
             <Route path="/demo" exact component={Demo2} />
             <Route path="/check" exact component={CheckBoxGroup} />
-
+            <Route path="/branch_project" exact component={BranchProject} />
+            <Route path="/project_status" exact component={ProjectStatus} />
         </div>
       </Router>
     );

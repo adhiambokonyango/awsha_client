@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { Route, withRouter } from "react-router-dom";
 import { FaCogs, FaCog, FaSearch, FaList } from "react-icons/fa";
 import {
-    DISPLAY_PROJECTS, DISPLAY_TEAM_MEMBERS
+    DISPLAY_PROJECTS, DISPLAY_TEAMS
 
 } from "../../config/constants/Constants";
 
@@ -72,15 +72,12 @@ class AdministratorSideBar extends Component {
                                 className="side-bar__anchor-text"
                                 onClick={e => {
                                     e.preventDefault();
-                                    this.props.handleSideBarClicked(DISPLAY_TEAM_MEMBERS);
+                                    this.props.handleSideBarClicked(DISPLAY_TEAMS);
                                 }}
                             >
-                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Team Members
+                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Teams
                             </a>
                         </li>
-
-
-
                     </ul>
                 </div>
             </div>

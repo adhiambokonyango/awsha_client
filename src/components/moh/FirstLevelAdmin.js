@@ -24,17 +24,11 @@ class FirstLevelAdmin extends Component {
     }
 
     handleSideBareItemClicked = (clickedItem) =>{
-        if(clickedItem === DISPLAY_COMPANY_REGISTRATION_PAGE) {
-            this.props.history.push('/company_registration');
-        } else if(clickedItem === DISPLAY_USER_MANAGEMENT_PAGE) {
+         if(clickedItem === DISPLAY_USER_MANAGEMENT_PAGE) {
             this.props.history.push('/user_management');
         } else if(clickedItem === DISPLAY_USER_REGISTRATION_PAGE) {
             this.props.history.push('/register_users');
-        } else if(clickedItem === DISPLAY_TEAMS) {
-            this.props.history.push('/teams');
-        } else if(clickedItem === DISPLAY_PROJECTS) {
-            this.props.history.push('/register_projects');
-        } else if(clickedItem === DISPLAY_ADMINISTRATOR_REGISTRATION) {
+        }  else if(clickedItem === DISPLAY_ADMINISTRATOR_REGISTRATION) {
             this.props.history.push('/register_administrator');
         } else if(clickedItem === DISPLAY_ADMINISTRATOR_MANAGEMENT) {
             this.props.history.push('/administrator_management');

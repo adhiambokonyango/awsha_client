@@ -5,7 +5,7 @@ import { Route, withRouter } from "react-router-dom";
 import { FaCogs, FaCog, FaSearch, FaList } from "react-icons/fa";
 import {
     DISPLAY_PROJECT_OBJECTIVE,
-    DISPLAY_OBJECTIVES
+    DISPLAY_OBJECTIVES, DISPLAY_PROJECTS
 
 } from "../../config/constants/Constants";
 
@@ -60,24 +60,10 @@ class UserSideBar extends Component {
                                 className="side-bar__anchor-text"
                                 onClick={e => {
                                     e.preventDefault();
-                                    this.props.handleSideBarClicked(DISPLAY_OBJECTIVES);
+                                    this.props.handleSideBarClicked(DISPLAY_PROJECTS);
                                 }}
                             >
-                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Objectives
-                            </a>
-                        </li>
-
-
-                        <li className="list-class">
-                            <a
-                                href=""
-                                className="side-bar__anchor-text"
-                                onClick={e => {
-                                    e.preventDefault();
-                                    this.props.handleSideBarClicked(DISPLAY_PROJECT_OBJECTIVE);
-                                }}
-                            >
-                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Project Objective
+                                <i className="fa fa-dashboard fa-fw" /> &nbsp;Projects
                             </a>
                         </li>
 

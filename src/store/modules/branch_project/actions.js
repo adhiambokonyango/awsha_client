@@ -1,28 +1,29 @@
-
 import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
-    SIGN_UP_SUCCESSFUL,
-    SIGN_UP_FAILED,
 
-    REGISTERED_USER_FETCHED_SUCCESSFULLY,
-    ERROR_FETCHING_USER,
-    REGISTERED_USER_EMPTY_RESULTS,
-
+    BRANCH_PROJECT_FETCHED_SUCCESSFULLY,
+    BRANCH_PROJECT_FETCH_FAILED,
+    BRANCH_PROJECT_FETCH_EMPTY_RESULT,
+    BRANCH_PROJECT_STATUS_RESET,
+    BRANCH_PROJECT_STATUS_UPDATE_FAILED
 } from "./actionTypes";
 
-export function registerUser(payload) {
+import {BRANCH_PROJECT_STATUS_SUCCESSFULLY_UPDATED} from "./actionTypes";
+
+
+export function updateBranchProjectStatus(payload) {
     return async dispatch => {
-        const apiRoute = "/user_registration";
+        const apiRoute = "/update_individual_branch_project_status";
         const returnedPromise = apiPost(payload, apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results.success) {
                     dispatch({
-                        type: SIGN_UP_SUCCESSFUL
+                        type: BRANCH_PROJECT_STATUS_SUCCESSFULLY_UPDATED
                     });
                 } else {
                     dispatch({
-                        type: SIGN_UP_FAILED
+                        type: BRANCH_PROJECT_STATUS_UPDATE_FAILED
                     });
                 }
             },
@@ -36,28 +37,28 @@ export function registerUser(payload) {
 
 
 
-export function fetchAllUser() {
+export function fetchAllBranchProjects() {
     return async dispatch => {
-        const apiRoute = "/get_all_users";
+        const apiRoute = "/get_all_branch_projects_by_full_description";
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
                 if (result.data.results && result.data.results.length > 0) {
                     dispatch({
-                        type: REGISTERED_USER_FETCHED_SUCCESSFULLY,
+                        type: BRANCH_PROJECT_FETCHED_SUCCESSFULLY,
                         payload: {
-                            registeredUser: result.data.results
+                            branch: result.data.results
                         }
                     });
                 } else if (result.data.results && result.data.results.length === 0) {
                     dispatch({
-                        type: REGISTERED_USER_EMPTY_RESULTS
+                        type: BRANCH_PROJECT_FETCH_EMPTY_RESULT
                     });
                 }
             },
             function(err) {
                 dispatch({
-                    type: ERROR_FETCHING_USER
+                    type: BRANCH_PROJECT_FETCH_FAILED
                 });
                 console.log(err);
             }
@@ -66,3 +67,12 @@ export function fetchAllUser() {
 }
 
 
+
+
+export function resetPrivilegeUpdate() {
+    return async dispatch => {
+        dispatch({
+            type: BRANCH_PROJECT_STATUS_RESET
+        });
+    };
+}

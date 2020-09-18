@@ -17,7 +17,7 @@ import {reducer as confirmation_status} from "./modules/confirmation_status";
 import {reducer as admin_privileges} from "./modules/admin_privileges";
 import {reducer as administrator_privileges} from "./modules/administrator_privileges";
 import {reducer as session_log} from "./activity_log/user_session_log";
-import {reducer as branches} from "./modules/branches";
+import {reducer as branches} from "./modules/branch_project";
 // =============================================================
 // The rootReducer object aggregates our earlier reducers into a
 // single reducer that holds our entire immutable application

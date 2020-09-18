@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {
-    DISPLAY_OBJECTIVES, DISPLAY_PROJECT_OBJECTIVE
+    DISPLAY_OBJECTIVES, DISPLAY_PROJECT_OBJECTIVE, DISPLAY_PROJECTS
 
 
 } from "../../config/constants/Constants";
@@ -20,10 +20,8 @@ class UserLevel extends Component {
 
 
     handleSideBareItemClicked = (clickedItem) =>{
-        if(clickedItem === DISPLAY_OBJECTIVES) {
-            this.props.history.push('/objectives');
-        } else if(clickedItem === DISPLAY_PROJECT_OBJECTIVE) {
-            this.props.history.push('/register_project_objectives');
+        if(clickedItem === DISPLAY_PROJECTS) {
+            this.props.history.push('/project_detail');
         }
     };
 

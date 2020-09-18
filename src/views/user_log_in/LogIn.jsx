@@ -11,9 +11,7 @@ import {
 import {fetchAllUserPrivileges} from "../../store/modules/privileges/actions"
 import {fetchAllAdminUserPrivileges} from "../../store/modules/admin_privileges/actions";
 import {fetchAllAdministratorUserPrivileges} from "../../store/modules/administrator_privileges/actions";
-import {promiselessApiGetAll, promiselessApiPost} from "../../services/api_connector/ApiConnector";
 import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
-import {registerUserSessionLogs} from "../../store/activity_log/user_session_log/actions";
 
 import "./Login.scss";
 class LogIn extends Component {
@@ -35,7 +33,7 @@ class LogIn extends Component {
     componentWillUpdate(nextProps, nextState, nextContext) {
 
         if (this.props.isAdminLoginSuccessful === true){
-            this.props.history.push('/awsha_home');
+            this.props.history.push('/');
         }
 
     }
@@ -79,7 +77,7 @@ class LogIn extends Component {
         /*PAGE NAVIGATION LOGIC*/
 
         if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
-            if (this.props.adminPrivilege[i].AdminPermissionStatus === 1) {
+            if (this.props.adminPrivilege[1].AdminPermissionStatus === 1) {
                 this.setState({
                     adminloginNoError: true
                 })

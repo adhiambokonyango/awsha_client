@@ -33,10 +33,6 @@ export function updatePermissionStatus(payload) {
         );
     };
 }
-
-
-
-
 export function fetchAllUserPrivileges() {
     return async dispatch => {
         const apiRoute = "/get_user_privileges_by_full_description";
@@ -65,10 +61,6 @@ export function fetchAllUserPrivileges() {
         );
     };
 }
-
-
-
-
 export function resetPrivilegeUpdate() {
     return async dispatch => {
         dispatch({

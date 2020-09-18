@@ -39,11 +39,11 @@ class AdminSignUp extends Component {
         }
     };
 
-    componentWillMount() {
-        if (this.props.isAdminLoginSuccessful === false){
-            this.props.history.push('/');
-        }
-    }
+    // componentWillMount() {
+    //     if (this.props.isAdminLoginSuccessful === false){
+    //         this.props.history.push('/');
+    //     }
+    // }
     componentDidMount() {
         this.props.fetchAllGender();
         this.props.fetchAllAdmin();
