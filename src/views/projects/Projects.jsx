@@ -209,7 +209,6 @@ class Projects extends Component {
                     </Col>
 
                 </Row>
-                <Footer/>
             </div>
         );
     }

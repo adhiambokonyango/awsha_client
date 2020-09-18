@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-
-import Table from "../../components/table/table_body/Table";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {fetchAllUser, registerUser, setUser} from "../../store/user_management/user_sign_up/actions";
@@ -12,13 +10,10 @@ import {
     resetWrongCredentials,
 } from "../../store/user_management/user_log_in/actions";
 import './SignUp.css';
-import Footer from "../../components/footer/Footer";
 import {Col, Row} from "react-bootstrap";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import '../projects/Projects.css'
 import {FaCogs} from "react-icons/fa";
-import {setProject} from "../../store/modules/projects/actions";
-
 
 class SignUp extends Component {
 

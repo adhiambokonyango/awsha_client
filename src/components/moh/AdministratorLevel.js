@@ -9,6 +9,7 @@ import NavigationBar from "../../views/admin_page/nav_bar/NavigationBar";
 import AdminPage from "../../views/admin_page/AdminPage";
 import { Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {connect} from "react-redux";
+import './Moh.css'
 
 class AdministratorLevel extends Component {
 
@@ -39,7 +40,12 @@ class AdministratorLevel extends Component {
                 <AdministratorSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
 
                 <Col sm={8}>
+                    <div className="card">
+                        <div className="card-content">
+
                     <AdminPage />
+                        </div>
+                    </div>
                 </Col>
 
 

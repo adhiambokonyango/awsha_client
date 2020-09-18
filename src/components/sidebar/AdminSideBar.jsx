@@ -9,7 +9,10 @@ import {
     DISPLAY_USER_MANAGEMENT_PAGE,
     DISPLAY_TEAMS,
     DISPLAY_PROJECTS,
-    DISPLAY_ADMINISTRATOR_REGISTRATION, DISPLAY_ADMINISTRATOR_MANAGEMENT
+    DISPLAY_ADMINISTRATOR_REGISTRATION,
+    DISPLAY_ADMINISTRATOR_MANAGEMENT,
+    DISPLAY_SYSTEM_ADMIN_REGISTRATION,
+    DISPLAY_SYSTEM_ADMIN_MANAGEMENT
 
 } from "../../config/constants/Constants";
 
@@ -123,6 +126,32 @@ class AdminSideBar extends Component {
                       }}
                   >
                       <i className="fa fa-dashboard fa-fw" /> &nbsp;Administrator Management
+                  </a>
+              </li>
+
+              <li className="list-class">
+                  <a
+                      href=""
+                      className="side-bar__anchor-text"
+                      onClick={e => {
+                          e.preventDefault();
+                          this.props.handleSideBarClicked(DISPLAY_SYSTEM_ADMIN_REGISTRATION);
+                      }}
+                  >
+                      <i className="fa fa-dashboard fa-fw" /> &nbsp;SystemAdmin Registration
+                  </a>
+              </li>
+
+              <li className="list-class">
+                  <a
+                      href=""
+                      className="side-bar__anchor-text"
+                      onClick={e => {
+                          e.preventDefault();
+                          this.props.handleSideBarClicked(DISPLAY_SYSTEM_ADMIN_MANAGEMENT);
+                      }}
+                  >
+                      <i className="fa fa-dashboard fa-fw" /> &nbsp;SystemAdmin Management
                   </a>
               </li>
 

@@ -102,7 +102,6 @@ class AdminManagement extends Component {
         return (
             <div>
                 <NavigationBar />
-                <AdminSideBar />
                 <div className="container user-login-card">
                     <div className="row">
                         <div className=" col-md-offset-4">

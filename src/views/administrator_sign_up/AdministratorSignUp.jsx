@@ -5,8 +5,10 @@ import {fetchAllAdministrator, registerAdministrator} from "../../store/user_man
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-
-
+import {FaCogs} from "react-icons/fa";
+import NavigationBar from "../admin_page/nav_bar/NavigationBar";
+import {Col, Row} from "react-bootstrap";
+import {setUser} from "../../store/user_management/user_sign_up/actions";
 
 class AdministratorSignUp extends Component {
 
@@ -34,7 +36,10 @@ class AdministratorSignUp extends Component {
             GenderId: 'Gender',
             EncryptedPassword: 'EncryptedPassword'
 
-        }
+        },
+        // check system admin permission status
+        userRegistrationPermissionStatus: false,
+        loginErrorMessage:"",
     };
     componentWillMount() {
         if (this.props.isAdminLoginSuccessful === false){
@@ -61,16 +66,36 @@ class AdministratorSignUp extends Component {
                 this.setState({ selectOptions: allregisteredGender });
             }
         }
+
+        if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
+            if (this.props.adminPrivilege[0].AdminPermissionStatus === 1) {
+                this.setState({
+                    userRegistrationPermissionStatus: true
+                })
+
+            } else if (this.props.adminPrivilege[0].AdminPermissionStatus === 0){
+                this.setState({
+                    userRegistrationPermissionStatus: false
+                })
+            }
+        }
     };
 
-
+    handleAnyTextFieldTouched = () => {
+        this.props.resetWrongCredentials();
+        this.setState({ loginErrorMessage: "Access denied!" });
+    };
 
     handleChange = event => {
-        let newState = this.state;
-        newState[event.target.name] = event.target.value;
-        this.setState({
-            ...newState
-        });
+        if(this.state.userRegistrationPermissionStatus === true){
+            let newState = this.state;
+            newState[event.target.name] = event.target.value;
+            this.setState({
+                ...newState
+            });
+        } else if(this.state.userRegistrationPermissionStatus === false){
+            this.handleAnyTextFieldTouched();
+        }
     };
 
     handleSubmit = (e) =>{
@@ -101,15 +126,39 @@ class AdministratorSignUp extends Component {
 
     };
 
+    blog = () => {
+        const user = (
+            <ul>
+                {this.props.registeredAdministrator.map((post) =>
+                    <a onClick={() => {this.selected(post)}}>
+                        <h6>
+                            <ul key={post.id} >
+                                {"  "}<FaCogs/>{" "}{post.FirstName}
+                            </ul></h6>
+                    </a>
+                )}
+            </ul>
+        );
+        return (<div>{user}</div>);
+    }
+    selected = (userSelect) => {
+        this.props.setUser(userSelect);
+        this.props.history.push('/administrator_profile');
+    }
+
     render() {
         return (
-            <>
-
-            <div className="col-md-4 col-md-offset-4">
-                <div className="login-panel panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Administrator Registration</h3>
-                    </div>
+            <div>
+                <NavigationBar/>
+                {/*<div className="col-md-4 col-md-offset-4">*/}
+                <Row>
+                    <div className="login-panel panel panel-default">
+                        {/*    <div className="panel-heading">*/}
+                        {/*        <h3 className="panel-title">User Registration</h3>*/}
+                        {/*    </div>*/}
+                        <Col sm={5}>
+                            <h3 className="title titles">Administrator</h3>
+                            <h3 className="panel-title subs">Register Administrator</h3>
                     <div className="panel-body">
                         <form
                             action=""
@@ -251,20 +300,27 @@ class AdministratorSignUp extends Component {
                                 >
                                     Submit
                                 </button>
-
-                                <button
-                                    type="btn-link"
-                                    className="btn btn-lg btn-success btn-block"
-                                >
-                                    <Link to="/registered_administrators">View Registered Administrators</Link>
-                                </button>
                             </fieldset>
                         </form>
                     </div>
-                </div>
+                        </Col>
+                        <Col sm={12} md={4} lg={4} className="listed_projects">
+                            <div className="card">
+                                <div className="card-content">
+                                    <h3 className="panel-title card_header">Registered Administrators</h3>
+                                    <div className="vertical_scroll">
+                                        <div className="scrollmenu">
+                                            <ul >
+                                                {this.blog()}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </Col>
+                    </div>
+                </Row>
             </div>
-
-            </>
         );
     }
 }
@@ -278,6 +334,8 @@ AdministratorSignUp.propTypes = {
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
     isAdminLoginSuccessful:PropTypes.bool.isRequired,
+    setUser: PropTypes.func.isRequired,
+    userSelect: PropTypes.object.isRequired,
 
 };
 
@@ -287,6 +345,7 @@ const mapStateToProps = state => ({
     registeredAdministrator: state.administrator_sign_up.registeredAdministrator,
     registeredGender: state.gender_info.registeredGender,
     isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
+    serSelect: state.user_sign_up.userSelect,
 });
 
 
@@ -294,7 +353,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerAdministrator: payload => dispatch(registerAdministrator(payload)),
     fetchAllAdministrator: () => dispatch(fetchAllAdministrator()),
-    fetchAllGender: () => dispatch(fetchAllGender())
+    fetchAllGender: () => dispatch(fetchAllGender()),
+    setUser: payload => dispatch(setUser(payload)),
 });
 
 export default connect(
