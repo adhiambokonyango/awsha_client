@@ -6,7 +6,8 @@ import {
 
     REGISTERED_ADMINISTRATOR_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_ADMINISTRATOR,
-    REGISTERED_ADMINISTRATOR_EMPTY_RESULTS
+    REGISTERED_ADMINISTRATOR_EMPTY_RESULTS, SET_ADMINISTRATOR
+
 
 } from "./actionTypes";
 
@@ -62,5 +63,16 @@ export function fetchAllAdministrator() {
                 console.log(err);
             }
         );
+    };
+}
+
+export function setAdministrator(administratorSelect){
+    return async dispatch => {
+        dispatch({
+            type: SET_ADMINISTRATOR,
+            payload: {
+                administratorSelect: administratorSelect
+            }
+        });
     };
 }

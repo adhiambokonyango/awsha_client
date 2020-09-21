@@ -2,6 +2,7 @@
     color: red;
     font-size: 0.7rem;
     font-style: oblique;
+    align-items: center;
 }
 
 .panel-default .listed_projects .card{

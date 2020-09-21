@@ -1,4 +1,5 @@
 export const initialState = {
     signUpSuccessful: false,
-    registeredAdministrator: []
+    registeredAdministrator: [],
+    administratorSelect:{}
 };

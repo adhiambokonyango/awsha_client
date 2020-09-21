@@ -76,7 +76,6 @@ class SignUp extends Component {
             }
         }
 
-
         if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
             if (this.props.adminPrivilege[0].AdminPermissionStatus === 1) {
                 this.setState({
@@ -191,9 +190,7 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
                                <div className="form-group">
@@ -208,9 +205,7 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
                                <div className="form-group">
@@ -225,9 +220,7 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
                                <div className="form-group">
@@ -242,9 +235,7 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
                                <div className="form-group">
@@ -259,9 +250,7 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
                                <div className="form-group">
@@ -280,9 +269,7 @@ class SignUp extends Component {
                                        }
                                        options={this.state.selectOptions}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
 
@@ -298,9 +285,7 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
 
                                <div className="form-group">
@@ -315,20 +300,17 @@ class SignUp extends Component {
                                        autoFocus
                                        required={true}
                                    />
-                                   <div className="error_messages">
-                                       {this.state.loginErrorMessage}
-                                   </div>
+
                                </div>
-
-
-
                                <button
                                    type="submit"
                                    className="btn btn-lg btn-success btn-block"
                                >
                                    Submit
                                </button>
-
+                               <div className="error_messages">
+                                   {this.state.loginErrorMessage}
+                               </div>
                            </fieldset>
                        </form>
                    </div>

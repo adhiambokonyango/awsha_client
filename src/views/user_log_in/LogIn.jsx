@@ -54,7 +54,7 @@ class LogIn extends Component {
          if (this.props.administratorPrivilege !== prevProps.administratorPrivilege) {
              if (this.props.administratorPrivilege[i].AdministratorPermissionStatus === 1) {
                  this.setState({
-                     loginNoError: true
+                     loginNoError: true,
                  })
 
              }
@@ -77,7 +77,7 @@ class LogIn extends Component {
         /*PAGE NAVIGATION LOGIC*/
 
         if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
-            if (this.props.adminPrivilege[1].AdminPermissionStatus === 1) {
+            if (this.props.adminPrivilege[0].AdminPermissionStatus === 1) {
                 this.setState({
                     adminloginNoError: true
                 })
@@ -105,7 +105,6 @@ class LogIn extends Component {
                 this.setState({
                     userloginNoError: true
                 })
-
             }
         }
 
@@ -117,7 +116,9 @@ class LogIn extends Component {
                     this.props.history.push("/user_level");
                 }
             } else if (!this.props.isLoginSuccessful) {
-                this.props.history.push("/user_sign_up");
+                this.setState({
+                    loginHasError: true
+                })
             }
         }
 
@@ -139,7 +140,6 @@ class LogIn extends Component {
         const payload = {
             AttemptedEmail: this.state.attemptedEmail,
             AttemptedPassword: this.state.attemptedPassword,
-            SessionLogId: this.state.userSessionId
 
         };
 
@@ -159,7 +159,7 @@ class LogIn extends Component {
 
     handleAnyTextFieldTouched = () => {
         this.props.resetWrongCredentials();
-        this.setState({ loginHasError: false, loginErrorMessage: "" });
+        this.setState({loginHasError: false, loginErrorMessage: "" });
     };
 
     render() {
@@ -215,19 +215,19 @@ class LogIn extends Component {
                                             <button
                                                 type="submit"
                                                 className="btn btn-lg btn-success btn-block"
-
                                             >
                                                 Sign In
                                             </button>
-                                            <p
-                                                className={
-                                                    this.state.loginHasError
-                                                        ? "login__error-text"
-                                                        : "login__hide"
-                                                }
-                                            >
-                                                {this.state.loginErrorMessage}
-                                            </p>
+                                            {this.state.loginErrorMessage}
+                                            {/*<p*/}
+                                            {/*    className={*/}
+                                            {/*        this.state.loginHasError*/}
+                                            {/*            ? "login__error-text"*/}
+                                            {/*            : "login__hide"*/}
+                                            {/*    }*/}
+                                            {/*>*/}
+                                            {/*    {this.state.loginErrorMessage}*/}
+                                            {/*</p>*/}
                                         </fieldset>
                                     </form>
                                 </div>

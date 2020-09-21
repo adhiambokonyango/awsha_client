@@ -2,17 +2,19 @@ import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {registerProjects, fetchAllProjects, setProject} from "../../store/modules/projects/actions";
-import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
-import { Button, Navbar, Nav, NavItem, NavDropdown, MenuItem, FormGroup, FormControl, Form,
-    Container, Row, Col
+import {  Row, Col
 } from 'react-bootstrap';
 import {FaCogs, FaList} from "react-icons/fa";
-import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
 import './Projects.css';
-import Footer from "../../components/footer/Footer";
-import SideShow from "../../components/sideshow/SideShow";
+import {resetWrongCredentials} from "../../store/user_management/user_log_in/actions";
+import {
+    fetchAllAdministratorUserPrivileges,
+    resetPrivilegeUpdate
+} from "../../store/modules/administrator_privileges/actions";
+import '../user_sign_up/SignUp.css';
+
 class Projects extends Component {
     state = {
         projectTitle:'',
@@ -24,10 +26,14 @@ class Projects extends Component {
         tableHeaders: {
             ProjectId:'#',
             ProjectTitle:'ProjectTitle',
-        }
+        },
+
+        projectRegistrationPermission: false,
+        errorMessage: ""
     };
     componentDidMount() {
         this.props.fetchAllProjects();
+        this.props.fetchAllAdministratorUserPrivileges();
     }
     componentDidUpdate(prevProps) {
          if(this.props.registeredProjects !== prevProps.registeredProjects) {
@@ -46,6 +52,19 @@ class Projects extends Component {
                  this.setState({data: list});
              }
          }
+
+        if (this.props.administratorPrivilege !== prevProps.administratorPrivilege) {
+            if (this.props.administratorPrivilege[0].AdministratorPermissionStatus === 1) {
+                this.setState({
+                    projectRegistrationPermission: true
+                })
+            } else if (this.props.administratorPrivilege[0].AdministratorPermissionStatus === 0){
+                this.setState({
+                    projectRegistrationPermission: false
+                })
+            }
+        }
+
          if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
              if(this.props.projectsSuccessFullyRegistered) {
                  this.props.fetchAllProjects();
@@ -71,12 +90,20 @@ class Projects extends Component {
         this.props.setProject(projectSelect);
         this.props.history.push('/project_detail');
     }
+    handleAnyTextFieldTouched = () => {
+        this.props.resetWrongCredentials();
+        this.setState({ errorMessage: "Access denied!" });
+    };
     handleChange = event => {
-        let newState = this.state;
-        newState[event.target.name] = event.target.value;
-        this.setState({
-            ...newState
-        });
+        if(this.state.projectRegistrationPermission === true){
+            let newState = this.state;
+            newState[event.target.name] = event.target.value;
+            this.setState({
+                ...newState
+            });
+        } else if(this.state.projectRegistrationPermission === false){
+            this.handleAnyTextFieldTouched();
+        }
     };
     handleSubmit = (e) =>{
         e.preventDefault();
@@ -188,6 +215,9 @@ class Projects extends Component {
                                 >
                                     Submit
                                 </button>
+                                <div className="error_messages">
+                                    {this.state.errorMessage}
+                                </div>
                             </fieldset>
                         </form>
                     </div>
@@ -220,17 +250,22 @@ Projects.propTypes = {
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
     setProject: PropTypes.func.isRequired,
     projectSelect: PropTypes.object.isRequired,
+    resetWrongCredentials: PropTypes.func.isRequired,
+    administratorPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
+    fetchAllAdministratorUserPrivileges: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
     projectsSuccessFullyRegistered: state.projects.projectsSuccessFullyRegistered,
     registeredProjects: state.projects.registeredProjects,
     projectSelect: state.projects.projectSelect,
+    administratorPrivilege: state.administrator_privileges.administratorPrivilege,
 });
 const mapDispatchToProps = dispatch => ({
     registerProjects: payload => dispatch(registerProjects(payload)),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     setProject: payload => dispatch(setProject(payload)),
-});
+    fetchAllAdministratorUserPrivileges: () => dispatch(fetchAllAdministratorUserPrivileges()),
+    resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),});
 export default connect(
     mapStateToProps,
     mapDispatchToProps

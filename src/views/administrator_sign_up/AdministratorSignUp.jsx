@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {fetchAllAdministrator, registerAdministrator} from "../../store/user_management/administrator_sign_up/actions";
-import {fetchAllGender} from "../../store/modules/gender_info/actions";
-import Select from "react-select";
+import {fetchAllAdministrator, registerAdministrator, setAdministrator} from "../../store/user_management/administrator_sign_up/actions";import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import {Link} from "react-router-dom";
-import {FaCogs} from "react-icons/fa";
-import NavigationBar from "../admin_page/nav_bar/NavigationBar";
+import {fetchAllAdminUserPrivileges} from "../../store/modules/admin_privileges/actions";
+import '../user_sign_up/SignUp.css';
 import {Col, Row} from "react-bootstrap";
-import {setUser} from "../../store/user_management/user_sign_up/actions";
+import NavigationBar from "../admin_page/nav_bar/NavigationBar";
+import '../projects/Projects.css'
+import {FaCogs} from "react-icons/fa";
+import {
+    resetWrongCredentials,
+} from "../../store/user_management/user_log_in/actions";
+import Select from "react-select";
 
 class AdministratorSignUp extends Component {
 
@@ -34,22 +38,26 @@ class AdministratorSignUp extends Component {
             Email: 'Email',
             NationalId: 'NationalId',
             GenderId: 'Gender',
-            EncryptedPassword: 'EncryptedPassword'
+            EncryptedPassword: 'EncryptedPassword',
+            PermissionStatus:'PermissionStatus'
 
         },
+
         // check system admin permission status
         userRegistrationPermissionStatus: false,
+
         loginErrorMessage:"",
     };
+
     componentWillMount() {
         if (this.props.isAdminLoginSuccessful === false){
             this.props.history.push('/');
         }
     }
-
     componentDidMount() {
         this.props.fetchAllGender();
         this.props.fetchAllAdministrator();
+        this.props.fetchAllAdminUserPrivileges();
     }
 
     componentDidUpdate(prevProps) {
@@ -80,6 +88,7 @@ class AdministratorSignUp extends Component {
             }
         }
     };
+
 
     handleAnyTextFieldTouched = () => {
         this.props.resetWrongCredentials();
@@ -113,7 +122,6 @@ class AdministratorSignUp extends Component {
             EncryptedPassword:this.state.encryptedPassword,
         };
 
-
         this.props.registerAdministrator(payload);
         this.setState({
             firstName: '',
@@ -142,7 +150,7 @@ class AdministratorSignUp extends Component {
         return (<div>{user}</div>);
     }
     selected = (userSelect) => {
-        this.props.setUser(userSelect);
+        this.props.setAdministrator(userSelect);
         this.props.history.push('/administrator_profile');
     }
 
@@ -159,150 +167,154 @@ class AdministratorSignUp extends Component {
                         <Col sm={5}>
                             <h3 className="title titles">Administrator</h3>
                             <h3 className="panel-title subs">Register Administrator</h3>
-                    <div className="panel-body">
-                        <form
-                            action=""
-                            method="POST"
-                            onSubmit={this.handleSubmit}
-                            encType="multipart/form-data"
-                        >
-                            <fieldset>
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="firstName"
-                                        className="form-control"
-                                        placeholder="FirstName"
-                                        value={this.state.firstName}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="middleName"
-                                        className="form-control"
-                                        placeholder="MiddleName"
-                                        value={this.state.middleName}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="surname"
-                                        className="form-control"
-                                        placeholder="Surname"
-                                        value={this.state.surname}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="phoneNumber"
-                                        className="form-control"
-                                        placeholder="PhoneNumber"
-                                        value={this.state.phoneNumber}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="email"
-                                        className="form-control"
-                                        placeholder="Email"
-                                        value={this.state.email}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-                                <div className="form-group">
-                                    <Select
-                                        className="react-select"
-                                        classNamePrefix="react-select"
-                                        placeholder="Select Gender"
-                                        name="selectedOption"
-                                        closeMenuOnSelect={true}
-                                        value={this.state.selectedOption}
-                                        onChange={value =>
-                                            this.setState({
-                                                ...this.state,
-                                                selectedOption: value
-                                            })
-                                        }
-                                        options={this.state.selectOptions}
-                                    />
-                                </div>
-
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="nationalId"
-                                        className="form-control"
-                                        placeholder="National Id"
-                                        value={this.state.nationalId}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-                                <div className="form-group">
-
-                                    <input
-                                        name="encryptedPassword"
-                                        className="form-control"
-                                        placeholder="Password"
-                                        value={this.state.encryptedPassword}
-                                        type="text"
-                                        onChange={this.handleChange}
-                                        autoFocus
-                                        required={true}
-                                    />
-
-                                </div>
-
-
-
-                                <button
-                                    type="submit"
-                                    className="btn btn-lg btn-success btn-block"
+                            <div className="panel-body">
+                                <form
+                                    action=""
+                                    method="POST"
+                                    onSubmit={this.handleSubmit}
+                                    encType="multipart/form-data"
                                 >
-                                    Submit
-                                </button>
-                            </fieldset>
-                        </form>
-                    </div>
+                                    <fieldset>
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="firstName"
+                                                className="form-control"
+                                                placeholder="FirstName"
+                                                value={this.state.firstName}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="middleName"
+                                                className="form-control"
+                                                placeholder="MiddleName"
+                                                value={this.state.middleName}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="surname"
+                                                className="form-control"
+                                                placeholder="Surname"
+                                                value={this.state.surname}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="phoneNumber"
+                                                className="form-control"
+                                                placeholder="PhoneNumber"
+                                                value={this.state.phoneNumber}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="email"
+                                                className="form-control"
+                                                placeholder="Email"
+                                                value={this.state.email}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+                                        <div className="form-group">
+                                            <Select
+                                                className="react-select"
+                                                classNamePrefix="react-select"
+                                                placeholder="Select Gender"
+                                                name="selectedOption"
+                                                closeMenuOnSelect={true}
+                                                value={this.state.selectedOption}
+                                                onChange={value =>
+                                                    this.setState({
+                                                        ...this.state,
+                                                        selectedOption: value
+                                                    })
+                                                }
+                                                options={this.state.selectOptions}
+                                            />
+
+                                        </div>
+
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="nationalId"
+                                                className="form-control"
+                                                placeholder="National Id"
+                                                value={this.state.nationalId}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+                                        <div className="form-group">
+
+                                            <input
+                                                name="encryptedPassword"
+                                                className="form-control"
+                                                placeholder="Password"
+                                                value={this.state.encryptedPassword}
+                                                type="text"
+                                                onChange={this.handleChange}
+                                                autoFocus
+                                                required={true}
+                                            />
+
+                                        </div>
+
+
+
+                                        <button
+                                            type="submit"
+                                            className="btn btn-lg btn-success btn-block"
+                                        >
+                                            Submit
+                                        </button>
+                                        <div className="error_messages">
+                                            {this.state.loginErrorMessage}
+                                        </div>
+                                    </fieldset>
+                                </form>
+                            </div>
                         </Col>
                         <Col sm={12} md={4} lg={4} className="listed_projects">
                             <div className="card">
@@ -334,8 +346,10 @@ AdministratorSignUp.propTypes = {
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
     isAdminLoginSuccessful:PropTypes.bool.isRequired,
-    setUser: PropTypes.func.isRequired,
+    setAdministrator: PropTypes.func.isRequired,
     userSelect: PropTypes.object.isRequired,
+    resetWrongCredentials: PropTypes.func.isRequired,
+    fetchAllAdminUserPrivileges: PropTypes.func.isRequired,
 
 };
 
@@ -345,7 +359,8 @@ const mapStateToProps = state => ({
     registeredAdministrator: state.administrator_sign_up.registeredAdministrator,
     registeredGender: state.gender_info.registeredGender,
     isAdminLoginSuccessful: state.user_log_in.isAdminLoginSuccessful,
-    serSelect: state.user_sign_up.userSelect,
+    administratorSelect: state.administrator_sign_up.administratorSelect,
+    adminPrivilege: state.admin_privileges.adminPrivilege,
 });
 
 
@@ -354,7 +369,9 @@ const mapDispatchToProps = dispatch => ({
     registerAdministrator: payload => dispatch(registerAdministrator(payload)),
     fetchAllAdministrator: () => dispatch(fetchAllAdministrator()),
     fetchAllGender: () => dispatch(fetchAllGender()),
-    setUser: payload => dispatch(setUser(payload)),
+    setAdministrator: payload => dispatch(setAdministrator(payload)),
+    resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
+    fetchAllAdminUserPrivileges: () => dispatch(fetchAllAdminUserPrivileges()),
 });
 
 export default connect(

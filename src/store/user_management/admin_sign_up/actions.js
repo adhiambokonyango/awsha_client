@@ -6,9 +6,11 @@ import {
 
     REGISTERED_ADMIN_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_ADMIN,
-    REGISTERED_ADMIN_EMPTY_RESULTS
+    REGISTERED_ADMIN_EMPTY_RESULTS,
+    SET_ADMINISTRATOR
 
 } from "./actionTypes";
+import {SET_USER} from "../user_sign_up/actionTypes";
 
 export function registerAdmin(payload) {
     return async dispatch => {
@@ -64,3 +66,4 @@ export function fetchAllAdmin() {
         );
     };
 }
+
