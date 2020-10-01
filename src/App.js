@@ -1,14 +1,10 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import "bulma/css/bulma.css";
-
-
 import Gender from "./views/gender_info/Gender";
 import AdminPage from "./views/admin_page/AdminPage";
 import Teams from "./views/teams/Teams";
 import Projects from "./views/projects/Projects";
-// import ProjectDetails from "./views/project_details/ProjectDetails";
-// import Percentage from "./views/percentage/Percentage";
 import Objectives from "./views/objectives/Objectives";
 import RegisteredUser from "./views/user_sign_up/RegisteredUser";
 import TeamMember from "./views/team_members/TeamMember";
@@ -34,7 +30,6 @@ import Demo2 from "./views/Demo2";
 import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 import BranchProject from "./views/BranchProjects/BranchProject";
 import ProjectStatus from "./views/BranchProjects/ProjectStatus";
-import {Container} from "react-bootstrap";
 
 
 class App extends Component {
@@ -55,7 +50,6 @@ class App extends Component {
                 <Route path="/team_members" exact component={TeamMember} />
                 <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
                 <Route path="/administrator_level" exact component={AdministratorLevel} />
-                {/*  <Route path="/percentage" exact component={Percentage} />*/}
                 <Route path="/user_management" exact component={UserManagement} />
                 <Route path="/register_system_admin" exact component={AdminSignUp} />
                 <Route path="/registered_admin" exact component={RegisteredAdmin} />

@@ -4,16 +4,24 @@ import {Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {FaCartPlus, FaList, FaMailBulk, FaSignOutAlt, FaUser, FaSignInAlt, FaCircle, FaCogs} from "react-icons/fa";
 import './HomePage.css';
 import './images/awsha_photo.jpg';
+import Progress from 'react-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+import "react-circular-progressbar/dist/styles.css";
+import LinearProgressWithLabel from "../progress_bar/LinearProgressWithLabel";
 
 
 class HomePage extends Component {
+    state ={
+        progress: 0
+    }
     render() {
         return (
             <div>
                     <Container>
 
                       <div class="card">
-                          <div class="card-image">
+                          <div class="card-image img">
+
                               <img src={ require('./images/awsha_photo.jpg') } />
                               <a
                                   class="btn-floating halfway-fab waves-effect waves-light red"

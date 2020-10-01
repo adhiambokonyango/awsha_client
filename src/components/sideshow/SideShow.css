@@ -1,13 +1,14 @@
 
 
 .sideshow{
+    margin-top: 0 !important;
 
-    height: auto;
-    background-color: black;
+    /*height: 31.8rem;*/
+    /*background-color: black;*/
 }
 
 .sideshow .showcase_areas{
-    min-height: 20rem;
+    height: 24.1rem;
     background-image: url('./images/awsha_photo.jpg');
     padding-top: 7rem;
     font-size: 3rem;
@@ -28,3 +29,4 @@
     text-align: center;
     padding-bottom: 0.1rem;
 }
+

@@ -11,9 +11,11 @@ import './Projects.css';
 import {resetWrongCredentials} from "../../store/user_management/user_log_in/actions";
 import {
     fetchAllAdministratorUserPrivileges,
-    resetPrivilegeUpdate
 } from "../../store/modules/administrator_privileges/actions";
 import '../user_sign_up/SignUp.css';
+import {updateBranchProjectStatus, fetchAllBranchProjects, resetPrivilegeUpdate} from '../../store/modules/branch_project/actions';
+
+
 
 class Projects extends Component {
     state = {
@@ -34,6 +36,7 @@ class Projects extends Component {
     componentDidMount() {
         this.props.fetchAllProjects();
         this.props.fetchAllAdministratorUserPrivileges();
+        this.props.fetchAllBranchProjects();
     }
     componentDidUpdate(prevProps) {
          if(this.props.registeredProjects !== prevProps.registeredProjects) {
@@ -65,6 +68,13 @@ class Projects extends Component {
             }
         }
 
+
+
+
+
+
+
+
          if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
              if(this.props.projectsSuccessFullyRegistered) {
                  this.props.fetchAllProjects();
@@ -77,7 +87,7 @@ class Projects extends Component {
                 {this.props.registeredProjects.map((post) =>
                     <a onClick={() => {this.selected(post)}}>
                         <h6>
-                        <ul key={post.id} >
+                        <ul key={post.ProjectId} >
                             {"  "}<FaCogs/>{" "}{post.ProjectTitle}
                         </ul></h6>
                     </a>
@@ -86,10 +96,12 @@ class Projects extends Component {
         );
         return (<div>{projectTitle}</div>);
     }
-    selected = (projectSelect) => {
-        this.props.setProject(projectSelect);
+    selected = (projectSelected) => {
+        this.props.setProject(projectSelected);
         this.props.history.push('/project_detail');
     }
+
+
     handleAnyTextFieldTouched = () => {
         this.props.resetWrongCredentials();
         this.setState({ errorMessage: "Access denied!" });
@@ -231,6 +243,7 @@ class Projects extends Component {
                                     <div className="scrollmenu">
                                         <ul >
                                             {this.blog()}
+
                                         </ul>
                                     </div>
                                 </div>
@@ -239,6 +252,7 @@ class Projects extends Component {
                     </Col>
 
                 </Row>
+
             </div>
         );
     }
@@ -252,11 +266,14 @@ Projects.propTypes = {
     projectSelect: PropTypes.object.isRequired,
     resetWrongCredentials: PropTypes.func.isRequired,
     administratorPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
+    branch: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllAdministratorUserPrivileges: PropTypes.func.isRequired,
+    fetchAllBranchProjects: PropTypes.func.isRequired,
 };
 const mapStateToProps = state => ({
     projectsSuccessFullyRegistered: state.projects.projectsSuccessFullyRegistered,
     registeredProjects: state.projects.registeredProjects,
+    branch: state.branches.branch,
     projectSelect: state.projects.projectSelect,
     administratorPrivilege: state.administrator_privileges.administratorPrivilege,
 });
@@ -265,7 +282,10 @@ const mapDispatchToProps = dispatch => ({
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     setProject: payload => dispatch(setProject(payload)),
     fetchAllAdministratorUserPrivileges: () => dispatch(fetchAllAdministratorUserPrivileges()),
-    resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),});
+    resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
+    fetchAllBranchProjects: () => dispatch(fetchAllBranchProjects()),
+});
+
 export default connect(
     mapStateToProps,
     mapDispatchToProps

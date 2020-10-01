@@ -1,4 +1,5 @@
 export const initialState = {
     objectivesSuccessFullyRegistered: false,
-    registeredObjectives: []
+    registeredObjectives: [],
+    percentageSelect:{}
 };

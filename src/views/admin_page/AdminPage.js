@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import NavigationBar from "./nav_bar/NavigationBar";
-
 import AdminSideBar from "../../components/sidebar/AdminSideBar";
 import {fetchAllProjects} from "../../store/modules/projects/actions";
 import { connect } from "react-redux";
@@ -12,13 +11,8 @@ import CheckBoxGroup from "../../components/check_box_group/CheckBoxGroup";
 import CheckBox from "../../components/check_box/CheckBox";
 import {FormGroup, Input, Label} from "reactstrap";
 import 'react-circular-progressbar/dist/styles.css';
-
 import "react-circular-progressbar/dist/styles.css";
-
-// Animation
-import { easeQuadInOut } from "d3-ease";
 import LinearProgressWithLabel from "../../components/progress_bar/LinearProgressWithLabel";
-import { fetchAllProjectObjectives} from "../../store/modules/project_objectives/actions";
 
 
 class AdminPage extends Component {
@@ -35,7 +29,6 @@ class AdminPage extends Component {
 
     componentDidMount() {
         this.props.fetchAllProjects();
-        this.props.fetchAllProjectObjectives();
 
     };
 
@@ -118,8 +111,7 @@ AdminPage.propTypes = {
 
     fetchAllProjects: PropTypes.func.isRequired,
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
-    fetchAllProjectObjectives: PropTypes.func.isRequired,
-    registeredProjectObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
+
 
 };
 
@@ -127,7 +119,6 @@ AdminPage.propTypes = {
 const mapStateToProps = state => ({
 
     registeredProjects: state.projects.registeredProjects,
-    registeredProjectObjectives: state.project_objectives.registeredProjectObjectives,
 
 });
 
@@ -136,7 +127,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 
     fetchAllProjects: () => dispatch(fetchAllProjects()),
-    fetchAllProjectObjectives: () => dispatch(fetchAllProjectObjectives()),
 
 });
 

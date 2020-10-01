@@ -66,12 +66,15 @@ body {
     top: 0;
     bottom: 0;
     width: 100%;
+
+
 }
 
 img {
     border-style: none;
     width: 500px;
     height: 500px;
+
 }
 
 
@@ -334,4 +337,8 @@ a {
     color: #039be5;
     text-decoration: none;
     -webkit-tap-highlight-color: transparent;
+}
+
+.bar {
+    z-index: 1;
 }

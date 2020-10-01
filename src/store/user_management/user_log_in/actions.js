@@ -143,3 +143,23 @@ export function authenticateOfficeAdmin(payload) {
     };
 }
 
+export function logoutTime(payload){
+    return async dispatch => {
+        const apiRoute = "/update_individual_end_time";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function (result){
+                if (!result.data.error){
+                    dispatch({
+                        type: LOGOUT,
+                        payload: {
+                            endTime: result.data
+                        }
+                    })
+                }
+            }, function(err) {
+                console.log(err);
+            }
+        )
+    };
+}

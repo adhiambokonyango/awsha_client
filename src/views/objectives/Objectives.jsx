@@ -8,12 +8,15 @@ import Select from "react-select";
 class Objectives extends Component {
 
     state = {
-        objective:'',
+        objectiveDescription:'',
+        objectivePercentage: '',
 
         tableData: [],
         tableHeaders: {
             ObjectiveId:'#',
-            ObjectiveDescription:'ObjectiveDescription',
+            ProjectId:"ProjectId",
+            ObjectiveDescription:"ObjectiveDescription",
+            ObjectivePercentage:"ObjectivePercentage",
         }
     };
 
@@ -53,25 +56,28 @@ class Objectives extends Component {
         e.preventDefault();
 
         const payload = {
-            ObjectiveDescription:this.state.objective,
-
+            ObjectiveDescription:this.state.objectiveDescription,
+            ObjectivePercentage: this.state.objectivePercentage,
+            ProjectId: this.props.projectSelected
 
         };
 
-        this.props.registerProjects(payload);
+        this.props.registerObjectives(payload);
         this.setState({
-            objective:'',
+            objectiveDescription:'',
+            objectivePercentage: ''
         });
     };
 
     render() {
         return (
             <div>
-                <div className="login-panel panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">Register Objectives</h3>
-                    </div>
-                    <div className="panel-body">
+                {/*<div className="login-panel panel panel-default">*/}
+                    {/*<div className="panel-heading">*/}
+                    {/*    <h3 className="panel-title">Register Objectives</h3>*/}
+                    {/*</div>*/}
+                    {/*<div className="panel-body">*/}
+
                         <form
                             action=""
                             method="POST"
@@ -79,22 +85,40 @@ class Objectives extends Component {
                             encType="multipart/form-data"
                         >
                             <fieldset>
-
-
+                                <div className="form-group">
+                                     <textarea
+                                         name="objectiveDescription"
+                                         cols="50" rows="5"
+                                         className="form-control "
+                                         placeholder="Describe Objective"
+                                         value={this.state.objectiveDescription}
+                                         onChange={this.handleChange}
+                                         autoFocus
+                                         required={true}
+                                     >
+                                    </textarea>
+                                    {/*<input*/}
+                                    {/*    name="objectiveDescription"*/}
+                                    {/*    className="form-control"*/}
+                                    {/*    placeholder="Description"*/}
+                                    {/*    value={this.state.objectiveDescription}*/}
+                                    {/*    type="text"*/}
+                                    {/*    onChange={this.handleChange}*/}
+                                    {/*    autoFocus*/}
+                                    {/*    required={true}*/}
+                                    {/*/>*/}
+                                </div>
                                 <div className="form-group">
                                     <input
-                                        name="objective"
+                                        name="objectivePercentage"
                                         className="form-control"
-                                        placeholder="objective"
-                                        value={this.state.objective}
+                                        placeholder="Percentage"
+                                        value={this.state.objectivePercentage}
                                         type="text"
                                         onChange={this.handleChange}
                                         autoFocus
                                         required={true}
                                     />
-
-
-
                                 </div>
                                 <button
                                     type="submit"
@@ -104,12 +128,12 @@ class Objectives extends Component {
                                 </button>
                             </fieldset>
                         </form>
-                    </div>
-                </div>
+                    {/*</div>*/}
+                {/*</div>*/}
 
-                <Table tableTitle='Registered Projects'
-                       tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredObjectives}/>
+                {/*<Table tableTitle='Registered Projects'*/}
+                {/*       tableHeaderObject={this.state.tableHeaders}*/}
+                {/*       tableData={this.props.registeredObjectives}/>*/}
             </div>
         );
     }

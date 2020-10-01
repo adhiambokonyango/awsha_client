@@ -1,3 +1,17 @@
-.project_detail{
-   height: 50rem;
+.card{
+  min-height: 30rem;
+}
+
+.card .card-content .detail_title{
+   text-transform: capitalize;
+}
+
+.card .card-content  h3{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+}
+
+.card .card-content .array{
+    padding-top: 1.2rem;
 }
