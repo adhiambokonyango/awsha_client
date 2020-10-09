@@ -1,3 +1,8 @@
 .card .card-content .progress{
     font-family: 'Grand Hotel', cursive;
 }
+
+.dis_side{
+    display: block;
+    clear-after: both;
+}

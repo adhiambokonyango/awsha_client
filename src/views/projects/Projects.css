@@ -10,7 +10,7 @@ margin-top: 1rem !important;
 .listed_projects ul a{
     color: #0c0c0c;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    text-transform: uppercase;
+    text-transform: capitalize;
 }
 
 /* unvisited link */
@@ -77,14 +77,13 @@ a:active {
 
 .titles{
     padding-left: 1rem;
-    padding-bottom: 0;
-    padding-top: 0.1rem;
+
     font-family: 'Grand Hotel', cursive;
 }
 
 .subs{
     padding-left: 1rem;
-    padding-bottom: 0.5rem;
+
 }
 
 .detail{
@@ -92,3 +91,20 @@ a:active {
     padding-bottom: 0.5rem;
 }
 
+.card{
+    min-height: 30rem;
+}
+
+.card .card-content .detail_title{
+    text-transform: capitalize;
+}
+
+.card .card-content  h3{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+
+}
+
+.card .card-content .array{
+    padding-top: 1.2rem;
+}

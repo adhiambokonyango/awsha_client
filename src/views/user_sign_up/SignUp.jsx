@@ -10,7 +10,7 @@ import {
     resetWrongCredentials,
 } from "../../store/user_management/user_log_in/actions";
 import './SignUp.css';
-import {Col, Row} from "react-bootstrap";
+import {Col, Container, Row} from "react-bootstrap";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import '../projects/Projects.css'
 import {FaCogs} from "react-icons/fa";
@@ -161,12 +161,15 @@ class SignUp extends Component {
             <div>
            <NavigationBar/>
             {/*<div className="col-md-4 col-md-offset-4">*/}
+            <Container>
+                <div className="card">
+                    <div className="card-content">
            <Row>
-               <div className="login-panel panel panel-default">
+               {/*<div className="login-panel panel panel-default">*/}
                {/*    <div className="panel-heading">*/}
                {/*        <h3 className="panel-title">User Registration</h3>*/}
                {/*    </div>*/}
-               <Col sm={5}>
+               <Col sm={12} md={4} lg={6}>
                    <h3 className="title titles">Users</h3>
                    <h3 className="panel-title subs">Register User</h3>
                    <div className="panel-body">
@@ -315,9 +318,8 @@ class SignUp extends Component {
                        </form>
                    </div>
                </Col>
-               <Col sm={12} md={4} lg={4} className="listed_projects">
-                   <div className="card">
-                       <div className="card-content">
+               <Col sm={12} md={4} lg={6} className="array listed_projects">
+
                            <h3 className="panel-title card_header">Registered Users</h3>
                            <div className="vertical_scroll">
                                <div className="scrollmenu">
@@ -326,11 +328,12 @@ class SignUp extends Component {
                                    </ul>
                                </div>
                            </div>
-                       </div>
-                   </div>
                </Col>
-               </div>
+
            </Row>
+                    </div>
+                </div>
+            </Container>
             </div>
         );
     }

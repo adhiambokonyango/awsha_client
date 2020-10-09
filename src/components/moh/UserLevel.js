@@ -31,11 +31,7 @@ class UserLevel extends Component {
 
             <div>
                 <NavigationBar />
-                <UserSideBar />
-                <Col sm={8}>
-
-                </Col>
-
+                <UserSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
             </div>
 
 

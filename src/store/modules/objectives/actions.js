@@ -7,7 +7,7 @@ import {
     REGISTERED_OBJECTIVES_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_OBJECTIVES,
     REGISTERED_OBJECTIVES_EMPTY_RESULTS,
-    SET_PERCENTAGE
+    SET_PERCENTAGE, SET_OBJECTIVE
 
 } from "./actionTypes";
 
@@ -72,6 +72,17 @@ export function setObjectivePercentage(percentageSelect){
             type: SET_PERCENTAGE,
             payload: {
                 percentageSelect: percentageSelect
+            }
+        });
+    };
+}
+
+export function setObjective(objectiveSelect){
+    return async dispatch => {
+        dispatch({
+            type: SET_OBJECTIVE,
+            payload: {
+                objectiveSelect: objectiveSelect
             }
         });
     };

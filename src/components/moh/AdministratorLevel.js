@@ -39,20 +39,6 @@ class AdministratorLevel extends Component {
                 <NavigationBar />
                 <AdministratorSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
 
-                <Col sm={8}>
-                    <div className="card">
-                        <div className="card-content">
-
-                    <AdminPage />
-                        </div>
-                    </div>
-                </Col>
-
-
-
-                <div className="col-sm-8">
-                </div>
-
             </div>
 
 

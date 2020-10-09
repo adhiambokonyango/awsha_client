@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {registerObjectives, fetchAllObjectives} from "../../store/modules/objectives/actions";
+import {registerObjectives, fetchAllObjectives, setObjective} from "../../store/modules/objectives/actions";
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
+import {FaCogs} from "react-icons/fa";
+import {setProject} from "../../store/modules/projects/actions";
 
 class Objectives extends Component {
 
@@ -68,6 +70,7 @@ class Objectives extends Component {
             objectivePercentage: ''
         });
     };
+
 
     render() {
         return (
@@ -145,6 +148,8 @@ Objectives.propTypes = {
     objectivesSuccessFullyRegistered: PropTypes.bool.isRequired,
     fetchAllObjectives: PropTypes.func.isRequired,
     registeredObjectives: PropTypes.arrayOf(PropTypes.object).isRequired,
+    setObjective: PropTypes.func.isRequired,
+    objectiveSelect: PropTypes.object.isRequired,
 
 };
 
@@ -152,6 +157,7 @@ Objectives.propTypes = {
 const mapStateToProps = state => ({
     objectivesSuccessFullyRegistered: state.objectives.projectsSuccessFullyRegistered,
     registeredObjectives: state.objectives.registeredObjectives,
+    objectiveSelect: state.objectives.objectiveSelect,
 
 });
 
@@ -160,6 +166,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     registerObjectives: payload => dispatch(registerObjectives(payload)),
     fetchAllObjectives: () => dispatch(fetchAllObjectives()),
+    setObjective: payload => dispatch(setObjective(payload)),
 
 });
 

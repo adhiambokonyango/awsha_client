@@ -15,9 +15,7 @@ import {
 import NavigationBar from "../../views/admin_page/nav_bar/NavigationBar";
 import { Col, Container, Nav, Navbar, Row} from "react-bootstrap";
 import {connect} from "react-redux";
-import Footer from "../footer/Footer";
-import SideShow from "../sideshow/SideShow";
-
+import './Moh.css'
 class FirstLevelAdmin extends Component {
 
     componentWillMount() {
@@ -46,16 +44,9 @@ class FirstLevelAdmin extends Component {
         return (
             <div>
                 <NavigationBar />
-
-                <Row>
+                <div className="dis_side">
                     <AdminSideBar handleSideBarClicked={this.handleSideBareItemClicked}/>
-                    <Col sm={12} md={6} lg={6}>
-                        <div className="card">
-
-                        </div>
-                    </Col>
-
-                </Row>
+                </div>
             </div>
         );
     }

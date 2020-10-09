@@ -7,6 +7,10 @@ import {fetchAllAdmin, registerAdmin} from "../../store/user_management/admin_si
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import Select from "react-select";
 import {Link} from "react-router-dom";
+import {Col, Container, Row} from "react-bootstrap";
+import NavigationBar from "../admin_page/nav_bar/NavigationBar";
+import {FaCogs} from "react-icons/fa";
+import '../projects/Projects.css'
 
 
 
@@ -102,16 +106,37 @@ class AdminSignUp extends Component {
             password: ''});
 
     };
+    blog = () => {
+        const projectTitle = (
+            <ul>
+                {this.props.registeredAdmin.map((post) =>
+                    <a >
+                        <h6>
+                            <ul key={post.Id} >
+                                {"  "}<FaCogs/>{" "}{post.FirstName}
+                            </ul></h6>
+                    </a>
+                )}
+            </ul>
+        );
+        return (<div>{projectTitle}</div>);
+    }
 
     render() {
         return (
-            <>
-
-            <div className="col-md-4 col-md-offset-4">
-                <div className="login-panel panel panel-default">
-                    <div className="panel-heading">
-                        <h3 className="panel-title">System Admin Registration</h3>
-                    </div>
+            <div>
+                <NavigationBar/>
+                <Container>
+                    <div className="card">
+                        <div className="card-content">
+                            <Row>
+            {/*<div className="col-md-4 col-md-offset-4">*/}
+            {/*    <div className="login-panel panel panel-default">*/}
+            {/*        <div className="panel-heading">*/}
+            {/*            <h3 className="panel-title">System Admin Registration</h3>*/}
+                <Col sm={12} md={4} lg={6}>
+                    <h3 className="title titles">System Admin</h3>
+                    <h3 className="panel-title subs">Register System Admin</h3>
                     <div className="panel-body">
                         <form
                             action=""
@@ -253,20 +278,25 @@ class AdminSignUp extends Component {
                                 >
                                     Submit
                                 </button>
-
-                                <button
-                                    type="btn-link"
-                                    className="btn btn-lg btn-success btn-block"
-                                >
-                                    <Link to="/registered_admin">View Registered System Admin</Link>
-                                </button>
                             </fieldset>
                         </form>
-                    </div>
-                </div>
             </div>
-
-            </>
+                </Col>
+                                <Col sm={12} md={4} lg={6} className="array listed_projects">
+                                    <h3 className="panel-title card_header">Registered System Admin</h3>
+                                    <div className="vertical_scroll">
+                                        <div className="scrollmenu">
+                                            <ul >
+                                                {this.blog()}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </Col>
+                            </Row>
+                        </div>
+                    </div>
+                </Container>
+            </div>
         );
     }
 }
@@ -280,6 +310,7 @@ AdminSignUp.propTypes = {
     registeredGender: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllGender: PropTypes.func.isRequired,
     isAdminLoginSuccessful:PropTypes.bool.isRequired,
+
 };
 
 

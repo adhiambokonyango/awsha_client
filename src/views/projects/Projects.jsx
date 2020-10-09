@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import {registerProjects, fetchAllProjects, setProject} from "../../store/modules/projects/actions";
 import Select from "react-select";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
-import {  Row, Col
+import {
+    Row, Col, Container
 } from 'react-bootstrap';
 import {FaCogs, FaList} from "react-icons/fa";
 import './Projects.css';
@@ -99,6 +100,7 @@ class Projects extends Component {
     selected = (projectSelected) => {
         this.props.setProject(projectSelected);
         this.props.history.push('/project_detail');
+
     }
 
 
@@ -135,12 +137,15 @@ class Projects extends Component {
         return (
             <div>
                 <NavigationBar />
+                <Container>
+                    <div className="card">
+                        <div className="card-content">
                 <Row>
-                <div className="login-panel panel panel-default">
+                {/*<div className="login-panel panel panel-default">*/}
                     {/*<div className="panel-heading">*/}
                     {/*    <h3 className="panel-title">Projects</h3>*/}
                     {/*</div>*/}
-                    <Col sm={5}>
+                    <Col sm={12} md={4} lg={6}>
                         <h3 className="title titles">Projects</h3>
                         <h3 className="panel-title subs">Register Project</h3>
                     <div className="panel-body ">
@@ -234,26 +239,22 @@ class Projects extends Component {
                         </form>
                     </div>
                     </Col>
-                </div>
-                    <Col sm={12} md={4} lg={4} className="listed_projects">
-                        <div className="card">
-                            <div className="card-content">
+
+                    <Col sm={12} md={4} lg={6} className="array listed_projects">
                                 <h3 className="panel-title card_header">Registered Projects</h3>
                                 <div className="vertical_scroll">
                                     <div className="scrollmenu">
                                         <ul >
                                             {this.blog()}
-
                                         </ul>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
                     </Col>
-
                 </Row>
-
             </div>
+        </div>
+    </Container>
+    </div>
         );
     }
 }

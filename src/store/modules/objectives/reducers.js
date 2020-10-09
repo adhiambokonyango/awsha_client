@@ -2,7 +2,7 @@
 import {
     OBJECTIVES_SUCCESSFULLY_REGISTERED,
     REGISTERED_OBJECTIVES_FETCHED_SUCCESSFULLY,
-    REGISTERING_OBJECTIVES_FAILED, SET_PERCENTAGE
+    REGISTERING_OBJECTIVES_FAILED, SET_OBJECTIVE, SET_PERCENTAGE
 } from "./actionTypes";
 import {SET_PROJECT} from "../projects/actionTypes";
 
@@ -23,6 +23,10 @@ export const ACTION_HANDLERS = {
     [SET_PERCENTAGE]: (state, action) =>
         Object.assign({}, state, {
             percentageSelect: action.payload.percentageSelect
+        }),
+    [SET_OBJECTIVE]: (state, action) =>
+        Object.assign({}, state, {
+            objectiveSelect: action.payload.objectiveSelect
         }),
 
 

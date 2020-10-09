@@ -32,7 +32,24 @@ class HomePage extends Component {
                               </a>
                           </div>
                           <div class="card-content">
-                              <span class="card-title">Awsha</span>
+                              <Row className="rows">
+                                  <p>
+                                      7TH October, 2020
+                                  </p>
+                                      <span className="card-title">
+
+                                          <Col sm={12} md={2} lg={2}>
+
+                                          K'onyango
+                                              </Col>
+                                          <Col sm={12} md={2} lg={2}>
+                                              20.02
+                                  </Col>
+
+                                      </span>
+
+                              </Row>
+
                               <p>
                                   This product targets project management in government institutions.
                                   Enables quick analysis of project progress.<br/>Modules available in this
