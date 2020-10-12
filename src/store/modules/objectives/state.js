@@ -2,5 +2,7 @@ export const initialState = {
     objectivesSuccessFullyRegistered: false,
     registeredObjectives: [],
     percentageSelect:{},
-    objectiveSelect: {}
+    objectiveSelect: {},
+    groupFetch: false,
+    fetchedProjectObjective: [],
 };

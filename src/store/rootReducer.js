@@ -1,7 +1,6 @@
 import { combineReducers } from "redux";
 import reduceReducers from "reduce-reducers";
-
- import { reducer as user_sign_up } from "./user_management/user_sign_up";
+import { reducer as user_sign_up } from "./user_management/user_sign_up";
 import { reducer as gender_info } from "./modules/gender_info";
 import { reducer as user_log_in } from "./user_management/user_log_in";
 import { reducer as teams } from "./modules/teams";

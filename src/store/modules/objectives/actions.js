@@ -7,7 +7,10 @@ import {
     REGISTERED_OBJECTIVES_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_OBJECTIVES,
     REGISTERED_OBJECTIVES_EMPTY_RESULTS,
-    SET_PERCENTAGE, SET_OBJECTIVE
+    SET_PERCENTAGE, SET_OBJECTIVE,
+    PROJECTS_AND_OBJECTIVES_SUCCESSFULLY_FETCHED,
+    PROJECTS_AND_OBJECTIVES_FETCH_FAILED
+
 
 } from "./actionTypes";
 
@@ -85,5 +88,31 @@ export function setObjective(objectiveSelect){
                 objectiveSelect: objectiveSelect
             }
         });
+    };
+}
+
+export function projectSelectionQuery(payload) {
+    return async dispatch => {
+        const apiRoute = "/objectives_project_select_query";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results && result.data.results.length > 0) {
+                    dispatch({
+                        type: PROJECTS_AND_OBJECTIVES_SUCCESSFULLY_FETCHED,
+                        fetches: {
+                            fetchedProjectObjective: result.data.results
+                        }
+                    });
+                } else if (result.data.results && result.data.results.length === 0){
+                    dispatch({
+                        type: PROJECTS_AND_OBJECTIVES_FETCH_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
     };
 }

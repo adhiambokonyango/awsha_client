@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import {fetchAllProjects, setProject} from "../../store/modules/projects/actions";
+import {fetchAllProjects, registerProjects, setProject} from "../../store/modules/projects/actions";
 import {connect} from "react-redux";
 import {Col, Container, ProgressBar, Row} from "react-bootstrap";
 import Objectives from "../objectives/Objectives";
 import './ProjectDetail.css';
-import {setObjectivePercentage, setObjective} from "../../store/modules/objectives/actions";
+import {setObjectivePercentage, projectSelectionQuery} from "../../store/modules/objectives/actions";
 
 
 import {fetchAllObjectives} from "../../store/modules/objectives/actions";
@@ -22,6 +22,8 @@ class ProjectDetail extends Component {
     };
     componentDidMount() {
         this.props.fetchAllObjectives();
+        this.handleProjectId();
+
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
         // if(this.props.registeredObjectives !== prevProps.registeredObjectives) {
@@ -75,6 +77,7 @@ class ProjectDetail extends Component {
         if(this.props.projectStatusSuccessFullyUpdated !== prevProps.projectStatusSuccessFullyUpdated) {
             if(this.props.projectStatusSuccessFullyUpdated) {
                 this.props.resetPrivilegeUpdate();
+
             }
         }
 };
@@ -86,11 +89,19 @@ class ProjectDetail extends Component {
         });
     };
 
+    handleProjectId = () => {
+        const { projectSelect} = this.props;
+      const payload = {
+          ProjectId: projectSelect.ProjectId
+      }
+        this.props.projectSelectionQuery(payload);
+    }
+
     blog = () => {
 
             const projectTitle = (
                 <ul>
-                    {this.props.registeredObjectives.map((post) =>
+                    {this.props.fetchedProjectObjective.map((post) =>
 
                         <p key={post.ObjectiveId} className="detail_title">
                             <input
@@ -100,7 +111,8 @@ class ProjectDetail extends Component {
                                     this.selectedPercentage(post.ObjectivePercentage)
                                 }}
                             />
-                            {" " + post.ObjectiveDescription}
+                            {" " + post.ObjectiveDescription}:
+                            {" " + post.ObjectivePercentage}{"%"}
                         </p>
                     )}
                 </ul>
@@ -128,6 +140,7 @@ class ProjectDetail extends Component {
     render()
     {
         const { projectSelect} = this.props;
+
             return (
                 <div>
                     <NavigationBar/>
@@ -146,6 +159,7 @@ class ProjectDetail extends Component {
 
                                     <h3 className="panel-title ">Register Objectives:</h3>
                                     <Objectives projectSelected={projectSelect.ProjectId}/>
+
                                 </Col>
 
                                 <Col sm={12} md={4} lg={6} className="array">
@@ -178,6 +192,11 @@ ProjectDetail.propTypes = {
     setObjectivePercentage: PropTypes.func.isRequired,
     percentageSelect: PropTypes.object.isRequired,
     objectiveSelect: PropTypes.object.isRequired,
+
+    projectSelectionQuery: PropTypes.func.isRequired,
+    groupFetch: PropTypes.bool.isRequired,
+
+    fetchedProjectObjective: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 const mapStateToProps = state => ({
     projectSelect: state.projects.projectSelect,
@@ -186,11 +205,15 @@ const mapStateToProps = state => ({
     registeredProjects: state.projects.registeredProjects,
     registeredObjectives: state.objectives.registeredObjectives,
     percentageSelect: state.objectives.projectSelect,
+    groupFetch: state.objectives.groupFetch,
+
+    fetchedProjectObjective: state.objectives.fetchedProjectObjective,
 });
 const mapDispatchToProps = dispatch => ({
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     fetchAllObjectives: () => dispatch(fetchAllObjectives()),
     setObjectivePercentage: payload => dispatch(setObjectivePercentage(payload)),
+    projectSelectionQuery: payload => dispatch(projectSelectionQuery(payload)),
 });
 export default connect(
     mapStateToProps,

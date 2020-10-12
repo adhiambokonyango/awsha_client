@@ -1,10 +1,13 @@
 
 import {
     OBJECTIVES_SUCCESSFULLY_REGISTERED,
+    PROJECTS_AND_OBJECTIVES_FETCH_FAILED,
+    PROJECTS_AND_OBJECTIVES_SUCCESSFULLY_FETCHED,
     REGISTERED_OBJECTIVES_FETCHED_SUCCESSFULLY,
-    REGISTERING_OBJECTIVES_FAILED, SET_OBJECTIVE, SET_PERCENTAGE
+    REGISTERING_OBJECTIVES_FAILED,
+    SET_OBJECTIVE,
+    SET_PERCENTAGE
 } from "./actionTypes";
-import {SET_PROJECT} from "../projects/actionTypes";
 
 export const ACTION_HANDLERS = {
 
@@ -27,6 +30,15 @@ export const ACTION_HANDLERS = {
     [SET_OBJECTIVE]: (state, action) =>
         Object.assign({}, state, {
             objectiveSelect: action.payload.objectiveSelect
+        }),
+    [PROJECTS_AND_OBJECTIVES_SUCCESSFULLY_FETCHED]: (state, action) =>
+        Object.assign({}, state, {
+            groupFetch: true,
+             fetchedProjectObjective: action.fetches.fetchedProjectObjective
+        }),
+    [PROJECTS_AND_OBJECTIVES_FETCH_FAILED]: state =>
+        Object.assign({}, state, {
+            groupFetch: false
         }),
 
 

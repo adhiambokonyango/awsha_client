@@ -15,6 +15,7 @@ import {
 } from "../../store/modules/administrator_privileges/actions";
 import '../user_sign_up/SignUp.css';
 import {updateBranchProjectStatus, fetchAllBranchProjects, resetPrivilegeUpdate} from '../../store/modules/branch_project/actions';
+import { projectSelectionQuery} from "../../store/modules/objectives/actions";
 
 
 
@@ -86,7 +87,12 @@ class Projects extends Component {
         const projectTitle = (
             <ul>
                 {this.props.registeredProjects.map((post) =>
-                    <a onClick={() => {this.selected(post)}}>
+
+                    <a onClick={() => {
+                        this.selected(post)
+
+                    }}>
+
                         <h6>
                         <ul key={post.ProjectId} >
                             {"  "}<FaCogs/>{" "}{post.ProjectTitle}
@@ -99,6 +105,7 @@ class Projects extends Component {
     }
     selected = (projectSelected) => {
         this.props.setProject(projectSelected);
+
         this.props.history.push('/project_detail');
 
     }
@@ -270,6 +277,8 @@ Projects.propTypes = {
     branch: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllAdministratorUserPrivileges: PropTypes.func.isRequired,
     fetchAllBranchProjects: PropTypes.func.isRequired,
+    projectSelectionQuery: PropTypes.func.isRequired,
+    groupFetch: PropTypes.bool.isRequired,
 };
 const mapStateToProps = state => ({
     projectsSuccessFullyRegistered: state.projects.projectsSuccessFullyRegistered,
@@ -277,6 +286,7 @@ const mapStateToProps = state => ({
     branch: state.branches.branch,
     projectSelect: state.projects.projectSelect,
     administratorPrivilege: state.administrator_privileges.administratorPrivilege,
+    groupFetch: state.objectives.groupFetch
 });
 const mapDispatchToProps = dispatch => ({
     registerProjects: payload => dispatch(registerProjects(payload)),
@@ -285,6 +295,7 @@ const mapDispatchToProps = dispatch => ({
     fetchAllAdministratorUserPrivileges: () => dispatch(fetchAllAdministratorUserPrivileges()),
     resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
     fetchAllBranchProjects: () => dispatch(fetchAllBranchProjects()),
+    projectSelectionQuery: payload => dispatch(projectSelectionQuery(payload)),
 });
 
 export default connect(
