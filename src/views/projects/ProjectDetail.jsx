@@ -104,37 +104,52 @@ class ProjectDetail extends Component {
                     {this.props.fetchedProjectObjective.map((post) =>
 
                         <p key={post.ObjectiveId} className="detail_title">
-                            <input
-                                type="checkbox"
-                                id="myCheck"
-                                onClick={() => {
-                                    this.selectedPercentage(post.ObjectivePercentage)
-                                }}
+                            {/*<input*/}
+                            {/*    type="checkbox"*/}
+                            {/*    id="myCheck"*/}
+                            {/*    onClick={() => {*/}
+                            {/*        this.selectedPercentage(post.ObjectivePercentage)*/}
+                            {/*    }}*/}
+                            {/*/>*/}
+                            {/*{" " + post.ObjectiveDescription}:*/}
+                            {/*{" " + post.ObjectivePercentage}{"%"}*/}
+
+                            <CheckBox label={" " + post.ObjectiveDescription + ":" + " " + post.ObjectivePercentage + "%"}
+                                      handleCheckBoxIsChecked={this.selectedPercentage}
+                                      handleCheckBoxIsUnchecked={this.deselectedPercentage}
+                                      checkBoxObject={post}
+                                      isCheckBoxChecked={false}
+                                      id="myCheck"
                             />
-                            {" " + post.ObjectiveDescription}:
-                            {" " + post.ObjectivePercentage}{"%"}
                         </p>
                     )}
                 </ul>
             );
                  return (<div>{projectTitle}</div>)
     }
-
     selectedPercentage = (selected) => {
-        this.props.setObjectivePercentage(selected);
-        this.theProgress(selected);
+        this.props.setObjectivePercentage(selected.ObjectivePercentage);
+        this.theProgress(selected.ObjectivePercentage);
+        console.log(selected.ObjectivePercentage);
     }
     theProgress = (selected) => {
         let checkBox = document.getElementById("myCheck");
-                if (checkBox.checked === true){
                     this.setState({
                         progress: selected + this.state.progress
                     })
-                } else {
-                    this.setState({
-                        progress:  this.state.progress - selected
-                    })
-                }
+
+
+    }
+    deselectedPercentage = (deselected) => {
+        this.props.setObjectivePercentage(deselected.ObjectivePercentage);
+        this.theDeselection(deselected.ObjectivePercentage);
+    }
+    theDeselection = (deselected) => {
+
+            this.setState({
+                progress: this.state.progress - deselected
+            })
+
 
     }
     render()
