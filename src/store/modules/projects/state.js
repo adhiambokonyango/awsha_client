@@ -7,5 +7,6 @@ export const initialState = {
 
     accessToProjectDenied:false,
     project_session_details:{},
-    projectSelect:{}
+    projectSelect:{},
+    projectProgressSuccessFullyUpdated: false
 };

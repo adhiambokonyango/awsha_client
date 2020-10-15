@@ -1,10 +1,11 @@
 
 import {
-    AN_ERROR_OCCURED_DURING_SELECTION,
+    AN_ERROR_OCCURED_DURING_SELECTION, PROJECT_PROGRESS_SUCCESSFULLY_UPDATED,
     PROJECTS_SUCCESSFULLY_REGISTERED,
     REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
     REGISTERING_PROJECTS_FAILED, SET_PROJECT, STORE_PROJECT, WRONG_SELECTION
 } from "./actionTypes";
+import {PRIVILEGES_SUCCESSFULLY_UPDATED} from "../privileges/actionTypes";
 
 export const ACTION_HANDLERS = {
 
@@ -40,6 +41,10 @@ export const ACTION_HANDLERS = {
     [SET_PROJECT]: (state, action) =>
         Object.assign({}, state, {
             projectSelect: action.payload.projectSelect
+        }),
+    [PROJECT_PROGRESS_SUCCESSFULLY_UPDATED]: state =>
+        Object.assign({}, state, {
+            projectProgressSuccessFullyUpdated: true
         }),
 
 

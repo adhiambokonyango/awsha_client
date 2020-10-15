@@ -1,5 +1,6 @@
 
 import {
+    IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
     OBJECTIVES_SUCCESSFULLY_REGISTERED,
     PROJECTS_AND_OBJECTIVES_FETCH_FAILED,
     PROJECTS_AND_OBJECTIVES_SUCCESSFULLY_FETCHED,
@@ -8,6 +9,7 @@ import {
     SET_OBJECTIVE,
     SET_PERCENTAGE
 } from "./actionTypes";
+import {PROJECT_PROGRESS_SUCCESSFULLY_UPDATED} from "../projects/actionTypes";
 
 export const ACTION_HANDLERS = {
 
@@ -39,6 +41,10 @@ export const ACTION_HANDLERS = {
     [PROJECTS_AND_OBJECTIVES_FETCH_FAILED]: state =>
         Object.assign({}, state, {
             groupFetch: false
+        }),
+    [IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED]: state =>
+        Object.assign({}, state, {
+            isCheckBoxCheckedSuccessFullyUpdated: true
         }),
 
 

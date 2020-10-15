@@ -55,15 +55,14 @@ class HomePage extends Component {
                                   Enables quick analysis of project progress.<br/>Modules available in this
                                   project include:
                                   <ul>
-                                      <Col sm={4}>
-                                          <FaCircle size={8}/>{" "}Branches and Teams <br/>
+                                      <Col sm={4} md={4} lg={4}>
+                                          <FaCircle size={8}/>{" "}Branches and Teams
                                       </Col>
-                                      <Col sm={4}>
+                                      <Col sm={4} md={4} lg={4}>
                                           <FaCircle size={8}/>{" "}Role and Permission Based Access<br/>
                                       </Col>
-
-                                      <Col sm={4}>
-                                          <FaCircle size={8}/>{" "}Data Visualization<br/>
+                                      <Col sm={4} md={4} lg={4}>
+                                          <FaCircle size={8}/>{" "}Data Visualization
                                       </Col>
                                   </ul>
 

@@ -6,7 +6,10 @@ import {
     REGISTERED_PROJECTS_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_PROJECTS,
     REGISTERED_PROJECTS_EMPTY_RESULTS,
-   SET_PROJECT
+   SET_PROJECT,
+    PROJECT_PROGRESS_SUCCESSFULLY_UPDATED,
+    PROJECT_PROGRESS_UPDATE_FAILED
+
 } from "./actionTypes";
 export function registerProjects(payload) {
     return async dispatch => {
@@ -69,5 +72,28 @@ export function setProject(projectSelect){
                 projectSelect: projectSelect
             }
         });
+    };
+}
+
+export function updateProjectProgress(payload) {
+    return async dispatch => {
+        const apiRoute = "/update_individual_project_progress";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: PROJECT_PROGRESS_SUCCESSFULLY_UPDATED
+                    });
+                } else {
+                    dispatch({
+                        type: PROJECT_PROGRESS_UPDATE_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
     };
 }

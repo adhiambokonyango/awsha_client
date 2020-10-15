@@ -1,16 +1,14 @@
 import React, {Component} from 'react';
 import PropTypes from "prop-types";
-import {fetchAllProjects, registerProjects, setProject} from "../../store/modules/projects/actions";
+import {fetchAllProjects, updateProjectProgress} from "../../store/modules/projects/actions";
 import {connect} from "react-redux";
 import {Col, Container, ProgressBar, Row} from "react-bootstrap";
 import Objectives from "../objectives/Objectives";
 import './ProjectDetail.css';
-import {setObjectivePercentage, projectSelectionQuery} from "../../store/modules/objectives/actions";
-
-
+import {setObjectivePercentage, projectSelectionQuery, updateIsCheckBoxChecked} from "../../store/modules/objectives/actions";
+import {resetPrivilegeUpdate} from "../../store/modules/branch_project/actions";
 import {fetchAllObjectives} from "../../store/modules/objectives/actions";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
-import {FaCogs} from "react-icons/fa";
 import CheckBox from "../../components/check_box/CheckBox";
 
 class ProjectDetail extends Component {
@@ -18,11 +16,17 @@ class ProjectDetail extends Component {
         data: [],
         progress:0,
         array:{},
-        animations: false
+        animations: false,
+        checker: '',
+        percentage:''
+
     };
     componentDidMount() {
         this.props.fetchAllObjectives();
         this.handleProjectId();
+        this.setState({
+            progress: this.props.projectSelect.ProjectProgress
+        })
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -47,37 +51,28 @@ class ProjectDetail extends Component {
         //
         //     }
         // }
-        if(this.props.registeredObjectives !== prevProps.registeredObjectives) {
-            if(this.props.registeredObjectives && this.props.registeredObjectives.length > 0) {
-                for(let i = 0;i<this.props.registeredObjectives.length;i++) {
-                    const objectives = (
-                        <ul>
-                            {this.props.registeredObjectives.reduce(( item) => {
-                                    (
-                                        this.props.registeredObjectives[item[this.props.registeredObjectives[i].ProjectId]]
-                                            =
-                                            this.props.registeredObjectives[item[this.props.registeredObjectives[i].ProjectId]]
-                                            ||
-                                            []).push(item);
-                                    return (
-                                        item
-
-                                    )
-                                }, {})
-                            }
-                        </ul>
+        if(this.props.fetchedProjectObjective !== prevProps.fetchedProjectObjective) {
+            if(this.props.fetchedProjectObjective && this.props.fetchedProjectObjective.length > 0) {
+                let list = [];
+                for(let i = 0;i<this.props.fetchedProjectObjective.length;i++) {
+                    list.push(<p className="detail_title">
+                                <CheckBox label={this.props.fetchedProjectObjective[i].ObjectiveDescription + ":" + " " + this.props.fetchedProjectObjective[i].ObjectivePercentage + "%"}
+                                          handleCheckBoxIsChecked={this.selectedPercentage}
+                                          handleCheckBoxIsUnchecked={this.selectedPercentage}
+                                          checkBoxObject={this.props.fetchedProjectObjective[i]}
+                                          isCheckBoxChecked={this.props.fetchedProjectObjective[i].IsCheckBoxChecked === 1}/>
+                        </p>
                     )
-                    this.setState({
-                        array: objectives
-                    })
+                    this.setState({data: list});
                 }
             }
         }
 
-        if(this.props.projectStatusSuccessFullyUpdated !== prevProps.projectStatusSuccessFullyUpdated) {
-            if(this.props.projectStatusSuccessFullyUpdated) {
+        if(this.props.projectProgressSuccessFullyUpdated !== prevProps.projectProgressSuccessFullyUpdated) {
+            if(this.props.projectProgressSuccessFullyUpdated) {
+                this.props.fetchAllObjectives();
+                this.props.fetchAllProjects();
                 this.props.resetPrivilegeUpdate();
-
             }
         }
 };
@@ -97,60 +92,58 @@ class ProjectDetail extends Component {
         this.props.projectSelectionQuery(payload);
     }
 
-    blog = () => {
+    // blog = () => {
+    //
+    //         const projectTitle = (
+    //             <ul>
+    //                 {this.props.fetchedProjectObjective.map((post) =>
+    //
+    //                     <p key={post.ObjectiveId} className="detail_title">
+    //                         {/*<input*/}
+    //                         {/*    type="checkbox"*/}
+    //                         {/*    id="myCheck"*/}
+    //                         {/*    onClick={() => {*/}
+    //                         {/*        this.selectedPercentage(post.ObjectivePercentage)*/}
+    //                         {/*    }}*/}
+    //                         {/*/>*/}
+    //                         {/*{" " + post.ObjectiveDescription}:*/}
+    //                         {/*{" " + post.ObjectivePercentage}{"%"}*/}
+    //
+    //                         <CheckBox label={" " + post.ObjectiveDescription + ":" + " " + post.ObjectivePercentage + "%"}
+    //                                   handleCheckBoxIsChecked={this.theProgress}
+    //                                   handleCheckBoxIsUnchecked={this.theProgress}
+    //                                   checkBoxObject={post}
+    //                                   isCheckBoxChecked={false}
+    //                                   id="myCheck"
+    //                         />
+    //                     </p>
+    //                 )}
+    //             </ul>
+    //         );
+    //              return (<div>{projectTitle}</div>)
+    // }
+    selectedPercentage = async (selected) => {
+        await this.props.setObjectivePercentage(selected);
+        const checkBox = {
+            ColumnName: "ObjectiveId",
+            ColumnValue: selected.ObjectiveId,
+            IsCheckBoxChecked: selected.IsCheckBoxChecked === 1 ? 0 : 1
+        }
+        this.props.updateIsCheckBoxChecked(checkBox);
 
-            const projectTitle = (
-                <ul>
-                    {this.props.fetchedProjectObjective.map((post) =>
-
-                        <p key={post.ObjectiveId} className="detail_title">
-                            {/*<input*/}
-                            {/*    type="checkbox"*/}
-                            {/*    id="myCheck"*/}
-                            {/*    onClick={() => {*/}
-                            {/*        this.selectedPercentage(post.ObjectivePercentage)*/}
-                            {/*    }}*/}
-                            {/*/>*/}
-                            {/*{" " + post.ObjectiveDescription}:*/}
-                            {/*{" " + post.ObjectivePercentage}{"%"}*/}
-
-                            <CheckBox label={" " + post.ObjectiveDescription + ":" + " " + post.ObjectivePercentage + "%"}
-                                      handleCheckBoxIsChecked={this.selectedPercentage}
-                                      handleCheckBoxIsUnchecked={this.deselectedPercentage}
-                                      checkBoxObject={post}
-                                      isCheckBoxChecked={false}
-                                      id="myCheck"
-                            />
-                        </p>
-                    )}
-                </ul>
-            );
-                 return (<div>{projectTitle}</div>)
-    }
-    selectedPercentage = (selected) => {
-        this.props.setObjectivePercentage(selected.ObjectivePercentage);
-        this.theProgress(selected.ObjectivePercentage);
-        console.log(selected.ObjectivePercentage);
-    }
-    theProgress = (selected) => {
-        let checkBox = document.getElementById("myCheck");
-                    this.setState({
-                        progress: selected + this.state.progress
-                    })
-
-
-    }
-    deselectedPercentage = (deselected) => {
-        this.props.setObjectivePercentage(deselected.ObjectivePercentage);
-        this.theDeselection(deselected.ObjectivePercentage);
-    }
-    theDeselection = (deselected) => {
-
+        if(selected.IsCheckBoxChecked === 0){
             this.setState({
-                progress: this.state.progress - deselected
+                progress: selected.ObjectivePercentage + this.state.progress,
+
             })
+            const payload = {
+                ColumnName: "ProjectId",
+                ColumnValue: this.props.projectSelect.ProjectId,
+                ProjectProgress: this.state.progress
 
-
+            };
+            this.props.updateProjectProgress(payload);
+        }
     }
     render()
     {
@@ -169,6 +162,8 @@ class ProjectDetail extends Component {
                                         animated={this.state.animations}
                                         now={this.state.progress}
                                         label={ `${this.state.progress}%`}
+                                        max={100}
+                                        min={0}
                                     />
                                     <p>{projectSelect.ProjectDescription}</p>
 
@@ -180,10 +175,12 @@ class ProjectDetail extends Component {
                                 <Col sm={12} md={4} lg={6} className="array">
                                     <div className="vertical_scroll">
                                         <div className="scrollmenu">
-                                            {this.blog()}
+                                            {this.state.data}
+
                                         </div>
                                     </div>
                                 </Col>
+
 
                             </div>
                         </div>
@@ -212,6 +209,12 @@ ProjectDetail.propTypes = {
     groupFetch: PropTypes.bool.isRequired,
 
     fetchedProjectObjective: PropTypes.arrayOf(PropTypes.object).isRequired,
+
+    updateProjectProgress: PropTypes.func.isRequired,
+    projectProgressSuccessFullyUpdated: PropTypes.bool.isRequired,
+
+    updateIsCheckBoxChecked: PropTypes.func.isRequired,
+    isCheckBoxCheckedSuccessFullyUpdated: PropTypes.bool.isRequired,
 };
 const mapStateToProps = state => ({
     projectSelect: state.projects.projectSelect,
@@ -223,12 +226,19 @@ const mapStateToProps = state => ({
     groupFetch: state.objectives.groupFetch,
 
     fetchedProjectObjective: state.objectives.fetchedProjectObjective,
+
+    projectProgressSuccessFullyUpdated: state.projects.projectProgressSuccessFullyUpdated,
+
+    isCheckBoxCheckedSuccessFullyUpdated: state.objectives.isCheckBoxCheckedSuccessFullyUpdated,
 });
 const mapDispatchToProps = dispatch => ({
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     fetchAllObjectives: () => dispatch(fetchAllObjectives()),
     setObjectivePercentage: payload => dispatch(setObjectivePercentage(payload)),
     projectSelectionQuery: payload => dispatch(projectSelectionQuery(payload)),
+    updateProjectProgress: payload => dispatch(updateProjectProgress(payload)),
+    resetPrivilegeUpdate: () => dispatch(resetPrivilegeUpdate()),
+    updateIsCheckBoxChecked: payload => dispatch(updateIsCheckBoxChecked(payload)),
 });
 export default connect(
     mapStateToProps,

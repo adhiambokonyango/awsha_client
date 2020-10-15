@@ -9,8 +9,10 @@ import {
     REGISTERED_OBJECTIVES_EMPTY_RESULTS,
     SET_PERCENTAGE, SET_OBJECTIVE,
     PROJECTS_AND_OBJECTIVES_SUCCESSFULLY_FETCHED,
-    PROJECTS_AND_OBJECTIVES_FETCH_FAILED
+    PROJECTS_AND_OBJECTIVES_FETCH_FAILED,
 
+    IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
+    IS_CHECK_BOX_CHECKED_UPDATE_FAILED
 
 } from "./actionTypes";
 
@@ -107,6 +109,29 @@ export function projectSelectionQuery(payload) {
                 } else if (result.data.results && result.data.results.length === 0){
                     dispatch({
                         type: PROJECTS_AND_OBJECTIVES_FETCH_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function updateIsCheckBoxChecked(payload) {
+    return async dispatch => {
+        const apiRoute = "/update_individual_objective_is_checkbox_checked";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED
+                    });
+                } else {
+                    dispatch({
+                        type: IS_CHECK_BOX_CHECKED_UPDATE_FAILED
                     });
                 }
             },

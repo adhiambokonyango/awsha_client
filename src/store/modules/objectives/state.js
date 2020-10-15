@@ -5,4 +5,5 @@ export const initialState = {
     objectiveSelect: {},
     groupFetch: false,
     fetchedProjectObjective: [],
+    isCheckBoxCheckedSuccessFullyUpdated: false
 };
