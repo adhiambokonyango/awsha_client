@@ -11,6 +11,10 @@ import {fetchAllObjectives} from "../../store/modules/objectives/actions";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import CheckBox from "../../components/check_box/CheckBox";
 
+
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+
 class ProjectDetail extends Component {
     state = {
         data: [],
@@ -18,9 +22,12 @@ class ProjectDetail extends Component {
         array:{},
         animations: false,
         checker: '',
-        percentage:''
+        percentage:'',
+        update: false
 
     };
+
+
     componentDidMount() {
         this.props.fetchAllObjectives();
         this.handleProjectId();
@@ -30,37 +37,17 @@ class ProjectDetail extends Component {
 
     }
     componentDidUpdate(prevProps, prevState, snapshot) {
-        // if(this.props.registeredObjectives !== prevProps.registeredObjectives) {
-        //     if(this.props.registeredObjectives && this.props.registeredObjectives.length > 0) {
-        //
-        //         let list = [];
-        //
-        //         for(let i = 0;i<this.props.registeredObjectives.length;i++) {
-        //             list.push(<p className="detail_title"><dt>
-        //             <input
-        //               type="checkbox"
-        //               onClick={this.selectedPercentage}
-        //             />
-        //                 {" " +this.props.registeredObjectives[i].ObjectiveDescription}{":"}
-        //                 {" " +this.props.registeredObjectives[i].ObjectivePercentage}{"%"}
-        //             </dt>
-        //                     <br/>
-        //             </p>);
-        //         }
-        //         this.setState({objectives: list});
-        //
-        //     }
-        // }
         if(this.props.fetchedProjectObjective !== prevProps.fetchedProjectObjective) {
             if(this.props.fetchedProjectObjective && this.props.fetchedProjectObjective.length > 0) {
                 let list = [];
                 for(let i = 0;i<this.props.fetchedProjectObjective.length;i++) {
                     list.push(<p className="detail_title">
-                                <CheckBox label={this.props.fetchedProjectObjective[i].ObjectiveDescription + ":" + " " + this.props.fetchedProjectObjective[i].ObjectivePercentage + "%"}
-                                          handleCheckBoxIsChecked={this.selectedPercentage}
-                                          handleCheckBoxIsUnchecked={this.selectedPercentage}
-                                          checkBoxObject={this.props.fetchedProjectObjective[i]}
-                                          isCheckBoxChecked={this.props.fetchedProjectObjective[i].IsCheckBoxChecked === 1}/>
+                            <CheckBox label={this.props.fetchedProjectObjective[i].ObjectiveDescription + ":" + " " + this.props.fetchedProjectObjective[i].ObjectivePercentage + "%"}
+                                      handleCheckBoxIsChecked={this.selectedPercentage}
+                                      handleCheckBoxIsUnchecked={this.deselectedPercentage}
+                                      checkBoxObject={this.props.fetchedProjectObjective[i]}
+                                      isCheckBoxChecked={this.props.fetchedProjectObjective[i].IsCheckBoxChecked === 1}
+                            />
                         </p>
                     )
                     this.setState({data: list});
@@ -69,8 +56,8 @@ class ProjectDetail extends Component {
         }
 
         if(this.props.projectProgressSuccessFullyUpdated !== prevProps.projectProgressSuccessFullyUpdated) {
-            if(this.props.projectProgressSuccessFullyUpdated) {
-                this.props.fetchAllObjectives();
+            if(this.props.projectProgressSuccessFullyUpdated ) {
+                this.handleProjectId();
                 this.props.fetchAllProjects();
                 this.props.resetPrivilegeUpdate();
             }
@@ -140,11 +127,56 @@ class ProjectDetail extends Component {
                 ColumnName: "ProjectId",
                 ColumnValue: this.props.projectSelect.ProjectId,
                 ProjectProgress: this.state.progress
-
             };
             this.props.updateProjectProgress(payload);
         }
+        this.successTimer();
     }
+
+    deselectedPercentage = async (deselected) => {
+        await this.props.setObjectivePercentage(deselected);
+        const checkBox = {
+            ColumnName: "ObjectiveId",
+            ColumnValue: deselected.ObjectiveId,
+            IsCheckBoxChecked: deselected.IsCheckBoxChecked === 0 ? 1 : 0
+        }
+        this.props.updateIsCheckBoxChecked(checkBox);
+
+        if(deselected.IsCheckBoxChecked === 1){
+            this.setState({
+                progress: this.state.progress - deselected.ObjectivePercentage
+
+            })
+            const payload = {
+                ColumnName: "ProjectId",
+                ColumnValue: this.props.projectSelect.ProjectId,
+                ProjectProgress: this.state.progress
+            };
+            this.props.updateProjectProgress(payload);
+        }
+        this.successTimer();
+    }
+
+    successTimer = () => {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: 'success',
+            title: 'I Got you!'
+        })
+        this.handleProjectId();
+    }
+
     render()
     {
         const { projectSelect} = this.props;
@@ -176,9 +208,9 @@ class ProjectDetail extends Component {
                                     <div className="vertical_scroll">
                                         <div className="scrollmenu">
                                             {this.state.data}
-
                                         </div>
                                     </div>
+
                                 </Col>
 
 

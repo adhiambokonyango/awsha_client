@@ -48,6 +48,7 @@
     "redux-react-session": "^2.6.1",
     "redux-thunk": "^2.3.0",
     "sass": "^1.23.0",
+    "sweetalert2": "^10.6.0",
     "video-react": "^0.14.1"
   },
   "scripts": {

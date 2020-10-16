@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {fetchAllObjectives, registerObjectives, setObjective} from "../store/modules/objectives/actions";
+import {fetchAllObjectives, registerObjectives, setObjective} from "../../store/modules/objectives/actions";
 import PropTypes from "prop-types";
 import {connect} from "react-redux";
 class Demo2 extends Component {

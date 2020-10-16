@@ -80,6 +80,7 @@ class Projects extends Component {
          if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
              if(this.props.projectsSuccessFullyRegistered) {
                  this.props.fetchAllProjects();
+                 this.props.resetPrivilegeUpdate();
              }
          }
      };
