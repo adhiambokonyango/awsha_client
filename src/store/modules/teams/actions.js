@@ -6,7 +6,10 @@ import {
 
     REGISTERED_TEAMS_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_TEAMS,
-    REGISTERED_TEAMS_EMPTY_RESULTS
+    REGISTERED_TEAMS_EMPTY_RESULTS,
+    TEAM_LEAD_SUCCESSFULLY_REGISTERED,
+    REGISTERING_TEAM_LEAD_FAILED,
+    TEAM_MEMBER_SUCCESSFULLY_REGISTERED, REGISTERING_TEAM_MEMBER_FAILED
 
 } from "./actionTypes";
 
@@ -33,9 +36,6 @@ export function registerTeams(payload) {
     };
 }
 
-
-
-
 export function fetchAllTeams() {
     return async dispatch => {
         const apiRoute = "/get_all_team";
@@ -59,6 +59,53 @@ export function fetchAllTeams() {
                 dispatch({
                     type: ERROR_FETCHING_TEAMS
                 });
+                console.log(err);
+            }
+        );
+    };
+}
+
+
+export function registerTeamLead(payload) {
+    return async dispatch => {
+        const apiRoute = "/add_team_leaders";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: TEAM_LEAD_SUCCESSFULLY_REGISTERED
+                    });
+                } else {
+                    dispatch({
+                        type: REGISTERING_TEAM_LEAD_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function registerTeamMember(payload) {
+    return async dispatch => {
+        const apiRoute = "/add_team_members";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: TEAM_MEMBER_SUCCESSFULLY_REGISTERED
+                    });
+                } else {
+                    dispatch({
+                        type: REGISTERING_TEAM_MEMBER_FAILED
+                    });
+                }
+            },
+            function(err) {
                 console.log(err);
             }
         );

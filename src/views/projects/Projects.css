@@ -60,6 +60,7 @@ a:active {
 .vertical_scroll{
     max-height: 25rem;
     overflow-y: scroll;
+    margin-bottom: 0.7rem;
 }
 
 .listed_projects .card{

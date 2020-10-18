@@ -82,7 +82,36 @@ class TeamMemberSignUp extends Component {
         }
     };
 
-
+// blog = () => {
+    //
+    //         const projectTitle = (
+    //             <ul>
+    //                 {this.props.fetchedProjectObjective.map((post) =>
+    //
+    //                     <p key={post.ObjectiveId} className="detail_title">
+    //                         {/*<input*/}
+    //                         {/*    type="checkbox"*/}
+    //                         {/*    id="myCheck"*/}
+    //                         {/*    onClick={() => {*/}
+    //                         {/*        this.selectedPercentage(post.ObjectivePercentage)*/}
+    //                         {/*    }}*/}
+    //                         {/*/>*/}
+    //                         {/*{" " + post.ObjectiveDescription}:*/}
+    //                         {/*{" " + post.ObjectivePercentage}{"%"}*/}
+    //
+    //                         <CheckBox label={" " + post.ObjectiveDescription + ":" + " " + post.ObjectivePercentage + "%"}
+    //                                   handleCheckBoxIsChecked={this.theProgress}
+    //                                   handleCheckBoxIsUnchecked={this.theProgress}
+    //                                   checkBoxObject={post}
+    //                                   isCheckBoxChecked={false}
+    //                                   id="myCheck"
+    //                         />
+    //                     </p>
+    //                 )}
+    //             </ul>
+    //         );
+    //              return (<div>{projectTitle}</div>)
+    // }
 
     handleChange = event => {
         let newState = this.state;

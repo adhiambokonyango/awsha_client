@@ -12,8 +12,10 @@ import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import CheckBox from "../../components/check_box/CheckBox";
 
 
+
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
+import Teams from "../teams/Teams";
 
 class ProjectDetail extends Component {
     state = {
@@ -23,13 +25,15 @@ class ProjectDetail extends Component {
         animations: false,
         checker: '',
         percentage:'',
-        update: false
+        update: false,
+
 
     };
 
 
     componentDidMount() {
         this.props.fetchAllObjectives();
+
         this.handleProjectId();
         this.setState({
             progress: this.props.projectSelect.ProjectProgress
@@ -78,37 +82,6 @@ class ProjectDetail extends Component {
       }
         this.props.projectSelectionQuery(payload);
     }
-
-    // blog = () => {
-    //
-    //         const projectTitle = (
-    //             <ul>
-    //                 {this.props.fetchedProjectObjective.map((post) =>
-    //
-    //                     <p key={post.ObjectiveId} className="detail_title">
-    //                         {/*<input*/}
-    //                         {/*    type="checkbox"*/}
-    //                         {/*    id="myCheck"*/}
-    //                         {/*    onClick={() => {*/}
-    //                         {/*        this.selectedPercentage(post.ObjectivePercentage)*/}
-    //                         {/*    }}*/}
-    //                         {/*/>*/}
-    //                         {/*{" " + post.ObjectiveDescription}:*/}
-    //                         {/*{" " + post.ObjectivePercentage}{"%"}*/}
-    //
-    //                         <CheckBox label={" " + post.ObjectiveDescription + ":" + " " + post.ObjectivePercentage + "%"}
-    //                                   handleCheckBoxIsChecked={this.theProgress}
-    //                                   handleCheckBoxIsUnchecked={this.theProgress}
-    //                                   checkBoxObject={post}
-    //                                   isCheckBoxChecked={false}
-    //                                   id="myCheck"
-    //                         />
-    //                     </p>
-    //                 )}
-    //             </ul>
-    //         );
-    //              return (<div>{projectTitle}</div>)
-    // }
     selectedPercentage = async (selected) => {
         await this.props.setObjectivePercentage(selected);
         const checkBox = {
@@ -212,7 +185,7 @@ class ProjectDetail extends Component {
                                     </div>
 
                                 </Col>
-
+                                <Teams projectSelected={projectSelect.ProjectId}/>
 
                             </div>
                         </div>
@@ -247,6 +220,8 @@ ProjectDetail.propTypes = {
 
     updateIsCheckBoxChecked: PropTypes.func.isRequired,
     isCheckBoxCheckedSuccessFullyUpdated: PropTypes.bool.isRequired,
+
+
 };
 const mapStateToProps = state => ({
     projectSelect: state.projects.projectSelect,
@@ -262,6 +237,8 @@ const mapStateToProps = state => ({
     projectProgressSuccessFullyUpdated: state.projects.projectProgressSuccessFullyUpdated,
 
     isCheckBoxCheckedSuccessFullyUpdated: state.objectives.isCheckBoxCheckedSuccessFullyUpdated,
+
+
 });
 const mapDispatchToProps = dispatch => ({
     fetchAllProjects: () => dispatch(fetchAllProjects()),
@@ -271,6 +248,7 @@ const mapDispatchToProps = dispatch => ({
     updateProjectProgress: payload => dispatch(updateProjectProgress(payload)),
     resetPrivilegeUpdate: () => dispatch(resetPrivilegeUpdate()),
     updateIsCheckBoxChecked: payload => dispatch(updateIsCheckBoxChecked(payload)),
+
 });
 export default connect(
     mapStateToProps,

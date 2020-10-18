@@ -1,5 +1,5 @@
 .card{
-  min-height: 30rem;
+  min-height: 45rem;
 }
 
 .card .card-content .detail_title{
@@ -14,4 +14,8 @@
 
 .card .card-content .array{
     padding-top: 1.2rem;
+}
+
+.card .card-content .team_header h3{
+    padding-bottom: 0.1rem;
 }

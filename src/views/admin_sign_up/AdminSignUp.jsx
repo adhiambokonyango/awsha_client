@@ -11,6 +11,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import {FaCogs} from "react-icons/fa";
 import '../projects/Projects.css'
+import ProjectDetail from "../projects/ProjectDetail";
 
 
 
@@ -119,10 +120,13 @@ class AdminSignUp extends Component {
                 )}
             </ul>
         );
+
         return (<div>{projectTitle}</div>);
     }
 
+
     render() {
+
         return (
             <div>
                 <NavigationBar/>
