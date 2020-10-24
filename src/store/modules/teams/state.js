@@ -1,4 +1,8 @@
 export const initialState = {
     teamsSuccessFullyRegistered: false,
-    registeredTeams: []
+    registeredTeams: [],
+    teamLeadIsCheckBoxCheckedSuccessFullyUpdated: false,
+    teamLeadSuccessFullyRegistered: false,
+    teamSelected:{},
+    teamMemberSuccessFullyRegistered: false
 };

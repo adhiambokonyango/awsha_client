@@ -9,7 +9,9 @@ import {
     REGISTERED_TEAMS_EMPTY_RESULTS,
     TEAM_LEAD_SUCCESSFULLY_REGISTERED,
     REGISTERING_TEAM_LEAD_FAILED,
-    TEAM_MEMBER_SUCCESSFULLY_REGISTERED, REGISTERING_TEAM_MEMBER_FAILED
+    TEAM_MEMBER_SUCCESSFULLY_REGISTERED, REGISTERING_TEAM_MEMBER_FAILED,
+    TEAM_LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
+    TEAM_LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED, SET_TEAM
 
 } from "./actionTypes";
 
@@ -109,5 +111,40 @@ export function registerTeamMember(payload) {
                 console.log(err);
             }
         );
+    };
+}
+
+
+export function updateTeamLeadIsCheckBoxChecked(payload) {
+    return async dispatch => {
+        const apiRoute = "/update_individual_team_leaders_is_checkbox_checked";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: TEAM_LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED
+                    });
+                } else {
+                    dispatch({
+                        type: TEAM_LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function setTeam(teamSelected){
+    return async dispatch => {
+        dispatch({
+            type: SET_TEAM,
+            payload: {
+                teamSelected: teamSelected
+            }
+        });
     };
 }

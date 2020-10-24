@@ -3,8 +3,8 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Select from "react-select";
 import {Link} from "react-router-dom";
-import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
-import { fetchAllTeams} from "../../store/modules/teams/actions";
+import {fetchAllUser} from "../../src/store/user_management/user_sign_up/actions";
+import { fetchAllTeams} from "../../src/store/modules/teams/actions";
 import {registerTeamMember, fetchAllTeamMember} from "../../store/modules/team_members/actions";
 
 

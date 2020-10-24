@@ -6,7 +6,6 @@ import { reducer as user_log_in } from "./user_management/user_log_in";
 import { reducer as teams } from "./modules/teams";
 import { reducer as projects } from "./modules/projects";
 import { reducer as objectives } from "./modules/objectives";
-import { reducer as team_members } from "./modules/team_members";
 import {reducer as admin_sign_up} from "./user_management/admin_sign_up";
 import {reducer as administrator_sign_up} from "./user_management/administrator_sign_up";
 import {reducer as privileges} from "./modules/privileges";
@@ -29,7 +28,7 @@ const rootReducer = reduceReducers(
       gender_info,
      user_log_in,
       teams,
-      team_members,
+
       projects,
       objectives,
       privileges,

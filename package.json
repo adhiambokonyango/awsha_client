@@ -2,6 +2,7 @@
   "name": "awsha_client",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:5000/",
   "dependencies": {
     "axios": "^0.18.0",
     "bootstrap": "^4.5.0",
@@ -74,6 +75,7 @@
   ],
   "devDependencies": {
     "@material-ui/core": "^4.10.2",
+    "file-saver": "^2.0.2",
     "json-groupby": "^1.1.0",
     "prop-types": "^15.7.2",
     "react-circular-progressbar": "^2.0.3",

@@ -39,6 +39,7 @@ a:active {
     overflow: auto;
     white-space: nowrap;
     border-radius: 0.1rem;
+    padding-left: 0.3rem;
 }
 
 .scrollmenu a {

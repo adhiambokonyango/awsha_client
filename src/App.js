@@ -7,7 +7,6 @@ import Teams from "./views/teams/Teams";
 import Projects from "./views/projects/Projects";
 import Objectives from "./views/objectives/Objectives";
 import RegisteredUser from "./views/user_sign_up/RegisteredUser";
-import TeamMember from "./views/team_members/TeamMember";
 import SignUp from "./views/user_sign_up/SignUp";
 import FirstLevelAdmin from "./components/moh/FirstLevelAdmin";
  import UserManagement from "./views/admin_page/UserManagement";
@@ -31,6 +30,7 @@ import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 import BranchProject from "./views/BranchProjects/BranchProject";
 import ProjectStatus from "./views/BranchProjects/ProjectStatus";
 import Demo1 from "./views/demo/Demo1";
+import Report from "./views/report_system/Report";
 
 
 class App extends Component {
@@ -48,7 +48,6 @@ class App extends Component {
                 <Route path="/registered_users" exact component={RegisteredUser} />
                 <Route path="/register_projects" exact component={Projects} />
                 <Route path="/objectives" exact component={Objectives} />
-                <Route path="/team_members" exact component={TeamMember} />
                 <Route path="/first_level_admin" exact component={FirstLevelAdmin} />
                 <Route path="/administrator_level" exact component={AdministratorLevel} />
                 <Route path="/user_management" exact component={UserManagement} />
@@ -71,6 +70,7 @@ class App extends Component {
                 <Route path="/branch_project" exact component={BranchProject} />
                 <Route path="/project_status" exact component={ProjectStatus} />
                 <Route path="/nav_bar" exact component={NavigationBar} />
+                <Route path="/report" exact component={Report} />
             </div>
 
 
