@@ -11,8 +11,9 @@ import {
     REGISTERING_TEAM_LEAD_FAILED,
     TEAM_MEMBER_SUCCESSFULLY_REGISTERED, REGISTERING_TEAM_MEMBER_FAILED,
     TEAM_LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
-    TEAM_LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED, SET_TEAM
-
+    TEAM_LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED, SET_TEAM,
+    PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED,
+    PROJECTS_AND_TEAMS_FETCH_EMPTY
 } from "./actionTypes";
 
 export function registerTeams(payload) {
@@ -146,5 +147,31 @@ export function setTeam(teamSelected){
                 teamSelected: teamSelected
             }
         });
+    };
+}
+
+export function projectSelectionQueryForTeams(payload) {
+    return async dispatch => {
+        const apiRoute = "/teams_project_select_query";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results && result.data.results.length > 0) {
+                    dispatch({
+                        type: PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED,
+                        fetches: {
+                            fetchedProjectTeam: result.data.results
+                        }
+                    });
+                } else if (result.data.results && result.data.results.length === 0){
+                    dispatch({
+                        type: PROJECTS_AND_TEAMS_FETCH_EMPTY
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
     };
 }

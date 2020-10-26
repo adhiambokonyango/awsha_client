@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {registerTeams,registerTeamMember, fetchAllTeams, updateTeamLeadIsCheckBoxChecked, registerTeamLead, setTeam} from "../../store/modules/teams/actions";
 import Table from "../../components/table/table_body/Table";
 import Select from "react-select";
+import {resetPrivilegeUpdate} from "../../store/modules/branch_project/actions";
 import {Col, Container, Row} from "react-bootstrap";
 import {fetchAllAdministrator, setAdministrator} from "../../store/user_management/administrator_sign_up/actions";import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
@@ -14,6 +17,8 @@ import {setUser} from "../../store/user_management/user_sign_up/actions";
 import {FaCogs} from "react-icons/fa";
 import Modal from "react-awesome-modal";
 import '../projects/Projects.css';
+import {projectSelectionQueryForTeams} from "../../store/modules/teams/actions";
+
 class Teams extends Component {
 
     state = {
@@ -44,6 +49,7 @@ class Teams extends Component {
         this.props.fetchAllTeams();
         this.props.fetchAllAdministrator();
         this.props.fetchAllUser();
+        this.handleProjectId();
     }
 
     componentDidUpdate(prevProps) {
@@ -75,25 +81,15 @@ class Teams extends Component {
             }
         }
 
-        if(this.props.registeredUser !== prevProps.registeredUser) {
-            if(this.props.registeredUser && this.props.registeredUser.length > 0) {
-                let list = [];
-                for(let i = 0;i<this.props.registeredUser.length;i++) {
-                    list.push(<p className="detail_title">
-                            <CheckBox label={this.props.registeredUser[i].FirstName }
-                                      handleCheckBoxIsChecked={this.selectedUser}
-                                      handleCheckBoxIsUnchecked={this.deselectedUser}
-                                      checkBoxObject={this.props.registeredUser[i]}
-                                      isCheckBoxChecked={this.props.registeredUser[i].IsCheckBoxChecked === 1}
-                            />
-                        </p>
-                    )
-                    this.setState({teamMember: list});
-                }
-            }
-        }
-    };
 
+
+    };
+    handleProjectId = () => {
+        const payload = {
+            ProjectId: this.props.projectSelected,
+        }
+        this.props.projectSelectionQueryForTeams(payload);
+    }
 
     handleChange = event => {
         let newState = this.state;
@@ -133,12 +129,16 @@ class Teams extends Component {
             }
             this.props.registerTeamMember(member);
         }
+        this.setState({
+            selectedOption: '',
+            selectedOptionTwo: ''
+        })
     }
 
     blog = () => {
         const projectTitle = (
             <ul>
-                {this.props.registeredTeams.map((post) =>
+                {this.props.fetchedProjectTeam.map((post) =>
 
                     <a
                         onClick={() => {
@@ -168,6 +168,7 @@ class Teams extends Component {
             display: false
         })
     }
+
     render() {
         return (
             <div>
@@ -178,10 +179,11 @@ class Teams extends Component {
                 {/*    <div className="panel-body">*/}
 
                 <Col sm={12} md={12} lg={12}>
-                    <h3 className="panel-title">Register Teams:</h3>
+
                 </Col>
 
                 <Col sm={12} md={4} lg={6} className="array">
+                    <h3 className="panel-title">Register Teams:</h3>
                     <form
                         action=""
                         method="POST"
@@ -215,87 +217,7 @@ class Teams extends Component {
                 </Col>
 
 
-                <Col sm={12} md={4} lg={6} className="array listed_projects">
-                    <div className="vertical_scroll">
-                        <div className="scrollmenu">
-                            <ul >
-                                {this.blog()}
-                            </ul>
-                        </div>
-                    </div>
-                </Col>
-                <Modal
-                    visible={this.state.display}
-                    width="900"
-                    height="600"
-                    effect="fadeInUp"
-                    onClickAway={() => {
-                        this.handleModalExteriorClicked();
-                    }}
-                >
-                    <Container>
-                        <p className="detail_title">{this.state.teamSelection}</p>
-                        <Col sm={12} md={4} lg={6} className="array listed_projects">
-                            <form
-                                action=""
-                                method="POST"
-                                onSubmit={this.handleTeamMemberCreate}
-                                encType="multipart/form-data"
-                            >
-                                <fieldset>
 
-                                    <p className="detail_title">Select Team Leaders</p>
-                                    <div className="form-group">
-                                        <Select
-                                            className="react-select"
-                                            classNamePrefix="react-select"
-                                            placeholder="Select Administrator"
-                                            name="selectedOption"
-                                            isMulti={true}
-                                            closeMenuOnSelect={true}
-                                            value={this.state.selectedOption}
-                                            onChange={value =>
-                                                this.setState({
-                                                    ...this.state,
-                                                    selectedOption: value
-                                                })
-                                            }
-                                            options={this.state.selectOptions}
-                                        />
-
-                                    </div>
-
-                                    <p className="detail_title">Select Team Members</p>
-                                    <div className="form-group">
-                                        <Select
-                                            className="react-select"
-                                            classNamePrefix="react-select"
-                                            placeholder="Select TeamMember"
-                                            name="selectedOptionTwo"
-                                            isMulti
-                                            closeMenuOnSelect={true}
-                                            value={this.state.selectedOptionTwo}
-                                            onChange={value =>
-                                                this.setState({
-                                                    ...this.state,
-                                                    selectedOptionTwo: value
-                                                })
-                                            }
-                                            options={this.state.selectOptionsTwo}
-                                        />
-                                    </div>
-                                    <button
-                                        type="submit"
-                                        className="btn btn-lg btn-success btn-block"
-                                    >
-                                        Submit
-                                    </button>
-                                </fieldset>
-                            </form>
-                        </Col>
-                    </Container>
-
-                </Modal>
                 {/*</div>*/}
                 {/*</div>*/}
 
@@ -315,6 +237,7 @@ Teams.propTypes = {
     registeredTeams: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllAdministrator: PropTypes.func.isRequired,
     registeredAdministrator: PropTypes.arrayOf(PropTypes.object).isRequired,
+    resetPrivilegeUpdate: PropTypes.func.isRequired,
 
     fetchAllUser: PropTypes.func.isRequired,
     registeredUser: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -337,6 +260,9 @@ Teams.propTypes = {
     registerTeamMember: PropTypes.func.isRequired,
     teamMemberSuccessFullyRegistered: PropTypes.bool.isRequired,
 
+    fetchedProjectTeam: PropTypes.arrayOf(PropTypes.object).isRequired,
+    projectSelectionQueryForTeams: PropTypes.func.isRequired,
+    teamFetch: PropTypes.bool.isRequired,
 };
 
 
@@ -358,7 +284,8 @@ const mapStateToProps = state => ({
 
     teamMemberSuccessFullyRegistered: state.teams.teamMemberSuccessFullyRegistered,
 
-
+    fetchedProjectTeam: state.teams.fetchedProjectTeam,
+    teamFetch: state.teams.teamFetch,
 });
 
 
@@ -374,6 +301,8 @@ const mapDispatchToProps = dispatch => ({
     setUser: payload => dispatch(setUser(payload)),
     setTeam: payload => dispatch(setTeam(payload)),
     updateTeamLeadIsCheckBoxChecked: payload => dispatch(updateTeamLeadIsCheckBoxChecked(payload)),
+    resetPrivilegeUpdate: () => dispatch(resetPrivilegeUpdate()),
+    projectSelectionQueryForTeams: payload => dispatch(projectSelectionQueryForTeams(payload)),
 });
 
 export default connect(

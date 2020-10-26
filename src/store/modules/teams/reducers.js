@@ -5,10 +5,10 @@ import {
     REGISTERING_TEAMS_FAILED,
     TEAM_LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
     TEAM_LEAD_SUCCESSFULLY_REGISTERED,
-    SET_TEAM, TEAM_MEMBER_SUCCESSFULLY_REGISTERED,
+    SET_TEAM, TEAM_MEMBER_SUCCESSFULLY_REGISTERED, PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED,
+    PROJECTS_AND_TEAMS_FETCH_EMPTY
 } from "./actionTypes";
-import {IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED} from "../objectives/actionTypes";
-import {SET_PROJECT} from "../projects/actionTypes";
+
 
 export const ACTION_HANDLERS = {
 
@@ -39,6 +39,16 @@ export const ACTION_HANDLERS = {
     [TEAM_MEMBER_SUCCESSFULLY_REGISTERED]: state =>
         Object.assign({}, state, {
             teamMemberSuccessFullyRegistered: true
+        }),
+
+    [PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED]: (state, action) =>
+        Object.assign({}, state, {
+            teamFetch: true,
+            fetchedProjectTeam: action.fetches.fetchedProjectTeam
+        }),
+    [PROJECTS_AND_TEAMS_FETCH_EMPTY]: state =>
+        Object.assign({}, state, {
+            teamFetch: false
         }),
 
 

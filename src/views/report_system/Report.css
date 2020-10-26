@@ -30,3 +30,48 @@
         transform: rotate(360deg);
     }
 }
+
+/*red button*/
+
+.red.lighten-2 {
+    background-color: #8bc34a !important;
+}
+
+.waves-effect {
+    position: relative;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    vertical-align: middle;
+    z-index: 1;
+    -webkit-transition: .3s ease-out;
+    transition: .3s ease-out;
+}
+
+.red {
+    background-color: #F44336 !important;
+}
+
+.printers{
+    margin-top: 0.5rem;
+}
+.btn_print{
+
+    text-decoration: none;
+    color: #fff;
+    background-color: #26a69a;
+    text-align: center;
+    letter-spacing: .5px;
+    -webkit-transition: background-color .2s ease-out;
+    transition: background-color .2s ease-out;
+    cursor: pointer;
+}
+
+.report_title{
+    text-transform: capitalize;
+}

@@ -4,5 +4,7 @@ export const initialState = {
     teamLeadIsCheckBoxCheckedSuccessFullyUpdated: false,
     teamLeadSuccessFullyRegistered: false,
     teamSelected:{},
-    teamMemberSuccessFullyRegistered: false
+    teamMemberSuccessFullyRegistered: false,
+    teamFetch: false,
+    fetchedProjectTeam: [],
 };
