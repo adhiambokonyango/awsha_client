@@ -7,4 +7,10 @@ export const initialState = {
     teamMemberSuccessFullyRegistered: false,
     teamFetch: false,
     fetchedProjectTeam: [],
+
+    leadFetch: false,
+    fetchedTeamLead: [],
+
+    memberFetch: false,
+    fetchedTeamMember: [],
 };

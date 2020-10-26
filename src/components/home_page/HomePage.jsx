@@ -27,7 +27,7 @@ class HomePage extends Component {
                                   class="btn-floating halfway-fab waves-effect waves-light red"
                                   href="/log in"
                               >
-                                  <i class="material-icons"><FaCogs /></i>
+                                  <i class="material-icons"><FaSignInAlt /></i>
 
                               </a>
                           </div>
@@ -55,14 +55,17 @@ class HomePage extends Component {
                                   Enables quick analysis of project progress.<br/>Modules available in this
                                   project include:
                                   <ul>
-                                      <Col sm={4} md={4} lg={4}>
+                                      <Col sm={3} md={3} lg={3}>
                                           <FaCircle size={8}/>{" "}Branches and Teams
                                       </Col>
-                                      <Col sm={4} md={4} lg={4}>
+                                      <Col sm={3} md={3} lg={3}>
                                           <FaCircle size={8}/>{" "}Role and Permission Based Access<br/>
                                       </Col>
-                                      <Col sm={4} md={4} lg={4}>
+                                      <Col sm={3} md={3} lg={3}>
                                           <FaCircle size={8}/>{" "}Data Visualization
+                                      </Col>
+                                      <Col sm={3} md={3} lg={3}>
+                                          <FaCircle size={8}/>{" "}Reports
                                       </Col>
                                   </ul>
 

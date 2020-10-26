@@ -5,8 +5,13 @@ import {
     REGISTERING_TEAMS_FAILED,
     TEAM_LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
     TEAM_LEAD_SUCCESSFULLY_REGISTERED,
-    SET_TEAM, TEAM_MEMBER_SUCCESSFULLY_REGISTERED, PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED,
-    PROJECTS_AND_TEAMS_FETCH_EMPTY
+    SET_TEAM,
+    TEAM_MEMBER_SUCCESSFULLY_REGISTERED,
+    PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED,
+    PROJECTS_AND_TEAMS_FETCH_EMPTY,
+    TEAM_AND_TEAM_LEAD_SUCCESSFULLY_FETCHED,
+    TEAM_AND_TEAM_MEMBER_SUCCESSFULLY_FETCHED,
+    TEAM_AND_TEAM_LEAD_FETCH_EMPTY, TEAM_AND_TEAM_MEMBER_FETCH_EMPTY
 } from "./actionTypes";
 
 
@@ -49,6 +54,26 @@ export const ACTION_HANDLERS = {
     [PROJECTS_AND_TEAMS_FETCH_EMPTY]: state =>
         Object.assign({}, state, {
             teamFetch: false
+        }),
+
+    [TEAM_AND_TEAM_LEAD_SUCCESSFULLY_FETCHED]: (state, action) =>
+        Object.assign({}, state, {
+            leadFetch: true,
+            fetchedTeamLead: action.fetches.fetchedTeamLead
+        }),
+    [TEAM_AND_TEAM_LEAD_FETCH_EMPTY]: state =>
+        Object.assign({}, state, {
+            leadFetch: false
+        }),
+
+    [TEAM_AND_TEAM_MEMBER_SUCCESSFULLY_FETCHED]: (state, action) =>
+        Object.assign({}, state, {
+            memberFetch: true,
+            fetchedTeamMember: action.fetches.fetchedTeamMember
+        }),
+    [TEAM_AND_TEAM_MEMBER_FETCH_EMPTY]: state =>
+        Object.assign({}, state, {
+            memberFetch: false
         }),
 
 

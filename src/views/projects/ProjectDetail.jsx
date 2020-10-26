@@ -18,7 +18,7 @@ import {projectSelectionQueryForTeams} from "../../store/modules/teams/actions";
 import {FaCogs} from "react-icons/fa";
 import Modal from "react-awesome-modal";
 import Select from "react-select";
-import {registerTeams,registerTeamMember, fetchAllTeams, updateTeamLeadIsCheckBoxChecked, registerTeamLead, setTeam} from "../../store/modules/teams/actions";
+import {registerTeamMember, registerTeamLead, setTeam, projectSelectionQueryForTeamLead, projectSelectionQueryForTeamMembers} from "../../store/modules/teams/actions";
 import {fetchAllAdministrator, setAdministrator} from "../../store/user_management/administrator_sign_up/actions";
 import {fetchAllUser, setUser} from "../../store/user_management/user_sign_up/actions";
 
@@ -219,13 +219,60 @@ class ProjectDetail extends Component {
         return (<div>{projectTitle}</div>);
     }
 
+    leads = () => {
+        const projectTitle = (
+            <ul>
+                {this.props.fetchedTeamLead.map((post) =>
+
+                    <a
+                        onClick={() => {
+                            this.selected(post)
+                        }}>
+
+                        <h6>
+                            <ul key={post.AdministratorId} >
+                                {"  "}<FaCogs/>{" "}{post.AdministratorId}
+                            </ul></h6>
+                    </a>
+                )}
+            </ul>
+        );
+        return (<div>{projectTitle}</div>);
+    }
+
+    teamMembers = () => {
+        const projectTitle = (
+            <ul>
+                {this.props.fetchedTeamMember.map((post) =>
+
+                    <a
+                        onClick={() => {
+                            this.selected(post)
+                        }}>
+
+                        <h6>
+                            <ul key={post.UserId} >
+                                {"  "}<FaCogs/>{" "}{post.UserId}
+                            </ul></h6>
+                    </a>
+                )}
+            </ul>
+        );
+        return (<div>{projectTitle}</div>);
+    }
+
     selected = (selection) => {
         // this.props.setTeam(selection);
         this.setState({
             display: true,
             teamSelection: selection.TeamName,
             teamId: selection.TeamId
-        })
+        });
+        const teamId = {
+            TeamId: selection.TeamId
+        }
+        this.props.projectSelectionQueryForTeamLead(teamId);
+        this.props.projectSelectionQueryForTeamMembers(teamId);
     }
     handleModalExteriorClicked = () => {
         this.setState({
@@ -374,8 +421,25 @@ class ProjectDetail extends Component {
                                                 </fieldset>
                                             </form>
                                         </Col>
+                                        <Col sm={12} md={4} lg={6} className="array listed_projects">
+                                            <h3 className="panel-title card_header">Team Lead</h3>
+                                            <div className="vertical_scroll">
+                                                <div className="scrollmenu">
+                                                    <ul >
+                                                        {this.leads()}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <h3 className="panel-title card_header">Team Member</h3>
+                                            <div className="vertical_scroll">
+                                                <div className="scrollmenu">
+                                                    <ul >
+                                                        {this.teamMembers()}
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </Col>
                                     </Container>
-
                                 </Modal>
                                 <Col sm={12} md={12} lg={12}>
                                 </Col>
@@ -445,6 +509,14 @@ ProjectDetail.propTypes = {
 
     registerTeamMember: PropTypes.func.isRequired,
     teamMemberSuccessFullyRegistered: PropTypes.bool.isRequired,
+
+    fetchedTeamLead: PropTypes.arrayOf(PropTypes.object).isRequired,
+    projectSelectionQueryForTeamLead: PropTypes.func.isRequired,
+    leadFetch: PropTypes.bool.isRequired,
+
+    fetchedTeamMember: PropTypes.arrayOf(PropTypes.object).isRequired,
+    projectSelectionQueryForTeamMembers: PropTypes.func.isRequired,
+    memberFetch: PropTypes.bool.isRequired,
 };
 const mapStateToProps = state => ({
     projectSelect: state.projects.projectSelect,
@@ -477,6 +549,12 @@ const mapStateToProps = state => ({
 
     fetchedProjectTeam: state.teams.fetchedProjectTeam,
     teamFetch: state.teams.teamFetch,
+
+    fetchedTeamLead: state.teams.fetchedTeamLead,
+    leadFetch: state.teams.leadFetch,
+
+    fetchedTeamMember: state.teams.fetchedTeamMember,
+    memberFetch: state.teams.memberFetch,
 });
 const mapDispatchToProps = dispatch => ({
     fetchAllProjects: () => dispatch(fetchAllProjects()),
@@ -497,6 +575,8 @@ const mapDispatchToProps = dispatch => ({
     setUser: payload => dispatch(setUser(payload)),
     setTeam: payload => dispatch(setTeam(payload)),
 
+    projectSelectionQueryForTeamLead: payload => dispatch(projectSelectionQueryForTeamLead(payload)),
+    projectSelectionQueryForTeamMembers: payload => dispatch(projectSelectionQueryForTeamMembers(payload)),
 });
 export default connect(
     mapStateToProps,

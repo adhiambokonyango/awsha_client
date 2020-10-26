@@ -13,7 +13,11 @@ import {
     TEAM_LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
     TEAM_LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED, SET_TEAM,
     PROJECTS_AND_TEAMS_SUCCESSFULLY_FETCHED,
-    PROJECTS_AND_TEAMS_FETCH_EMPTY
+    PROJECTS_AND_TEAMS_FETCH_EMPTY,
+    TEAM_AND_TEAM_LEAD_SUCCESSFULLY_FETCHED,
+    TEAM_AND_TEAM_LEAD_FETCH_EMPTY,
+    TEAM_AND_TEAM_MEMBER_SUCCESSFULLY_FETCHED,
+    TEAM_AND_TEAM_MEMBER_FETCH_EMPTY
 } from "./actionTypes";
 
 export function registerTeams(payload) {
@@ -166,6 +170,59 @@ export function projectSelectionQueryForTeams(payload) {
                 } else if (result.data.results && result.data.results.length === 0){
                     dispatch({
                         type: PROJECTS_AND_TEAMS_FETCH_EMPTY
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function projectSelectionQueryForTeamLead(payload) {
+    return async dispatch => {
+        const apiRoute = "/team_lead_select_query";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results && result.data.results.length > 0) {
+                    dispatch({
+                        type: TEAM_AND_TEAM_LEAD_SUCCESSFULLY_FETCHED,
+                        fetches: {
+                            fetchedTeamLead: result.data.results
+                        }
+                    });
+                } else if (result.data.results && result.data.results.length === 0){
+                    dispatch({
+                        type: TEAM_AND_TEAM_LEAD_FETCH_EMPTY
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+
+export function projectSelectionQueryForTeamMembers(payload) {
+    return async dispatch => {
+        const apiRoute = "/team_member_select_query";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results && result.data.results.length > 0) {
+                    dispatch({
+                        type: TEAM_AND_TEAM_MEMBER_SUCCESSFULLY_FETCHED,
+                        fetches: {
+                            fetchedTeamMember: result.data.results
+                        }
+                    });
+                } else if (result.data.results && result.data.results.length === 0){
+                    dispatch({
+                        type: TEAM_AND_TEAM_MEMBER_FETCH_EMPTY
                     });
                 }
             },
