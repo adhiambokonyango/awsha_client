@@ -226,12 +226,12 @@ class ProjectDetail extends Component {
 
                     <a
                         onClick={() => {
-                            this.selected(post)
+                            this.selectedAdministrator(post)
                         }}>
 
                         <h6>
                             <ul key={post.AdministratorId} >
-                                {"  "}<FaCogs/>{" "}{post.AdministratorId}
+                                {"  "}<FaCogs/>{" "}{this.narrative(post.AdministratorId)}
                             </ul></h6>
                     </a>
                 )}
@@ -252,7 +252,7 @@ class ProjectDetail extends Component {
 
                         <h6>
                             <ul key={post.UserId} >
-                                {"  "}<FaCogs/>{" "}{post.UserId}
+                                {"  "}<FaCogs/>{" "}{this.userNarrative(post.UserId)}
                             </ul></h6>
                     </a>
                 )}
@@ -273,6 +273,31 @@ class ProjectDetail extends Component {
         }
         this.props.projectSelectionQueryForTeamLead(teamId);
         this.props.projectSelectionQueryForTeamMembers(teamId);
+    }
+    selectedAdministrator = () => {
+
+    }
+    narrative = (administratorId) => {
+        for (let j=0; j<this.props.registeredAdministrator.length;j++){
+            if(administratorId === this.props.registeredAdministrator[j].AdministratorId){
+
+                return (
+                    this.props.registeredAdministrator[j].FirstName
+                )
+            }
+            console.log( this.props.registeredAdministrator[j].FirstName);
+        }
+    }
+
+    userNarrative = (userId) => {
+        for (let j=0; j<this.props.registeredUser.length;j++){
+            if(userId === this.props.registeredUser[j].UserId){
+                return (
+                    this.props.registeredUser[j].FirstName
+                )
+            }
+            console.log( this.props.registeredUser[j].FirstName);
+        }
     }
     handleModalExteriorClicked = () => {
         this.setState({

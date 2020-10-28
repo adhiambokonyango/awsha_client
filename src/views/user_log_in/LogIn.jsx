@@ -13,6 +13,7 @@ import {fetchAllAdminUserPrivileges} from "../../store/modules/admin_privileges/
 import {fetchAllAdministratorUserPrivileges} from "../../store/modules/administrator_privileges/actions";
 import {fetchAllUser} from "../../store/user_management/user_sign_up/actions";
 
+
 import "./Login.scss";
 class LogIn extends Component {
     state = {
@@ -49,16 +50,18 @@ class LogIn extends Component {
     }
 
     componentDidUpdate(prevProps) {
-        let i = 0;
+        for (let j=0; j<this.props.administratorPrivilege.length;j++){
+            if (this.props.administratorPrivilege !== prevProps.administratorPrivilege) {
+                if (this.props.administratorPrivilege[j].AdministratorAccessPrivilegeId === 1
+                    && this.props.administratorPrivilege[j].AdministratorPermissionStatus === 1) {
+                    this.setState({
+                        loginNoError: true,
+                    })
 
-         if (this.props.administratorPrivilege !== prevProps.administratorPrivilege) {
-             if (this.props.administratorPrivilege[i].AdministratorPermissionStatus === 1) {
-                 this.setState({
-                     loginNoError: true,
-                 })
+                }
+            }
+        }
 
-             }
-         }
 
          if (this.props.isOfficeAdministratorLoginSuccessful !== prevProps.isOfficeAdministratorLoginSuccessful) {
              if (this.props.isOfficeAdministratorLoginSuccessful) {
@@ -75,13 +78,15 @@ class LogIn extends Component {
         /* ---------------------------------------------------------------------------------------------------------------------- */
 
         /*PAGE NAVIGATION LOGIC*/
+        for (let j=0; j<this.props.adminPrivilege.length;j++){
+            if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
+                if (this.props.adminPrivilege[j].AdminAccessPrivilegeId === 1 &&
+                    this.props.adminPrivilege[j].AdminPermissionStatus === 1) {
+                    this.setState({
+                        adminloginNoError: true
+                    })
 
-        if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
-            if (this.props.adminPrivilege[0].AdminPermissionStatus === 1) {
-                this.setState({
-                    adminloginNoError: true
-                })
-
+                }
             }
         }
 
@@ -99,12 +104,14 @@ class LogIn extends Component {
          /* ---------------------------------------------------------------------------------------------------------------------- */
 
          /*PAGE NAVIGATION LOGIC*/
-
-        if (this.props.privilege !== prevProps.privilege) {
-            if (this.props.privilege[i].PermissionStatus === 1) {
-                this.setState({
-                    userloginNoError: true
-                })
+        for (let j=0; j<this.props.privilege.length;j++){
+            if (this.props.privilege !== prevProps.privilege) {
+                if (this.props.privilege[j].AccessPrivilegeId === 1 &&
+                    this.props.privilege[j].PermissionStatus === 1) {
+                    this.setState({
+                        userloginNoError: true
+                    })
+                }
             }
         }
 

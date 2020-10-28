@@ -15,6 +15,7 @@ class AdministratorPrivileges extends Component {
             AdministratorUserAccessPrivilegeId:'#',
             AdministratorId:'AdministratorId',
             AdministratorUserRoleId:'AdministratorUserRoleId',
+            // AdministratorAccessPrivilegeId: 'AdministratorAccessPrivilegeId',
             AdministratorAccessPrivilegeDescription:'AdministratorAccessPrivilegeDescription',
             AdministratorPermissionStatus:'AdministratorPermissionStatus',
 
@@ -32,6 +33,7 @@ class AdministratorPrivileges extends Component {
                             id: index + 1,
                             AdministratorId: item.AdministratorId,
                             AdministratorUserRoleId: item.AdministratorUserRoleId,
+                            // AdministratorAccessPrivilegeId: item.AdministratorAccessPrivilegeId,
                             AdministratorAccessPrivilegeDescription: item.AdministratorAccessPrivilegeDescription,
                             AdministratorPermissionStatus: item.AdministratorPermissionStatus,
                         };

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import {registerProjects, fetchAllProjects, setProject} from "../../store/modules/projects/actions";
+import {registerProjects, fetchAllProjects, setProject, resetProjectCredentials} from "../../store/modules/projects/actions";
 import Select from "react-select";
 import NavigationBar from "../admin_page/nav_bar/NavigationBar";
 import {
@@ -9,7 +9,6 @@ import {
 } from 'react-bootstrap';
 import {FaCogs, FaList} from "react-icons/fa";
 import './Projects.css';
-import {resetWrongCredentials} from "../../store/user_management/user_log_in/actions";
 import {
     fetchAllAdministratorUserPrivileges,
 } from "../../store/modules/administrator_privileges/actions";
@@ -58,24 +57,15 @@ class Projects extends Component {
              }
          }
 
-        if (this.props.administratorPrivilege !== prevProps.administratorPrivilege) {
-            if (this.props.administratorPrivilege[0].AdministratorPermissionStatus === 1) {
-                this.setState({
-                    projectRegistrationPermission: true
-                })
-            } else if (this.props.administratorPrivilege[0].AdministratorPermissionStatus === 0){
-                this.setState({
-                    projectRegistrationPermission: false
-                })
+        for (let j=0; j<this.props.administratorPrivilege.length;j++){
+            if (this.props.administratorPrivilege !== prevProps.administratorPrivilege) {
+                if (this.props.administratorPrivilege[j].AdministratorAccessPrivilegeId === 2 && this.props.administratorPrivilege[j].AdministratorPermissionStatus === 1) {
+                    this.setState({
+                        projectRegistrationPermission: true
+                    })
+                }
             }
         }
-
-
-
-
-
-
-
 
          if(this.props.projectsSuccessFullyRegistered !== prevProps.projectsSuccessFullyRegistered) {
              if(this.props.projectsSuccessFullyRegistered) {
@@ -113,7 +103,7 @@ class Projects extends Component {
 
 
     handleAnyTextFieldTouched = () => {
-        this.props.resetWrongCredentials();
+        this.props.resetProjectCredentials();
         this.setState({ errorMessage: "Access denied!" });
     };
     handleChange = event => {
@@ -273,13 +263,14 @@ Projects.propTypes = {
     registeredProjects: PropTypes.arrayOf(PropTypes.object).isRequired,
     setProject: PropTypes.func.isRequired,
     projectSelect: PropTypes.object.isRequired,
-    resetWrongCredentials: PropTypes.func.isRequired,
+    resetProjectCredentials: PropTypes.func.isRequired,
     administratorPrivilege: PropTypes.arrayOf(PropTypes.object).isRequired,
     branch: PropTypes.arrayOf(PropTypes.object).isRequired,
     fetchAllAdministratorUserPrivileges: PropTypes.func.isRequired,
     fetchAllBranchProjects: PropTypes.func.isRequired,
     projectSelectionQuery: PropTypes.func.isRequired,
     groupFetch: PropTypes.bool.isRequired,
+    hasWrongProjectCredentials: PropTypes.bool.isRequired,
 };
 const mapStateToProps = state => ({
     projectsSuccessFullyRegistered: state.projects.projectsSuccessFullyRegistered,
@@ -287,14 +278,15 @@ const mapStateToProps = state => ({
     branch: state.branches.branch,
     projectSelect: state.projects.projectSelect,
     administratorPrivilege: state.administrator_privileges.administratorPrivilege,
-    groupFetch: state.objectives.groupFetch
+    groupFetch: state.objectives.groupFetch,
+    hasWrongProjectCredentials: state.projects.hasWrongProjectCredentials,
 });
 const mapDispatchToProps = dispatch => ({
     registerProjects: payload => dispatch(registerProjects(payload)),
     fetchAllProjects: () => dispatch(fetchAllProjects()),
     setProject: payload => dispatch(setProject(payload)),
     fetchAllAdministratorUserPrivileges: () => dispatch(fetchAllAdministratorUserPrivileges()),
-    resetWrongCredentials: payload => dispatch(resetWrongCredentials(payload)),
+    resetProjectCredentials: payload => dispatch(resetProjectCredentials(payload)),
     fetchAllBranchProjects: () => dispatch(fetchAllBranchProjects()),
     projectSelectionQuery: payload => dispatch(projectSelectionQuery(payload)),
 });

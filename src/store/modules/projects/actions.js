@@ -8,7 +8,8 @@ import {
     REGISTERED_PROJECTS_EMPTY_RESULTS,
    SET_PROJECT,
     PROJECT_PROGRESS_SUCCESSFULLY_UPDATED,
-    PROJECT_PROGRESS_UPDATE_FAILED
+    PROJECT_PROGRESS_UPDATE_FAILED,
+    RESET_WRONG_PROJECT_CREDENTIALS
 
 } from "./actionTypes";
 export function registerProjects(payload) {
@@ -95,5 +96,13 @@ export function updateProjectProgress(payload) {
                 console.log(err);
             }
         );
+    };
+}
+
+export function resetProjectCredentials() {
+    return async dispatch => {
+        dispatch({
+            type: RESET_WRONG_PROJECT_CREDENTIALS
+        });
     };
 }

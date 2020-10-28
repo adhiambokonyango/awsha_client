@@ -75,19 +75,21 @@ class SignUp extends Component {
                 this.setState({ selectOptions: allregisteredGender });
             }
         }
+        for (let j=0; j<this.props.adminPrivilege.length;j++){
+            if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
+                if (this.props.adminPrivilege[j].AdminPermissionStatus === 1) {
+                    this.setState({
+                        userRegistrationPermissionStatus: true
+                    })
 
-        if (this.props.adminPrivilege !== prevProps.adminPrivilege) {
-            if (this.props.adminPrivilege[0].AdminPermissionStatus === 1) {
-                this.setState({
-                    userRegistrationPermissionStatus: true
-                })
-
-            } else if (this.props.adminPrivilege[0].AdminPermissionStatus === 0){
-                this.setState({
-                    userRegistrationPermissionStatus: false
-                })
+                } else if (this.props.adminPrivilege[j].AdminPermissionStatus === 0){
+                    this.setState({
+                        userRegistrationPermissionStatus: false
+                    })
+                }
             }
         }
+
     };
 
 
