@@ -11,7 +11,10 @@ import {
     PROJECTS_AND_TEAMS_FETCH_EMPTY,
     TEAM_AND_TEAM_LEAD_SUCCESSFULLY_FETCHED,
     TEAM_AND_TEAM_MEMBER_SUCCESSFULLY_FETCHED,
-    TEAM_AND_TEAM_LEAD_FETCH_EMPTY, TEAM_AND_TEAM_MEMBER_FETCH_EMPTY
+    TEAM_AND_TEAM_LEAD_FETCH_EMPTY,
+    TEAM_AND_TEAM_MEMBER_FETCH_EMPTY,
+    LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
+    MEMBER_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED, SET_LEAD, SET_MEMBER, REGISTERING_TEAM_LEAD_FAILED
 } from "./actionTypes";
 
 
@@ -37,6 +40,13 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             teamLeadSuccessFullyRegistered: true
         }),
+
+    [REGISTERING_TEAM_LEAD_FAILED]: (state, action) =>
+        Object.assign({}, state, {
+            leadRegistrationUnsuccessful: true,
+            leadRegistrationResponse: action.payload.leadRegistrationResponse
+        }),
+
     [SET_TEAM]: (state, action) =>
         Object.assign({}, state, {
             teamSelected: action.payload.teamSelected
@@ -75,6 +85,27 @@ export const ACTION_HANDLERS = {
         Object.assign({}, state, {
             memberFetch: false
         }),
+
+    [LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED]: state =>
+        Object.assign({}, state, {
+            leadIsCheckBoxCheckedSuccessFullyUpdated: true
+        }),
+
+    [MEMBER_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED]: state =>
+        Object.assign({}, state, {
+            memberIsCheckBoxCheckedSuccessFullyUpdated: true
+        }),
+
+    [SET_LEAD]: (state, action) =>
+        Object.assign({}, state, {
+            leadSelected: action.payload.leadSelected
+        }),
+
+    [SET_MEMBER]: (state, action) =>
+        Object.assign({}, state, {
+            memberSelected: action.payload.memberSelected
+        }),
+
 
 
 };

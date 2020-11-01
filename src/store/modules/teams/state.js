@@ -13,4 +13,14 @@ export const initialState = {
 
     memberFetch: false,
     fetchedTeamMember: [],
+
+
+    leadIsCheckBoxCheckedSuccessFullyUpdated: false,
+    memberIsCheckBoxCheckedSuccessFullyUpdated: false,
+
+    leadSelected:{},
+    memberSelected:{},
+
+    leadRegistrationResponse: {},
+    leadRegistrationUnsuccessful:false
 };

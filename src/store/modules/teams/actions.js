@@ -17,7 +17,13 @@ import {
     TEAM_AND_TEAM_LEAD_SUCCESSFULLY_FETCHED,
     TEAM_AND_TEAM_LEAD_FETCH_EMPTY,
     TEAM_AND_TEAM_MEMBER_SUCCESSFULLY_FETCHED,
-    TEAM_AND_TEAM_MEMBER_FETCH_EMPTY
+    TEAM_AND_TEAM_MEMBER_FETCH_EMPTY,
+    MEMBER_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
+    MEMBER_IS_CHECK_BOX_CHECKED_UPDATE_FAILED,
+    LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED,
+    LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED,
+    SET_MEMBER,
+    SET_LEAD
 } from "./actionTypes";
 
 export function registerTeams(payload) {
@@ -85,7 +91,10 @@ export function registerTeamLead(payload) {
                     });
                 } else {
                     dispatch({
-                        type: REGISTERING_TEAM_LEAD_FAILED
+                        type: REGISTERING_TEAM_LEAD_FAILED,
+                        payload: {
+                            leadRegistrationResponse: result.data.results
+                        }
                     });
                 }
             },
@@ -230,5 +239,75 @@ export function projectSelectionQueryForTeamMembers(payload) {
                 console.log(err);
             }
         );
+    };
+}
+
+
+export function updateLeadIsCheckBoxChecked(payload) {
+    return async dispatch => {
+        const apiRoute = "/update_individual_team_leaders_is_checkbox_checked";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: LEAD_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED
+                    });
+                } else {
+                    dispatch({
+                        type: LEAD_IS_CHECK_BOX_CHECKED_UPDATE_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+
+export function updateMemberIsCheckBoxChecked(payload) {
+    return async dispatch => {
+        const apiRoute = "/update_individual_team_member_is_checkbox_checked";
+        const returnedPromise = apiPost(payload, apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results.success) {
+                    dispatch({
+                        type: MEMBER_IS_CHECK_BOX_CHECKED_SUCCESSFULLY_UPDATED
+                    });
+                } else {
+                    dispatch({
+                        type: MEMBER_IS_CHECK_BOX_CHECKED_UPDATE_FAILED
+                    });
+                }
+            },
+            function(err) {
+                console.log(err);
+            }
+        );
+    };
+}
+
+export function setLead(leadSelected){
+    return async dispatch => {
+        dispatch({
+            type: SET_LEAD,
+            payload: {
+                leadSelected: leadSelected
+            }
+        });
+    };
+}
+
+export function setMember(memberSelected){
+    return async dispatch => {
+        dispatch({
+            type: SET_MEMBER,
+            payload: {
+                memberSelected: memberSelected
+            }
+        });
     };
 }

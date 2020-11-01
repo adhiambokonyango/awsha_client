@@ -81,6 +81,7 @@
     "json-groupby": "^1.1.0",
     "jspdf": "^2.1.1",
     "prop-types": "^15.7.2",
+    "react-barcode-reader": "0.0.2",
     "react-circular-progressbar": "^2.0.3",
     "react-move": "^6.1.0",
     "react-pdf-print": "^0.2.0"

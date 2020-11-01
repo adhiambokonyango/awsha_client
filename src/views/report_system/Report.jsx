@@ -124,7 +124,7 @@ class Report extends Component {
     }
 
     render() {
-        const { projectSelect} = this.props;
+        const { projectSelect, fetchedTeamLead} = this.props;
         return (
             <div className="statement__main-body" id="fee-statement" onClick={()=>{this.printDiv();}}>
                 <div className="statement__top-section">

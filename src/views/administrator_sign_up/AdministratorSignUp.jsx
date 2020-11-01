@@ -145,7 +145,7 @@ class AdministratorSignUp extends Component {
                     <a onClick={() => {this.selected(post)}}>
                         <h6>
                             <ul key={post.id} >
-                                {"  "}<FaCogs/>{" "}{post.FirstName}
+                                {"  "}<FaCogs/>{" "}{post.FirstName+" " + post.Surname}
                             </ul></h6>
                     </a>
                 )}

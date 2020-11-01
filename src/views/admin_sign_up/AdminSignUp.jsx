@@ -114,7 +114,7 @@ class AdminSignUp extends Component {
                     <a >
                         <h6>
                             <ul key={post.Id} >
-                                {"  "}<FaCogs/>{" "}{post.FirstName}
+                                {"  "}<FaCogs/>{" "}{post.FirstName+" " + post.Surname}
                             </ul></h6>
                     </a>
                 )}

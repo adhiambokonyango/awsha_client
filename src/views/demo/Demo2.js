@@ -8,29 +8,32 @@ import {registerProjects, fetchAllProjects, setProject} from "../../store/module
 import '../projects/Projects.css';
 import './Demo.css'
 import {Container} from "react-bootstrap";
+import BarcodeReader from 'react-barcode-reader'
 
 class Demo2 extends Component {
     state = {
-        array: [],
+        array:[],
+        arrays: 'no result',
+    }
 
+    handleScan = (data) => {
+        this.setState({
+            array: data
+        })
+    }
+
+    handleError = (err) => {
+        console.error(err)
     }
 
     render() {
-        const  ids = ['1']
         return (
             <div >
-                <Printer>
-                    <div id={ids[0]} style={{ width:'210mm', height: '297mm' }}>
-                        <Container>
-                            <h3 className="title titles">K'onyango</h3>
-                            <ul>
-                                {this.state.array}
-                            </ul>
-                        </Container>
-                    </div>
-                </Printer>
-                <input type='button' style={{ position: 'relative', float: 'right' }}
-                       onClick={() => print(ids)} value='Stampa' />
+                <BarcodeReader
+                onError={this.handleError}
+                onScan={this.handleScan}
+                />
+                <p>{this.state.arrays}</p>
             </div>
         );
     }

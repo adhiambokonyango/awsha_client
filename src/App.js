@@ -65,7 +65,6 @@ class App extends Component {
                 <Route path="/" exact component={HomePage} />
                 <Route path="/project_detail" exact component={ProjectDetail} />
                 <Route path="/demo" exact component={Demo1} />
-                <Route path="/demo2" exact component={Demo2} />
                 <Route path="/check" exact component={CheckBoxGroup} />
                 <Route path="/branch_project" exact component={BranchProject} />
                 <Route path="/project_status" exact component={ProjectStatus} />

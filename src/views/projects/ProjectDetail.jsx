@@ -15,10 +15,17 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import Teams from "../teams/Teams";
 import {projectSelectionQueryForTeams} from "../../store/modules/teams/actions";
-import {FaCogs} from "react-icons/fa";
+import {FaCogs, FaEdit, FaTrash} from "react-icons/fa";
 import Modal from "react-awesome-modal";
 import Select from "react-select";
-import {registerTeamMember, registerTeamLead, setTeam, projectSelectionQueryForTeamLead, projectSelectionQueryForTeamMembers} from "../../store/modules/teams/actions";
+import {registerTeamMember, registerTeamLead, setTeam,
+    projectSelectionQueryForTeamLead,
+    projectSelectionQueryForTeamMembers,
+    updateLeadIsCheckBoxChecked,
+    updateMemberIsCheckBoxChecked,
+    setLead,
+    setMember
+} from "../../store/modules/teams/actions";
 import {fetchAllAdministrator, setAdministrator} from "../../store/user_management/administrator_sign_up/actions";
 import {fetchAllUser, setUser} from "../../store/user_management/user_sign_up/actions";
 
@@ -41,6 +48,11 @@ class ProjectDetail extends Component {
         selectOptionsTwo: [],
         selectedOption: '',
         selectOptions: [],
+
+        leads: [],
+        userMembers: [],
+
+        leadRegistrationErrorMsg: ''
     };
 
 
@@ -60,7 +72,8 @@ class ProjectDetail extends Component {
                 let list = [];
                 for(let i = 0;i<this.props.fetchedProjectObjective.length;i++) {
                     list.push(<p className="detail_title">
-                            <CheckBox label={this.props.fetchedProjectObjective[i].ObjectiveDescription + ":" + " " + this.props.fetchedProjectObjective[i].ObjectivePercentage + "%"}
+                            <CheckBox label={this.props.fetchedProjectObjective[i].ObjectiveDescription + ":" +
+                            " " + this.props.fetchedProjectObjective[i].ObjectivePercentage + "%" }
                                       handleCheckBoxIsChecked={this.selectedPercentage}
                                       handleCheckBoxIsUnchecked={this.deselectedPercentage}
                                       checkBoxObject={this.props.fetchedProjectObjective[i]}
@@ -73,13 +86,63 @@ class ProjectDetail extends Component {
             }
         }
 
+
+        if(this.props.fetchedTeamLead !== prevProps.fetchedTeamLead) {
+            if(this.props.fetchedTeamLead && this.props.fetchedTeamLead.length > 0) {
+                let isLead = [];
+                let notLead = [];
+                    for(let i = 0;i<this.props.fetchedTeamLead.length;i++) {
+                        if(this.props.fetchedTeamLead[i].IsCheckBoxChecked === 1){
+                            isLead.push(<p className="detail_title">
+                                    <CheckBox label={this.narrative(this.props.fetchedTeamLead[i].AdministratorId)}
+                                              handleCheckBoxIsChecked={this.selectedLead}
+                                              handleCheckBoxIsUnchecked={this.selectedLead}
+                                              checkBoxObject={this.props.fetchedTeamLead[i]}
+                                              isCheckBoxChecked={this.props.fetchedTeamLead[i].IsCheckBoxChecked === 1}
+                                    />
+                                </p>
+                            )
+                            this.setState({leads: isLead});
+                        } else {
+                            this.setState({leads: notLead});
+                        }
+                    }
+
+            }
+        }
+
+
+        if(this.props.fetchedTeamMember !== prevProps.fetchedTeamMember) {
+            if(this.props.fetchedTeamMember && this.props.fetchedTeamMember.length > 0) {
+                let member = [];
+                let notMember = [];
+                for(let i = 0;i<this.props.fetchedTeamMember.length;i++) {
+                    if(this.props.fetchedTeamMember[i].IsCheckBoxChecked === 1){
+                        member.push(<p className="detail_title">
+                                <CheckBox label={this.userNarrative(this.props.fetchedTeamMember[i].UserId)}
+                                          handleCheckBoxIsChecked={this.selectedMember}
+                                          handleCheckBoxIsUnchecked={this.selectedMember}
+                                          checkBoxObject={this.props.fetchedTeamMember[i]}
+                                          isCheckBoxChecked={this.props.fetchedTeamMember[i].IsCheckBoxChecked === 1}
+                                />
+                            </p>
+                        )
+                        this.setState({userMembers: member});
+                    } else {
+                        this.setState({userMembers: notMember});
+                    }
+                }
+            }
+        }
+
+
         if(this.props.registeredAdministrator !== prevProps.registeredAdministrator) {
             if(this.props.registeredAdministrator.length > 0) {
                 let allregisteredGender = this.props.registeredAdministrator;
 
                 allregisteredGender = allregisteredGender.map((item, key) => {
                     return {
-                        label: item.FirstName,
+                        label: item.FirstName +" " + item.Surname,
                         value: item.AdministratorId
                     };
                 });
@@ -93,11 +156,36 @@ class ProjectDetail extends Component {
 
                 allregisteredGender = allregisteredGender.map(item => {
                     return {
-                        label: item.FirstName,
+                        label: item.FirstName +" " + item.Surname,
                         value: item.UserId
                     };
                 });
                 this.setState({ selectOptionsTwo: allregisteredGender });
+            }
+        }
+
+
+        if(this.props.teamLeadSuccessFullyRegistered !== prevProps.teamLeadSuccessFullyRegistered) {
+            if(this.props.teamLeadSuccessFullyRegistered ) {
+                this.props.resetPrivilegeUpdate();
+            }
+        }
+
+        if(this.props.teamMemberSuccessFullyRegistered !== prevProps.teamMemberSuccessFullyRegistered) {
+            if(this.props.teamMemberSuccessFullyRegistered ) {
+                this.props.resetPrivilegeUpdate();
+            }
+        }
+
+        if(this.props.leadIsCheckBoxCheckedSuccessFullyUpdated !== prevProps.leadIsCheckBoxCheckedSuccessFullyUpdated) {
+            if(this.props.leadIsCheckBoxCheckedSuccessFullyUpdated ) {
+                this.props.resetPrivilegeUpdate();
+            }
+        }
+
+        if(this.props.memberIsCheckBoxCheckedSuccessFullyUpdated !== prevProps.memberIsCheckBoxCheckedSuccessFullyUpdated) {
+            if(this.props.memberIsCheckBoxCheckedSuccessFullyUpdated ) {
+                this.props.resetPrivilegeUpdate();
             }
         }
 
@@ -110,6 +198,7 @@ class ProjectDetail extends Component {
             }
         }
 };
+
     handleChange = event => {
         let newState = this.state;
         newState[event.target.name] = event.target.value;
@@ -219,47 +308,7 @@ class ProjectDetail extends Component {
         return (<div>{projectTitle}</div>);
     }
 
-    leads = () => {
-        const projectTitle = (
-            <ul>
-                {this.props.fetchedTeamLead.map((post) =>
 
-                    <a
-                        onClick={() => {
-                            this.selectedAdministrator(post)
-                        }}>
-
-                        <h6>
-                            <ul key={post.AdministratorId} >
-                                {"  "}<FaCogs/>{" "}{this.narrative(post.AdministratorId)}
-                            </ul></h6>
-                    </a>
-                )}
-            </ul>
-        );
-        return (<div>{projectTitle}</div>);
-    }
-
-    teamMembers = () => {
-        const projectTitle = (
-            <ul>
-                {this.props.fetchedTeamMember.map((post) =>
-
-                    <a
-                        onClick={() => {
-                            this.selected(post)
-                        }}>
-
-                        <h6>
-                            <ul key={post.UserId} >
-                                {"  "}<FaCogs/>{" "}{this.userNarrative(post.UserId)}
-                            </ul></h6>
-                    </a>
-                )}
-            </ul>
-        );
-        return (<div>{projectTitle}</div>);
-    }
 
     selected = (selection) => {
         // this.props.setTeam(selection);
@@ -274,18 +323,33 @@ class ProjectDetail extends Component {
         this.props.projectSelectionQueryForTeamLead(teamId);
         this.props.projectSelectionQueryForTeamMembers(teamId);
     }
-    selectedAdministrator = () => {
+    selectedLead = async (deselected) => {
+        await this.props.setLead(deselected);
+        const checkBox = {
+            ColumnName: "TeamLeaderId",
+            ColumnValue: deselected.TeamLeaderId,
+            IsCheckBoxChecked: deselected.IsCheckBoxChecked === 0 ? 1 : 0
+        }
+        this.props.updateLeadIsCheckBoxChecked(checkBox);
+    }
 
+    selectedMember = async (deselected) => {
+        await this.props.setMember(deselected);
+        const checkBox = {
+            ColumnName: "TeamMemberId",
+            ColumnValue: deselected.TeamMemberId,
+            IsCheckBoxChecked: deselected.IsCheckBoxChecked === 0 ? 1 : 0
+        }
+        this.props.updateMemberIsCheckBoxChecked(checkBox);
     }
     narrative = (administratorId) => {
         for (let j=0; j<this.props.registeredAdministrator.length;j++){
             if(administratorId === this.props.registeredAdministrator[j].AdministratorId){
 
                 return (
-                    this.props.registeredAdministrator[j].FirstName
+                    this.props.registeredAdministrator[j].FirstName +" " +  this.props.registeredAdministrator[j].Surname
                 )
             }
-            console.log( this.props.registeredAdministrator[j].FirstName);
         }
     }
 
@@ -293,10 +357,9 @@ class ProjectDetail extends Component {
         for (let j=0; j<this.props.registeredUser.length;j++){
             if(userId === this.props.registeredUser[j].UserId){
                 return (
-                    this.props.registeredUser[j].FirstName
+                    this.props.registeredUser[j].FirstName +" " + this.props.registeredUser[j].Surname
                 )
             }
-            console.log( this.props.registeredUser[j].FirstName);
         }
     }
     handleModalExteriorClicked = () => {
@@ -305,7 +368,7 @@ class ProjectDetail extends Component {
         })
     }
 
-    handleTeamMemberCreate = (e) => {
+    handleTeamMemberCreate = async(e) => {
         e.preventDefault();
 
         for(let i=0;i<this.state.selectedOption.length;i++){
@@ -313,24 +376,31 @@ class ProjectDetail extends Component {
                 TeamId: this.state.teamId,
                 AdministratorId: this.state.selectedOption[i].value,
             }
-            this.props.registerTeamLead(supervisor);
+           await this.props.registerTeamLead(supervisor);
+            if(this.props.leadRegistrationUnsuccessful){
+                this.setState({
+                    leadRegistrationErrorMsg: this.props.leadRegistrationResponse.registrationErrorMessage
+                });
+            }
+
         }
         for(let i=0;i<this.state.selectedOptionTwo.length;i++){
             const member = {
                 TeamId: this.state.teamId,
                 UserId: this.state.selectedOptionTwo[i].value,
             }
-            this.props.registerTeamMember(member);
+           await this.props.registerTeamMember(member);
         }
+
         this.setState({
             selectedOption: '',
-            selectedOptionTwo: ''
+            selectedOptionTwo: '',
         })
     }
 
     render()
     {
-        const { projectSelect} = this.props;
+        const { projectSelect, leadRegistrationResponse} = this.props;
 
 
             return (
@@ -359,7 +429,7 @@ class ProjectDetail extends Component {
                                 <Col sm={12} md={4} lg={6} className="array">
                                     <div className="vertical_scroll">
                                         <div className="scrollmenu">
-                                            {this.state.data}
+                                            {this.state.data }
                                         </div>
                                     </div>
 
@@ -451,7 +521,7 @@ class ProjectDetail extends Component {
                                             <div className="vertical_scroll">
                                                 <div className="scrollmenu">
                                                     <ul >
-                                                        {this.leads()}
+                                                        {this.state.leads}
                                                     </ul>
                                                 </div>
                                             </div>
@@ -459,11 +529,13 @@ class ProjectDetail extends Component {
                                             <div className="vertical_scroll">
                                                 <div className="scrollmenu">
                                                     <ul >
-                                                        {this.teamMembers()}
+                                                        {this.state.userMembers}
                                                     </ul>
                                                 </div>
                                             </div>
+                                                {this.state.leadRegistrationErrorMsg}
                                         </Col>
+
                                     </Container>
                                 </Modal>
                                 <Col sm={12} md={12} lg={12}>
@@ -513,6 +585,13 @@ ProjectDetail.propTypes = {
     updateIsCheckBoxChecked: PropTypes.func.isRequired,
     isCheckBoxCheckedSuccessFullyUpdated: PropTypes.bool.isRequired,
 
+
+    updateLeadIsCheckBoxChecked: PropTypes.func.isRequired,
+    leadIsCheckBoxCheckedSuccessFullyUpdated: PropTypes.bool.isRequired,
+
+    updateMemberIsCheckBoxChecked: PropTypes.func.isRequired,
+    memberIsCheckBoxCheckedSuccessFullyUpdated: PropTypes.bool.isRequired,
+
     fetchedProjectTeam: PropTypes.arrayOf(PropTypes.object).isRequired,
     projectSelectionQueryForTeams: PropTypes.func.isRequired,
     teamFetch: PropTypes.bool.isRequired,
@@ -528,6 +607,15 @@ ProjectDetail.propTypes = {
 
     setUser: PropTypes.func.isRequired,
     userSelect: PropTypes.object.isRequired,
+
+    setLead: PropTypes.func.isRequired,
+    leadSelected: PropTypes.object.isRequired,
+
+    setMember: PropTypes.func.isRequired,
+    memberSelected: PropTypes.object.isRequired,
+
+    leadRegistrationResponse: PropTypes.object.isRequired,
+    leadRegistrationUnsuccessful: PropTypes.bool.isRequired,
 
     registerTeamLead: PropTypes.func.isRequired,
     teamLeadSuccessFullyRegistered: PropTypes.bool.isRequired,
@@ -568,7 +656,16 @@ const mapStateToProps = state => ({
 
     teamSelected: state.teams.teamSelected,
 
+    leadRegistrationResponse: state.teams.leadRegistrationResponse,
+    leadRegistrationUnsuccessful: state.teams.leadRegistrationUnsuccessful,
+
     teamLeadIsCheckBoxCheckedSuccessFullyUpdated: state.teams.teamLeadIsCheckBoxCheckedSuccessFullyUpdated,
+    leadIsCheckBoxCheckedSuccessFullyUpdated: state.teams.leadIsCheckBoxCheckedSuccessFullyUpdated,
+    memberIsCheckBoxCheckedSuccessFullyUpdated: state.teams.memberIsCheckBoxCheckedSuccessFullyUpdated,
+
+    leadSelected: state.teams.leadSelected,
+    memberSelected: state.teams.memberSelected,
+
 
     teamMemberSuccessFullyRegistered: state.teams.teamMemberSuccessFullyRegistered,
 
@@ -599,6 +696,11 @@ const mapDispatchToProps = dispatch => ({
     setAdministrator: payload => dispatch(setAdministrator(payload)),
     setUser: payload => dispatch(setUser(payload)),
     setTeam: payload => dispatch(setTeam(payload)),
+    setLead: payload => dispatch(setLead(payload)),
+    setMember: payload => dispatch(setMember(payload)),
+
+    updateMemberIsCheckBoxChecked: payload => dispatch(updateMemberIsCheckBoxChecked(payload)),
+    updateLeadIsCheckBoxChecked: payload => dispatch(updateLeadIsCheckBoxChecked(payload)),
 
     projectSelectionQueryForTeamLead: payload => dispatch(projectSelectionQueryForTeamLead(payload)),
     projectSelectionQueryForTeamMembers: payload => dispatch(projectSelectionQueryForTeamMembers(payload)),
