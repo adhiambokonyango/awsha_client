@@ -25,7 +25,7 @@ class FirstLevelAdmin extends Component {
          if(clickedItem === DISPLAY_USER_MANAGEMENT_PAGE) {
             this.props.history.push('/user_management');
         } else if(clickedItem === DISPLAY_USER_REGISTRATION_PAGE) {
-            this.props.history.push('/register_users');
+            this.props.history.push('/register_users/:page/:limit');
         }  else if(clickedItem === DISPLAY_ADMINISTRATOR_REGISTRATION) {
             this.props.history.push('/register_administrator');
         } else if(clickedItem === DISPLAY_ADMINISTRATOR_MANAGEMENT) {

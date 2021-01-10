@@ -25,12 +25,11 @@ import UserLevel from "./components/moh/UserLevel";
 import NavigationBar from "./views/admin_page/nav_bar/NavigationBar";
 import HomePage from "./components/home_page/HomePage";
 import ProjectDetail from "./views/projects/ProjectDetail";
-import Demo2 from "./views/demo/Demo2";
 import CheckBoxGroup from "./components/check_box_group/CheckBoxGroup";
 import BranchProject from "./views/BranchProjects/BranchProject";
 import ProjectStatus from "./views/BranchProjects/ProjectStatus";
-import Demo1 from "./views/demo/Demo1";
 import Report from "./views/report_system/Report";
+import Paginate from "./views/user_sign_up/Paginate";
 
 
 class App extends Component {
@@ -42,7 +41,7 @@ class App extends Component {
             <div>
                 <Route path="/log in" exact component={LogIn} />
                 <Route path="/admin_page" exact component={AdminPage} />
-                <Route path="/register_users" exact component={SignUp} />
+                <Route path="/register_users/:page/:limit" exact component={SignUp} />
                 <Route path="/gender" exact component={Gender} />
                 <Route path="/teams" exact component={Teams} />
                 <Route path="/registered_users" exact component={RegisteredUser} />
@@ -64,12 +63,14 @@ class App extends Component {
                 <Route path="/logout" exact component={NavigationBar} />
                 <Route path="/" exact component={HomePage} />
                 <Route path="/project_detail" exact component={ProjectDetail} />
-                <Route path="/demo" exact component={Demo1} />
                 <Route path="/check" exact component={CheckBoxGroup} />
                 <Route path="/branch_project" exact component={BranchProject} />
                 <Route path="/project_status" exact component={ProjectStatus} />
                 <Route path="/nav_bar" exact component={NavigationBar} />
                 <Route path="/report" exact component={Report} />
+
+                <Route path="/paginate" exact component={Paginate} />
+                <Route path="/users" exact component={RegisteredUser} />
             </div>
 
 

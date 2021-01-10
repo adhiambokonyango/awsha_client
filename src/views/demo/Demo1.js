@@ -5,6 +5,7 @@ import './Demo.css';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import {fetchAllObjectives, registerObjectives, setObjective} from "../../store/modules/objectives/actions";
 import 'sweetalert2/src/sweetalert2.scss'
+
 class Demo1 extends Component {
     openModals = () => {
         // let modal = document.querySelector(".modal")

@@ -7,9 +7,13 @@ import {
     REGISTERED_USER_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_USER,
     REGISTERED_USER_EMPTY_RESULTS, SET_USER,
+    RECORDS_FETCHED_SUCCESSFULLY,
+    RECORDS_FETCH_EMPTY_RESULTS,
+    ERROR_FETCHING_RECORDS
 
 } from "./actionTypes";
 import {SET_PROJECT} from "../../modules/projects/actionTypes";
+import {page, limit} from "../../../config/constants/Constants";
 
 export function registerUser(payload) {
     return async dispatch => {
@@ -39,7 +43,7 @@ export function registerUser(payload) {
 
 export function fetchAllUser() {
     return async dispatch => {
-        const apiRoute = "/get_all_users";
+        const apiRoute = `/get_all_users/${page}/${limit}`;
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
@@ -74,5 +78,35 @@ export function setUser(userSelect){
                 userSelect: userSelect
             }
         });
+    };
+}
+
+// get all records
+export function fetchAllUserRecords() {
+    return async dispatch => {
+        const apiRoute = "/get_number_of_user_records";
+        const returnedPromise = apiGetAll(apiRoute);
+        returnedPromise.then(
+            function(result) {
+                if (result.data.results && result.data.results.length > 0) {
+                    dispatch({
+                        type: RECORDS_FETCHED_SUCCESSFULLY,
+                        payload: {
+                            userRecords: result.data.results
+                        }
+                    });
+                } else if (result.data.results && result.data.results.length === 0) {
+                    dispatch({
+                        type: RECORDS_FETCH_EMPTY_RESULTS
+                    });
+                }
+            },
+            function(err) {
+                dispatch({
+                    type: ERROR_FETCHING_RECORDS
+                });
+                console.log(err);
+            }
+        );
     };
 }

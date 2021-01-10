@@ -36,10 +36,11 @@ class RegisteredUser extends Component {
     render() {
         return (
             <div>
-            <NavigationBar />
-                <Table tableTitle='Registered Users'
-                       tableHeaderObject={this.state.tableHeaders}
-                       tableData={this.props.registeredUser}/>
+            {/*<NavigationBar />*/}
+            {/*    <Table tableTitle='Registered Users'*/}
+            {/*           tableHeaderObject={this.state.tableHeaders}*/}
+            {/*           tableData={this.props.registeredUser}/>*/}
+                {this.state.tableData}
             </div>
         );
     }
