@@ -3,17 +3,14 @@ import {apiGetAll, apiPost} from "../../../services/api_connector/ApiConnector";
 import {
     SIGN_UP_SUCCESSFUL,
     SIGN_UP_FAILED,
-
     REGISTERED_USER_FETCHED_SUCCESSFULLY,
     ERROR_FETCHING_USER,
     REGISTERED_USER_EMPTY_RESULTS, SET_USER,
     RECORDS_FETCHED_SUCCESSFULLY,
     RECORDS_FETCH_EMPTY_RESULTS,
     ERROR_FETCHING_RECORDS
-
 } from "./actionTypes";
-import {SET_PROJECT} from "../../modules/projects/actionTypes";
-import {page, limit} from "../../../config/constants/Constants";
+import {page, limit} from "../../../views/user_sign_up/Paginate";
 
 export function registerUser(payload) {
     return async dispatch => {
@@ -41,9 +38,12 @@ export function registerUser(payload) {
 
 
 
-export function fetchAllUser() {
+export function fetchAllUser(pages, limits) {
     return async dispatch => {
-        const apiRoute = `/get_all_users/${page}/${limit}`;
+       pages = page;
+       limits = limit;
+        const apiRoute = `/get_all_users/${page}/${limit }`;
+
         const returnedPromise = apiGetAll(apiRoute);
         returnedPromise.then(
             function(result) {
@@ -54,10 +54,14 @@ export function fetchAllUser() {
                             registeredUser: result.data.results
                         }
                     });
+                    console.log("aPage: " + page);
+                    console.log( "aLimit: " + limit);
                 } else if (result.data.results && result.data.results.length === 0) {
                     dispatch({
                         type: REGISTERED_USER_EMPTY_RESULTS
                     });
+                    console.log("aPage: " + page);
+                    console.log( "aLimit: " + limit);
                 }
             },
             function(err) {

@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import {fetchAllUser, registerUser} from "../../store/user_management/user_sign_up/actions";
 import {fetchAllGender} from "../../store/modules/gender_info/actions";
 import {connect} from "react-redux";
+import {FaList} from "react-icons/fa";
+import {page, limit} from "./Paginate";
 
 class RegisteredUser extends Component {
     state = {
@@ -21,19 +23,39 @@ class RegisteredUser extends Component {
             EncryptedPassword: 'EncryptedPassword'
         }
     };
-    componentWillMount() {
-        if (this.props.isAdminLoginSuccessful === false){
-            this.props.history.push('/');
+    // componentWillMount() {
+    //     if (this.props.isAdminLoginSuccessful === false){
+    //         this.props.history.push('/');
+    //     }
+    // }
+
+    componentDidMount() {
+        this.props.fetchAllUser(page, limit);
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.registeredUser !== prevProps.registeredUser) {
+            if (this.props.registeredUser && this.props.registeredUser.length > 0) {
+                let list = [];
+                for (let i = 0; i < this.props.registeredUser.length; i++) {
+                    list.push(<p>
+                            <dt>
+                                <a>
+                                    <h3 className="panel-title">
+                                        <FaList size={4}/>
+                                        {" " + this.props.registeredUser[i].FirstName}
+                                    </h3>
+                                </a><br/></dt>
+                        </p>
+                    );
+                }
+                this.setState({tableData: list});
+            }
         }
     }
 
-    componentDidMount() {
-        this.props.fetchAllUser();
-    }
-
-
-
     render() {
+
         return (
             <div>
             {/*<NavigationBar />*/}
